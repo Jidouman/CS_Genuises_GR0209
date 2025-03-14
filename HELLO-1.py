@@ -274,3 +274,5 @@ Happy Learning!
 # Footer
 st.write("---")
 st.write("FCS Streamlit Tutorial • Designed with ❤️ for Bachelor Students in Business Administration")
+
+print("I Love FCS")

@@ -10,7 +10,7 @@ st.set_page_config(page_title="FCS Streamlit Tutorial", page_icon=":computer:")
 # Title & Intro
 st.title("Hello, FCS!")
 st.write("""
-Welcome to the interactive Streamlit page of the "CS GENUISES" (using for now on the base template)! 
+Welcome to the interactive Streamlit page of the "CS GENUISES" (using the base template)! 
 Here's a introductory showcase of what you can achieve using Streamlit with very little code.
 """)
 

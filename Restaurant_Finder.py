@@ -15,6 +15,9 @@ Tell us what you're craving, how you're feeling, and your budget — and we'll s
 Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
+# Geolocation & Map - How far away or close cursor
+
+
 # Text Input
 st.subheader("Text Input")
 name = st.text_input("Enter your name", placeholder="Your name here...")

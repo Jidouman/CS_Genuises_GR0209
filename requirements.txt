@@ -3,3 +3,4 @@ pandas
 numpy
 matplotlib
 streamlit-javascript
+streamlit-chat

@@ -18,26 +18,27 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Geolocation & Map - How far away or close cursor
-<script>
-const x = document.getElementById("demo");
+coords = st_javascript(
+    """
+    new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (pos) => resolve([pos.coords.latitude, pos.coords.longitude]),
+                (err) => reject(err)
+            );
+        } else {
+            reject(new Error("Geolocation not supported"));
+        }
+    });
+    """,
+    key="get_location"
+)
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success, error);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function success(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
-}
-
-function error() {
-  alert("Sorry, no position available.");
-}
-</script>
+if coords:
+    lat, lon = coords  # unpack the [latitude, longitude]
+    st.write(f"Latitude: {lat}  •  Longitude: {lon}")
+else:
+    st.write("Waiting for location…")
 
 # Text Input
 st.subheader("Text Input")

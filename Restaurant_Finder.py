@@ -1,6 +1,6 @@
 # Importieren der verschiedenen Bibliotheken
 import streamlit as st # Streamlit
-from streamlit_javascript import st_javascript #Geolocation via JavaScript based on: https://www.w3schools.com/html/html5_geolocation.asp
+from streamlit_javascript import st_javascript # Streamlit_javascript Geolocation via JavaScript based on: https://www.w3schools.com/html/html5_geolocation.asp
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt # Datenvisualisierung

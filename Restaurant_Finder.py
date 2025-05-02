@@ -18,7 +18,11 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Geolocation & Map - How far away or close cursor
-location = st_javascript("""navigator.geolocation.getCurrentPosition(
+st.title("🌍 Geolocation Test")
+
+# Run the JS to get the user's geolocation
+location = st_javascript("""
+navigator.geolocation.getCurrentPosition(
     (position) => {
         const coords = {
             latitude: position.coords.latitude,
@@ -29,9 +33,18 @@ location = st_javascript("""navigator.geolocation.getCurrentPosition(
     (error) => {
         Streamlit.setComponentValue({error: error.message});
     }
-);""")
+);
+""")
 
-st.write("Location result:", location)
+# Show the result
+if location is None:
+    st.info("📍 Waiting for geolocation permission...")
+elif "error" in location:
+    st.error(f"❌ Geolocation error: {location['error']}")
+else:
+    st.success("✅ Geolocation retrieved!")
+    st.write(f"🌐 **Your Latitude:** `{location['latitude']}`")
+    st.write(f"🌐 **Your Longitude:** `{location['longitude']}`")
 
 # Text Input
 st.subheader("Text Input")

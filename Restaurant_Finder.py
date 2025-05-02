@@ -4,6 +4,9 @@ from streamlit_javascript import st_javascript # Streamlit_javascript Geolocatio
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt # Datenvisualisierung
+from bokeh.models.widgets import Button
+from bokeh.models import CustomJS
+from streamlit_bokeh_events import streamlit_bokeh_events
 
 
 # Tab Title
@@ -18,6 +21,14 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Geolocation & Map - How far away or close cursor
+coords = st_javascript("await navigator.geolocation.getCurrentPosition((loc) => loc.coords)")
+if coords:
+    lat = coords['latitude']
+    lon = coords['longitude']
+    st.success(f"📍 Your location: {lat:.4f}, {lon:.4f}")
+else:
+    st.warning("Could not detect your location. Please allow location access.")
+
 if st.button("📍 Get my location"):
     coords = st_javascript(
         """

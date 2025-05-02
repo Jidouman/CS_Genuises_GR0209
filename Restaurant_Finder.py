@@ -4,10 +4,6 @@ from streamlit_javascript import st_javascript # Streamlit_javascript Geolocatio
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt # Datenvisualisierung
-from bokeh.models.widgets import Button
-from bokeh.models import CustomJS
-from streamlit_bokeh_events import streamlit_bokeh_events
-
 
 # Tab Title
 st.set_page_config(page_title="Restaurant Recommender", page_icon=":fork_and_knife_with_plate:") #We retrieved the emoji codepoint for page_icon from the website https://www.webfx.com/tools/emoji-cheat-sheet/

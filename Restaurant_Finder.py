@@ -18,23 +18,39 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Geolocation & Map - How far away or close cursor
-st.title("🌍 Geolocation Test")
+<script>
+const x = document.getElementById("demo");
 
-# Run the JS to get the user's geolocation
-location = st_javascript("""
-navigator.geolocation.getCurrentPosition(
-    (position) => {
-        const coords = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-        };
-        Streamlit.setComponentValue(coords);
-    },
-    (error) => {
-        Streamlit.setComponentValue({error: error.message});
-    }
-);
-""")
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(success, error);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function success(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude;
+}
+
+function error(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break;
+  }
+}
+</script>s
 
 # Show the result
 if location is None:

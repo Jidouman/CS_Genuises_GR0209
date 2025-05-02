@@ -1,8 +1,10 @@
-# Required Libraries
-import streamlit as st
-import pandas as pd
+# Importieren der verschiedenen Bibliotheken
+import streamlit as st # Streamlit
+from streamlit_javascript import st_javascript #Geolocation via JavaScript based on: https://www.w3schools.com/html/html5_geolocation.asp
+import pandas as pd 
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # Datenvisualisierung
+
 
 # Tab Title
 st.set_page_config(page_title="Restaurant Recommender", page_icon=":fork_and_knife_with_plate:") #We retrieved the emoji codepoint for page_icon from the website https://www.webfx.com/tools/emoji-cheat-sheet/

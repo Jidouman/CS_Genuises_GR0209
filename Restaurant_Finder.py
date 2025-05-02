@@ -18,27 +18,29 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Geolocation & Map - How far away or close cursor
-coords = st_javascript(
-    """
-    new Promise((resolve, reject) => {
-        if (navigator.geolocation) {
+if st.button("📍 Get my location"):
+    coords = st_javascript(
+        """
+        new Promise((resolve, reject) => {
+            if (!navigator.geolocation) {
+                reject("Geolocation not supported");
+                return;
+            }
             navigator.geolocation.getCurrentPosition(
-                (pos) => resolve([pos.coords.latitude, pos.coords.longitude]),
-                (err) => reject(err)
+                pos => resolve([pos.coords.latitude, pos.coords.longitude]),
+                err => reject(err.message)
             );
-        } else {
-            reject(new Error("Geolocation not supported"));
-        }
-    });
-    """,
-    key="get_location"
-)
-
-if coords:
-    lat, lon = coords  # unpack the [latitude, longitude]
-    st.write(f"Latitude: {lat}  •  Longitude: {lon}")
+        });
+        """,
+        key="get_loc",
+    )
+    if isinstance(coords, list) and len(coords) == 2:
+        lat, lon = coords
+        st.success(f"Latitude: {lat:.5f}  Longitude: {lon:.5f}")
+    else:
+        st.error(f"Could not get location: {coords}")
 else:
-    st.write("Waiting for location…")
+    st.write("Click the button above to allow location access.")
 
 # Text Input
 st.subheader("Text Input")

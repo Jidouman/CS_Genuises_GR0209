@@ -28,26 +28,36 @@ else:
 if st.button("📍 Get my location"):
     coords = st_javascript(
         """
-        new Promise((resolve, reject) => {
-            if (!navigator.geolocation) {
-                reject("Geolocation not supported");
-                return;
+         new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            resolve({error: "Geolocation not supported"});
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                resolve({
+                    latitude: pos.coords.latitude,
+                    longitude: pos.coords.longitude
+                });
+            },
+            (err) => {
+                resolve({error: err.message});
             }
-            navigator.geolocation.getCurrentPosition(
-                pos => resolve([pos.coords.latitude, pos.coords.longitude]),
-                err => reject(err.message)
-            );
-        });
-        """,
-        key="get_loc",
+        );
+    });
+    """,
+    key="get_loc"
     )
-    if isinstance(coords, list) and len(coords) == 2:
-        lat, lon = coords
-        st.success(f"Latitude: {lat:.5f}  Longitude: {lon:.5f}")
+    if coords and isinstance(coords, dict):
+    if "error" in coords:
+        st.error(f"Could not get location: {coords['error']}")
     else:
-        st.error(f"Could not get location: {coords}")
+        lat = coords["latitude"]
+        lon = coords["longitude"]
+        st.success(f"📍 Your location: {lat:.4f}, {lon:.4f}")
 else:
-    st.write("Click the button above to allow location access.")
+    st.warning("Click the button above to allow location access.")
 
 st.header("Tell us what you're craving:")
 

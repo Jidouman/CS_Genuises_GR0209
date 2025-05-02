@@ -18,7 +18,20 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Geolocation & Map - How far away or close cursor
+location = st_javascript("""navigator.geolocation.getCurrentPosition(
+    (position) => {
+        const coords = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        };
+        Streamlit.setComponentValue(coords);
+    },
+    (error) => {
+        Streamlit.setComponentValue({error: error.message});
+    }
+);""")
 
+st.write("Location result:", location)
 
 # Text Input
 st.subheader("Text Input")

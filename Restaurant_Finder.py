@@ -17,47 +17,39 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Geolocation & Map - How far away or close cursor
+# Get coordinates via JavaScript
 coords = st_javascript("await navigator.geolocation.getCurrentPosition((loc) => loc.coords)")
-if coords:
-    lat = coords['latitude']
-    lon = coords['longitude']
+
+# If we already got them on load, show them
+if coords and isinstance(coords, dict) and "latitude" in coords:
+    lat, lon = coords["latitude"], coords["longitude"]
     st.success(f"📍 Your location: {lat:.4f}, {lon:.4f}")
 else:
-    st.warning("Could not detect your location. Please allow location access.")
+    st.info("Click the button below to allow location access.")
 
 if st.button("📍 Get my location"):
     coords = st_javascript(
         """
-         new Promise((resolve, reject) => {
-        if (!navigator.geolocation) {
-            resolve({error: "Geolocation not supported"});
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            (pos) => {
-                resolve({
-                    latitude: pos.coords.latitude,
-                    longitude: pos.coords.longitude
-                });
-            },
-            (err) => {
-                resolve({error: err.message});
+        new Promise((resolve) => {
+            if (!navigator.geolocation) {
+                return resolve({error: "Geolocation not supported"});
             }
-        );
-    });
-    """,
-    key="get_loc"
+            navigator.geolocation.getCurrentPosition(
+                (pos) => resolve({ latitude: pos.coords.latitude, longitude: pos.coords.longitude }),
+                (err) => resolve({error: err.message})
+            );
+        });
+        """,
+        key="get_loc"
     )
-    if coords and isinstance(coords, dict):
-    if "error" in coords:
+
+    if not coords:
+        st.error("No response from browser geolocation API.")
+    elif coords.get("error"):
         st.error(f"Could not get location: {coords['error']}")
     else:
-        lat = coords["latitude"]
-        lon = coords["longitude"]
+        lat, lon = coords["latitude"], coords["longitude"]
         st.success(f"📍 Your location: {lat:.4f}, {lon:.4f}")
-else:
-    st.warning("Click the button above to allow location access.")
 
 st.header("Tell us what you're craving:")
 

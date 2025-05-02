@@ -5,13 +5,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Tab Title
-st.set_page_config(page_title="FCS Streamlit Tutorial", page_icon=":computer:")
+st.set_page_config(page_title="Restaurant Recommender", page_icon=":fork_and_knife_with_plate:") #We retrieved the emoji codepoint for page_icon from the website https://www.webfx.com/tools/emoji-cheat-sheet/
 
 # Title & Intro
-st.title("Hello, FCS!")
+st.title("🍽️ Restaurant Recommender")
 st.write("""
-Welcome to the interactive Streamlit page of the "CS GENUISES" (using the base template)! 
-Here's a introductory showcase of what you can achieve using Streamlit with very little code.
+Welcome to the Restaurant Recommender App! 🎯 
+Tell us what you're craving, how you're feeling, and your budget — and we'll suggest the perfect restaurant for you. 
+Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Text Input

@@ -42,6 +42,29 @@ if st.button("📍 Get my location"):
 else:
     st.write("Click the button above to allow location access.")
 
+st.header("Tell us what you're craving:")
+
+# Cuisine
+cuisine = st.multiselect(
+    "What cuisines are you interested in?",
+    ["Italian", "Sushi", "Indian", "Mexican", "Chinese", "Lebanese", "Vegetarian", "Other"]
+)
+
+# Budget
+budget = st.radio("Select your budget level:", ["€", "€€", "€€€", "€€€€"])
+
+# Mood
+mood = st.selectbox("What's the mood?", ["Cozy", "Trendy", "Romantic", "Casual", "Surprise me!"])
+
+# Location
+location = st.text_input("Which city are you in?", placeholder="e.g., Zurich")
+
+# Surprise Button
+surprise = st.button("🎲 Surprise Me!")
+
+if surprise:
+    st.write("We’ll surprise you with something unique!")
+
 # Text Input
 st.subheader("Text Input")
 name = st.text_input("Enter your name", placeholder="Your name here...")

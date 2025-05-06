@@ -4,6 +4,10 @@ from streamlit_javascript import st_javascript # Streamlit_javascript Geolocatio
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt # Datenvisualisierung
+import requests # API requests
+import json # JSON handling
+import datetime # Date handling
+import time # Time handling
 
 # Tab Title
 st.set_page_config(page_title="Restaurant Recommender", page_icon=":fork_and_knife_with_plate:") #We retrieved the emoji codepoint for page_icon from the website https://www.webfx.com/tools/emoji-cheat-sheet/
@@ -16,7 +20,25 @@ Tell us what you're craving, how you're feeling, and your budget — and we'll s
 Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
-# Geolocation & Map - How far away or close cursor
+# Function to get city name from latitude and longitude
+def get_city_from_coords(lat, lon):
+    try:
+        # Replace 'YOUR_API_KEY' with your actual API key from OpenCage or Google Maps
+        api_key = "YOUR_API_KEY"
+        url = f"https://api.opencagedata.com/geocode/v1/json?q={lat}+{lon}&key={api_key}"
+        response = requests.get(url)
+        data = response.json()
+
+        if response.status_code == 200 and data["results"]:
+            # Extract city name from the response
+            components = data["results"][0]["components"]
+            city = components.get("city", components.get("town", components.get("village", "Unknown location")))
+            return city
+        else:
+            return "Unable to determine location"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
 # Get coordinates via JavaScript
 coords = st_javascript("await navigator.geolocation.getCurrentPosition((loc) => loc.coords)")
 
@@ -49,7 +71,11 @@ if st.button("📍 Get my location"):
         st.error(f"Could not get location: {coords['error']}")
     else:
         lat, lon = coords["latitude"], coords["longitude"]
-        st.success(f"📍 Your location: {lat:.4f}, {lon:.4f}")
+        st.success(f"📍 Your coordinates: {lat:.4f}, {lon:.4f}")
+
+        # Get city name from coordinates
+        city = get_city_from_coords(lat, lon)
+        st.info(f"🌍 You are in: {city}")
 
 st.header("Tell us what you're craving:")
 
@@ -76,7 +102,7 @@ mood = st.radio(
 
 # Distance
 distance = st.slider(
-    "How far are you willing to travel? (in miles)",
+    "How far are you willing to travel? (in km)",
     min_value=1, max_value=50, value=10
 )
 

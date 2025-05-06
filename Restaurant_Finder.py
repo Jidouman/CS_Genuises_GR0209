@@ -21,66 +21,43 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
 # Function to get city name from latitude and longitude
-def get_city_from_coords(lat, lon):
-    try:
-        # Replace 'YOUR_API_KEY' with your actual Google Maps API key
-        api_key = "AIzaSyDYHYia7dhNnqbIvpxveK6gaipW9z0_zX4"
-        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lon}&key={api_key}"
-        response = requests.get(url)
-        data = response.json()
-
-        if response.status_code == 200 and data["results"]:
-            # Extract city name from the response
-            for component in data["results"][0]["address_components"]:
-                if "locality" in component["types"]:  # Look for the "locality" type
-                    return component["long_name"]
-            return "Unknown location"
-        else:
-            return "Unable to determine location"
-    except Exception as e:
-        return f"Error: {str(e)}"
-
-# Get coordinates via JavaScript
-coords = st_javascript("await navigator.geolocation.getCurrentPosition((loc) => loc.coords)")
-
-# If we already got them on load, show them
-if coords and isinstance(coords, dict) and "latitude" in coords:
-    lat, lon = coords["latitude"], coords["longitude"]
-    st.success(f"📍 Your location: {lat:.4f}, {lon:.4f}")
-else:
-    st.info("Click the button below to allow location access.")
-
-# Button to get location
 if st.button("📍 Get my location"):
+    # 1) Browser geolocation
     coords = st_javascript(
         """
-        new Promise((resolve) => {
+        new Promise((resolve, reject) => {
             if (!navigator.geolocation) {
-                return resolve({error: "Geolocation not supported"});
+                reject("Geolocation not supported");
+                return;
             }
             navigator.geolocation.getCurrentPosition(
-                (pos) => resolve({ latitude: pos.coords.latitude, longitude: pos.coords.longitude }),
-                (err) => resolve({error: err.message})
+                pos => resolve([pos.coords.latitude, pos.coords.longitude]),
+                err => reject(err.message || "Permission denied")
             );
         });
         """,
-        key="get_loc"
+        key="get_loc",
     )
 
-    if not coords:
-        st.error("No response from browser geolocation API.")
-    elif coords.get("error"):
-        st.error(f"Could not get location: {coords['error']}")
+    if isinstance(coords, list) and len(coords) == 2:
+        lat, lon = coords
+        st.write(f"🗺️ Coordinates: {lat:.5f}, {lon:.5f}")
+
+        # 2) Reverse-geocode with your provided key
+        GOOGLE_API_KEY = "AIzaSyDYHYia7dhNnqbIvpxveK6gaipW9z0_zX4"
+        geocode_url = "https://maps.googleapis.com/maps/api/geocode/json"
+        params = {"latlng": f"{lat},{lon}", "key": GOOGLE_API_KEY}
+        resp = requests.get(geocode_url, params=params).json()
+
+        if resp.get("status") == "OK" and resp.get("results"):
+            address = resp["results"][0]["formatted_address"]
+            st.success(f"🏠 Your address: **{address}**")
+        else:
+            st.error("❌ Could not retrieve address from coordinates.")
     else:
-        lat, lon = coords["latitude"], coords["longitude"]
-        st.success(f"📍 Your coordinates: {lat:.4f}, {lon:.4f}")
-
-        # Get city name from coordinates
-        city = get_city_from_coords(lat, lon)
-        st.info(f"🌍 You are in: {city}")
-
-st.header("Tell us what you're craving:")
-
+        st.warning(f"Could not get location: {coords}")
+else:
+    st.info("Click the button above to allow location access and see your address.")
 # User Inputs
 st.subheader("Search Criteria")
 

@@ -55,27 +55,58 @@ if st.button("📍 Get my location"):
 
 st.header("Tell us what you're craving:")
 
-# Cuisine
-cuisine = st.multiselect(
-    "What cuisines are you interested in?",
-    ["Italian", "Sushi", "Indian", "Mexican", "Chinese", "Lebanese", "Vegetarian", "Other"]
+# Set page configuration
+st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
+
+# Title and Introduction
+st.title("Restaurant Finder")
+st.write("""
+Welcome to the Restaurant Finder! Use this app to discover restaurants that match your preferences.
+Simply select your criteria below, and we'll help you find the perfect spot.
+""")
+
+# User Inputs
+st.subheader("Search Criteria")
+
+# Price Range
+price_range = st.selectbox(
+    "Select your price range:",
+    ["$", "$$", "$$$", "$$$$"]
 )
 
-# Budget
-budget = st.radio("Select your budget level:", ["€", "€€", "€€€", "€€€€"])
+# Type of Food
+food_type = st.multiselect(
+    "What type of food are you in the mood for?",
+    ["Italian", "Chinese", "Mexican", "Indian", "Japanese", "American", "Mediterranean", "Vegan", "Seafood"]
+)
 
 # Mood
-mood = st.selectbox("What's the mood?", ["Cozy", "Trendy", "Romantic", "Casual", "Surprise me!"])
+mood = st.radio(
+    "What's your dining mood?",
+    ["Casual", "Romantic", "Family-Friendly", "Business", "Trendy", "Quiet"]
+)
 
-# Location
-location = st.text_input("Which city are you in?", placeholder="e.g., Zurich")
+# Distance
+distance = st.slider(
+    "How far are you willing to travel? (in miles)",
+    min_value=1, max_value=50, value=10
+)
 
-# Surprise Button
-surprise = st.button("🎲 Surprise Me!")
+# Submit Button
+if st.button("Find Restaurants"):
+    st.write("Searching for restaurants...")
+    # Placeholder for API integration
+    st.write("This feature will use APIs to fetch restaurant data based on your preferences.")
+    st.write(f"Price Range: {price_range}")
+    st.write(f"Food Type: {', '.join(food_type) if food_type else 'Any'}")
+    st.write(f"Mood: {mood}")
+    st.write(f"Distance: {distance} miles")
+else:
+    st.write("Fill in your preferences and click 'Find Restaurants' to start your search!")
 
-if surprise:
-    st.write("We’ll surprise you with something unique!")
-
+# Footer
+st.write("---")
+st.write("Restaurant Finder • Powered by Streamlit 🍴")
 # Text Input
 st.subheader("Text Input")
 name = st.text_input("Enter your name", placeholder="Your name here...")

@@ -122,6 +122,3 @@ else:
 # Footer
 st.write("---")
 st.write("Restaurant Finder • Powered by Streamlit 🍴")
-<<<<<<< HEAD
-st.write("""Restaurant Recomander - Designed with ❤️ based on the "FCS Streamlit Tutorial for Bachelor Students in Business Administration""")
-=======

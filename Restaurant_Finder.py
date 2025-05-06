@@ -16,7 +16,7 @@ st.set_page_config(page_title="Restaurant Recommender", page_icon="🍴") #We re
 st.title("🍽️ Restaurant Recommender")
 st.write("""
 Welcome to the Restaurant Recommender App! 🎯 
-Tell us what you're craving, how you're feeling, and your budget — and we'll suggest the perfect restaurant for you. 
+Tell us what you're **craving**, your **mood**, your **budget**, and how **far** you're willing to travel — and we'll suggest the perfect restaurant for you. 
 Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 

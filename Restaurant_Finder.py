@@ -16,6 +16,8 @@ Tell us what you're craving, how you're feeling, and your budget — and we'll s
 Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
+print("Hello")
+
 # Geolocation & Map - How far away or close cursor
 # Get coordinates via JavaScript
 coords = st_javascript("await navigator.geolocation.getCurrentPosition((loc) => loc.coords)")
@@ -333,4 +335,4 @@ Happy Learning!
 
 # Footer
 st.write("---")
-st.write("FCS Streamlit Tutorial • Designed with ❤️ for Bachelor Students in Business Administration")
+st.write("""Restaurant Recomander - Designed with ❤️ based on the "FCS Streamlit Tutorial for Bachelor Students in Business Administration"""")

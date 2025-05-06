@@ -92,7 +92,7 @@ price_range = st.selectbox(
 # Type of Food
 food_type = st.multiselect(
     "What type of food are you in the mood for?",
-    ["Italian", "Chinese", "Mexican", "Indian", "Japanese", "American", "Mediterranean", "Vegan", "Seafood"]
+    ["Italian", "Swiss", "Mexican", "Indian", "Japanese", "Chinese", "Mediterranean", "Vegan", "Seafood", "American"]
 )
 
 # Mood

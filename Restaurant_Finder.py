@@ -22,17 +22,18 @@ Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 # Function to get city name from latitude and longitude
 def get_city_from_coords(lat, lon):
     try:
-        # Replace 'YOUR_API_KEY' with your actual API key from OpenCage or Google Maps
-        api_key = "YOUR_API_KEY"
-        url = f"https://api.opencagedata.com/geocode/v1/json?q={lat}+{lon}&key={api_key}"
+        # Replace 'YOUR_API_KEY' with your actual Google Maps API key
+        api_key = "AIzaSyDYHYia7dhNnqbIvpxveK6gaipW9z0_zX4"
+        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lon}&key={api_key}"
         response = requests.get(url)
         data = response.json()
 
         if response.status_code == 200 and data["results"]:
             # Extract city name from the response
-            components = data["results"][0]["components"]
-            city = components.get("city", components.get("town", components.get("village", "Unknown location")))
-            return city
+            for component in data["results"][0]["address_components"]:
+                if "locality" in component["types"]:  # Look for the "locality" type
+                    return component["long_name"]
+            return "Unknown location"
         else:
             return "Unable to determine location"
     except Exception as e:
@@ -48,6 +49,7 @@ if coords and isinstance(coords, dict) and "latitude" in coords:
 else:
     st.info("Click the button below to allow location access.")
 
+# Button to get location
 if st.button("📍 Get my location"):
     coords = st_javascript(
         """
@@ -120,3 +122,8 @@ else:
 # Footer
 st.write("---")
 st.write("Restaurant Finder • Powered by Streamlit 🍴")
+<<<<<<< HEAD
+st.write("""Restaurant Recomander - Designed with ❤️ based on the "FCS Streamlit Tutorial for Bachelor Students in Business Administration""")
+=======
+
+>>>>>>> 6085477e8f2ed5c4eb58773e4585a4514f93073a

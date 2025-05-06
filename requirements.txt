@@ -2,5 +2,5 @@ streamlit
 pandas
 numpy
 matplotlib
-streamlit-javascript
-streamlit-chat
+streamlit_javascript
+streamlit_chat

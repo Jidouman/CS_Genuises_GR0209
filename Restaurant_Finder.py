@@ -335,4 +335,4 @@ Happy Learning!
 
 # Footer
 st.write("---")
-st.write("""Restaurant Recomander - Designed with ❤️ based on the "FCS Streamlit Tutorial for Bachelor Students in Business Administration"""")
+st.write("""Restaurant Recomander - Designed with ❤️ based on the "FCS Streamlit Tutorial for Bachelor Students in Business Administration""")

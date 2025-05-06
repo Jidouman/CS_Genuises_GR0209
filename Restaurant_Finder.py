@@ -55,9 +55,6 @@ if st.button("📍 Get my location"):
 
 st.header("Tell us what you're craving:")
 
-# Set page configuration
-st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
-
 # Title and Introduction
 st.title("Restaurant Finder")
 st.write("""

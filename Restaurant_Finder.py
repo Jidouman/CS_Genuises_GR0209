@@ -16,8 +16,6 @@ Tell us what you're craving, how you're feeling, and your budget — and we'll s
 Feeling adventurous? Hit **Surprise Me** and discover a hidden gem!
 """)
 
-print("Hello")
-
 # Geolocation & Map - How far away or close cursor
 # Get coordinates via JavaScript
 coords = st_javascript("await navigator.geolocation.getCurrentPosition((loc) => loc.coords)")

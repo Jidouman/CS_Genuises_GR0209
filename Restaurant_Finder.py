@@ -53,13 +53,6 @@ if st.button("📍 Get my location"):
 
 st.header("Tell us what you're craving:")
 
-# Title and Introduction
-st.title("Restaurant Finder")
-st.write("""
-Welcome to the Restaurant Finder! Use this app to discover restaurants that match your preferences.
-Simply select your criteria below, and we'll help you find the perfect spot.
-""")
-
 # User Inputs
 st.subheader("Search Criteria")
 

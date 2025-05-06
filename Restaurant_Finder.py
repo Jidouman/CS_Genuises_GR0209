@@ -4,6 +4,7 @@ from streamlit_javascript import st_javascript # Streamlit_javascript Geolocatio
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt # Datenvisualisierung
+import os # Dateimanagement
 import requests # API requests
 import json # JSON handling
 import datetime # Date handling

@@ -10,7 +10,7 @@ import datetime # Date handling
 import time # Time handling
 
 # Tab Title
-st.set_page_config(page_title="Restaurant Recommender", page_icon=":fork_and_knife_with_plate:") #We retrieved the emoji codepoint for page_icon from the website https://www.webfx.com/tools/emoji-cheat-sheet/
+st.set_page_config(page_title="Restaurant Recommender", page_icon="🍴") #We retrieved the emoji codepoint for page_icon from the website https://www.webfx.com/tools/emoji-cheat-sheet/
 
 # Title & Intro
 st.title("🍽️ Restaurant Recommender")

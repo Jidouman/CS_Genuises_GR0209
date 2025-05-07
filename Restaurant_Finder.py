@@ -44,6 +44,7 @@ distance = st.slider(
 
 # Geolocation
 st.subheader("Your Location")
+st.write("Click the button below:")
 
 location = streamlit_geolocation()
 
@@ -61,18 +62,17 @@ if location:
                    data['results'][0]['components'].get('town') or \
                    data['results'][0]['components'].get('village') or \
                    'Unknown Location'
-            st.write(f"**City:** {city}")
+            st.write(f"**You are in** **{city}** - {latitude}, {longitude}")
         else:
             st.write("Unable to fetch city name. Please check your API key or network connection.")
     else:
         st.write("Invalid coordinates received.")
-    st.write(f"Coordinates: Latitude: {latitude}, Longitude: {longitude}")
 else:
     st.write("Unable to fetch location. Please enable location services in your browser.")
 
 # Function to fetch restaurants using Google Places API
-# Still need to code this part
+
 
 # Footer
 st.write("---")
-st.write("Restaurant Finder • Powered by Streamlit 🍴")
+st.write("Restaurant Finder • by CS Geniuses 🍴")

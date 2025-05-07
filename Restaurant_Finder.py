@@ -9,7 +9,7 @@ from streamlit_geolocation import streamlit_geolocation
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
 
 # Title and Introduction
-st.title("Restaurant Finder 🍴🇨🇭")
+st.title("Restaurant Finder 🍴")
 st.write("""
 Welcome to the Restaurant Finder! Use this app to discover restaurants in Switzerland that match your preferences.
 Simply select your criteria below, and we'll help you find the perfect spot.
@@ -130,7 +130,6 @@ if st.button("Search Restaurants"):
             st.write("No restaurants found matching your criteria.")
     else:
         st.error("Error fetching restaurants. Please check your API key and parameters.")
-
 
 # Footer
 st.write("---")

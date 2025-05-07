@@ -38,7 +38,7 @@ mood = st.radio(
 
 # Distance
 distance = st.slider(
-    "How far are you willing to travel? (in miles)",
+    "How far are you willing to travel? (in km)",
     min_value=1, max_value=50, value=10
 )
 

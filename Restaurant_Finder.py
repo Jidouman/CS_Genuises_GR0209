@@ -71,6 +71,65 @@ else:
     st.write("Unable to fetch location. Please enable location services in your browser.")
 
 # Function to fetch restaurants using Google Places API
+st.subheader("Find Restaurants")
+if st.button("Search Restaurants"):
+    # 1. Price flags: map $ to minprice/maxprice (0–4)
+    price_map = {"$": (0, 1), "$$": (1, 2), "$$$": (2, 3), "$$$$": (3, 4)}
+    min_price, max_price = price_map[price_range]
+
+    # 2. Open now flag
+    open_now = True
+
+    # 3. Distance radius: convert km to meters
+    radius_m = distance * 1000
+
+    # 4. Keyword from mood
+    mood_keywords = {
+        "Casual": "casual",
+        "Romantic": "romantic",
+        "Family-Friendly": "family",
+        "Business": "business",
+        "Trendy": "trendy",
+        "Quiet": "quiet"
+    }
+    keyword = mood_keywords.get(mood, "")
+
+    # 5. Type
+    place_type = "restaurant"
+
+    # 6. Language
+    language = "en"
+
+    # Build request parameters
+    params = {
+        "key": st.secrets["GOOGLE_API_KEY"],
+        "location": f"{latitude},{longitude}",
+        "radius": radius_m,
+        "type": place_type,
+        "keyword": keyword,
+        "minprice": min_price,
+        "maxprice": max_price,
+        "opennow": open_now,
+        "language": language
+    }
+
+    response = requests.get(
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+        params=params
+    )
+
+    if response.status_code == 200:
+        places = response.json().get("results", [])
+        if places:
+            for place in places:
+                name = place.get("name", "N/A")
+                rating = place.get("rating", "N/A")
+                vicinity = place.get("vicinity", "")
+                st.write(f"**{name}** — Rating: {rating} — {vicinity}")
+        else:
+            st.write("No restaurants found matching your criteria.")
+    else:
+        st.error("Error fetching restaurants. Please check your API key and parameters.")
 
 
 # Footer

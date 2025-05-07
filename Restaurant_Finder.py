@@ -117,24 +117,19 @@ if st.button("Search Restaurants"):
         "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
         params=params
     )
-   # DEBUG: show params and API status
-    st.write("🔍 Debug params:", params)
-    if response.status_code != 200:
-        st.error(f"HTTP Error: {response.status_code}")
-    else:
-        data = response.json()
-        status = data.get("status")
-        if status != "OK":
-            st.error(f"Google Places API error: {status} — {data.get('error_message','No message')}")
-        else:
-            places = data.get("results", [])
-            if not places:
-                st.info("No restaurants found for those filters.")
+
+    if response.status_code == 200:
+        places = response.json().get("results", [])
+        if places:
             for place in places:
                 name = place.get("name", "N/A")
                 rating = place.get("rating", "N/A")
                 vicinity = place.get("vicinity", "")
                 st.write(f"**{name}** — Rating: {rating} — {vicinity}")
+        else:
+            st.write("No restaurants found matching your criteria.")
+    else:
+        st.error("Error fetching restaurants. Please check your API key and parameters.")
 
 # Footer
 st.write("---")

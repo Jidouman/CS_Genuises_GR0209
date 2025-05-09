@@ -136,3 +136,26 @@ if st.button("Search Restaurants"):
 # Footer
 st.write("---")
 st.write("Restaurant Finder • by CS Geniuses 🍴")
+
+# Other features
+elif page == "Visited Restaurants":
+    st.title("Visited Restaurants ⭐")
+
+    if "history" not in st.session_state:
+        st.session_state.history = []
+
+    with st.form("add_visit_form"):
+        name = st.text_input("Restaurant Name")
+        category = st.selectbox("Type of Restaurant", list(cuisine_map.keys()))
+        rating = st.slider("Your Rating", 1, 5)
+        submit = st.form_submit_button("Add to History")
+        if submit and name:
+            st.session_state.history.append({"name": name, "category": category, "rating": rating})
+            st.success(f"Added {name} ({category}) with {rating}⭐")
+
+    st.subheader("Your Visited Restaurants")
+    if st.session_state.history:
+        for entry in st.session_state.history:
+            st.write(f"**{entry['name']}** ({entry['category']}) — {entry['rating']}⭐")
+    else:
+        st.info("No visits added yet.")

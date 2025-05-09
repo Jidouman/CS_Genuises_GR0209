@@ -134,7 +134,11 @@ if st.button("Search Restaurants"):
                     # Create two columns: text and image
                     col1, col2 = st.columns([2, 1])
                     with col1:
-                        st.markdown(f"**{idx}. {name}**  
+                        st.markdown(f"""
+**{idx}. {name}**  
+Rating: {rating}  
+{address}
+""")  
 Rating: {rating}  
 {address}")
                         # Google Maps link button

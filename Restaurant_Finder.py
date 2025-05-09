@@ -105,7 +105,7 @@ if st.button("Search Restaurants"):
         if price_category.startswith("Cheap"):
             min_price, max_price = 0, 2
         else:
-            min_price, max_price = 3, 4
+            min_price, max_price = 2, 4
 
         # Radius
         radius_m = distance * 1000

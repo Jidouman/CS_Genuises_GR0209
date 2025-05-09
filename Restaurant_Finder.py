@@ -22,7 +22,7 @@ Simply select your criteria below, and we'll help you find the perfect spot.
 st.subheader("Search Criteria")
 
 # Price Range
-price_range = st.selectbox(
+price_range = st.multiselect(
     "Select your price range:",
     ["$", "$$", "$$$", "$$$$"]
 )

@@ -90,8 +90,7 @@ if st.button("Search Restaurants"):
 
         # Build keyword list
         selected_cuisines = [term for ft in food_type for term in cuisine_map.get(ft, [])]
-        selected_moods    = mood_map.get(mood, [])
-        keyword = " ".join(selected_cuisines + selected_moods)
+        keyword = " ".join(selected_cuisines)
 
         # Build params dict
         params = {

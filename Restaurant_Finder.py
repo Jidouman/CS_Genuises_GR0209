@@ -4,7 +4,6 @@ import requests
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 
-
 # Set page configuration
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # 
 
@@ -102,7 +101,7 @@ if st.button("Search Restaurants"):
 
     # Build request parameters
     params = {
-        "key": st.secrets["GOOGLE_API_KEY"],
+        "key": secrets.GOOGLE_API_KEY,
         "location": f"{latitude},{longitude}",
         "radius": radius_m,
         "type": place_type,

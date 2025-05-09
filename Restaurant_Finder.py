@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import time
 from streamlit_geolocation import streamlit_geolocation
 
 # Set page configuration (must be first)
@@ -101,10 +102,10 @@ if st.button("Search Restaurants"):
     if not (latitude and longitude and GOOGLE_API_KEY):
         st.error("Missing location or API key. Cannot search.")
     else:
-        # Optional price flags
+        # Price flags
         price_map = {"$": (0,1), "$$": (1,2), "$$$": (2,3), "$$$$": (3,4)}
-        use_price_filter = price_range != "Any"
-        if use_price_filter:
+        use_price = price_range != "Any"
+        if use_price:
             min_price, max_price = price_map[price_range]
 
         # Radius
@@ -115,6 +116,7 @@ if st.button("Search Restaurants"):
         selected_moods    = mood_map.get(mood, [])
         keyword = " ".join(selected_cuisines + selected_moods)
 
+        # Base params
         params = {
             "key": GOOGLE_API_KEY,
             "location": f"{latitude},{longitude}",
@@ -124,27 +126,39 @@ if st.button("Search Restaurants"):
             "opennow": True,
             "language": "en"
         }
-
-        if use_price_filter:
+        if use_price:
             params["minprice"] = min_price
             params["maxprice"] = max_price
 
-        resp = requests.get(
-            "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-            params=params
-        )
-
-        if resp.status_code != 200:
-            st.error(f"HTTP Error: {resp.status_code}")
+        # Fetch with pagination
+        all_places = []
+        url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+        response = requests.get(url, params=params)
+        if response.status_code != 200:
+            st.error(f"HTTP Error: {response.status_code}")
         else:
-            data = resp.json()
-            if data.get("status") != "OK":
-                st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
+            data = response.json()
+            status = data.get("status")
+            if status != "OK" and status != "ZERO_RESULTS":
+                st.error(f"Google Places API error: {status} - {data.get('error_message','')}")
             else:
-                places = data.get("results", [])
-                if not places:
+                all_places.extend(data.get("results", []))
+                # paginate
+                while data.get("next_page_token") and len(all_places) < 60:
+                    time.sleep(2)
+                    pagetoken = data.get("next_page_token")
+                    params_page = params.copy()
+                    params_page.pop("keyword", None)  # keep same
+                    params_page["pagetoken"] = pagetoken
+                    response = requests.get(url, params=params_page)
+                    if response.status_code != 200:
+                        break
+                    data = response.json()
+                    all_places.extend(data.get("results", []))
+
+                if not all_places:
                     st.info("No restaurants found with those criteria.")
-                for p in places:
+                for p in all_places:
                     st.write(f"**{p.get('name','N/A')}** — Rating: {p.get('rating','N/A')} — {p.get('vicinity','')}")
 
 # Footer

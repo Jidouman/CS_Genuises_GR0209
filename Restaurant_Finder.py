@@ -124,22 +124,34 @@ if st.button("Search Restaurants"):
                 places_sorted = sorted(places, key=lambda x: x.get('rating', 0), reverse=True)[:5]
                 if not places_sorted:
                     st.info("No restaurants found in your city with those criteria.")
-                # Display with ranking numbers and photos
+
+                # Display with ranking, details on left and photo on right
                 for idx, p in enumerate(places_sorted, start=1):
                     name = p.get('name', 'N/A')
                     rating = p.get('rating', 'N/A')
                     address = p.get('formatted_address', '')
-                    st.markdown(f"### {idx}. {name} — Rating: {rating}")
-                    # Show photo if available
-                    photos = p.get('photos')
-                    if photos:
-                        photo_ref = photos[0].get('photo_reference')
-                        photo_url = (
-                            f"https://maps.googleapis.com/maps/api/place/photo"
-                            f"?maxwidth=400&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
+
+                    # Create two columns: text and image
+                    col1, col2 = st.columns([2, 1])
+                    with col1:
+                        st.markdown(f"**{idx}. {name}**  
+Rating: {rating}  
+{address}")
+                        # Google Maps link button
+                        maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
+                        st.markdown(
+                            f'<a href="{maps_url}" target="_blank"><button style="padding:6px 12px; border-radius:4px;">Open in Google Maps</button></a>',
+                            unsafe_allow_html=True
                         )
-                        st.image(photo_url, caption=name, use_column_width=True)
-                    st.write(address)
+                    with col2:
+                        photos = p.get('photos')
+                        if photos:
+                            photo_ref = photos[0].get('photo_reference')
+                            photo_url = (
+                                f"https://maps.googleapis.com/maps/api/place/photo"
+                                f"?maxwidth=200&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
+                            )
+                            st.image(photo_url, width=200)
                     st.write("---")
 
 # Footer

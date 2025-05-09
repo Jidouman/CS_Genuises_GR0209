@@ -101,7 +101,7 @@ if st.button("Search Restaurants"):
 
     # Build request parameters
     params = {
-        "key": secrets.GOOGLE_API_KEY,
+        "key": ${{ secrets.GOOGLE_API_KEY }},
         "location": f"{latitude},{longitude}",
         "radius": radius_m,
         "type": place_type,

@@ -9,12 +9,6 @@ st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY")
 
-# Warn if keys missing
-if not GOOGLE_API_KEY:
-    st.error("Missing GOOGLE_API_KEY in Streamlit secrets. Please add it under App settings > Secrets.")
-if not OPENCAGE_API_KEY:
-    st.warning("OPENCAGE_API_KEY not set—reverse geocoding may fail.")
-
 # Title and Introduction
 st.title("Restaurant Finder 🍴")
 st.write("""
@@ -25,22 +19,16 @@ Simply select your criteria below, and we'll help you find the perfect spot.
 # User Inputs
 st.subheader("Search Criteria")
 
-# Price Category: Cheap or Expensive
-price_category = st.selectbox(
-    "Select your price category:",
-    ["Cheap (1–2)", "Expensive (3–4)"]
+# Price Range
+price_range = st.selectbox(
+    "Select your price range:",
+    ["$", "$$", "$$$", "$$$$"]
 )
 
 # Cuisine Selection
 food_type = st.multiselect(
     "What type of food are you in the mood for?",
     ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "American", "Mediterranean", "Vegan", "Seafood"]
-)
-
-# Mood Selection
-mood = st.radio(
-    "What's your dining mood?",
-    ["Casual", "Romantic", "Family-Friendly", "Business", "Trendy", "Quiet"]
 )
 
 # Distance
@@ -86,14 +74,6 @@ cuisine_map = {
     "Seafood": ["seafood restaurant", "fish", "oyster bar", "shrimp", "lobster", "Fischrestaurant"]
 }
 
-mood_map = {
-    "Casual": ["casual", "diner", "lässig", "Speiselokal"],
-    "Romantic": ["romantic", "cozy", "intimate", "romantisch", "gemütlich"],
-    "Family-Friendly": ["family", "kids", "familienfreundlich", "Kinderfreundlich"],
-    "Business": ["business", "meeting", "geschäftlich", "Business lunch"],
-    "Trendy": ["trendy", "hipster", "angesagt", "modern", "stylish"],
-    "Quiet": ["quiet", "peaceful", "ruhig", "leise"]
-}
 
 # Find Restaurants
 st.subheader("Find Restaurants")
@@ -101,11 +81,9 @@ if st.button("Search Restaurants"):
     if not (latitude and longitude and GOOGLE_API_KEY):
         st.error("Missing location or API key. Cannot search.")
     else:
-        # Price flags: cheap => 0-2, expensive => 2-4
-        if price_category.startswith("Cheap"):
-            min_price, max_price = 0, 2
-        else:
-            min_price, max_price = 2, 4
+        # 1. Price flags: map $ to minprice/maxprice (0–4)
+        price_map = {"$": (0, 1), "$$": (1, 2), "$$$": (2, 3), "$$$$": (3, 4)}
+        min_price, max_price = price_map[price_range]
 
         # Radius
         radius_m = distance * 1000

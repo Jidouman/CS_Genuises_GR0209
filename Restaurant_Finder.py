@@ -135,9 +135,6 @@ if st.button("Search Restaurants"):
             params=params
         )
 
-        # Show debug info
-        st.write("🔍 Debug params:", params)
-
         # Handle response
         if response.status_code != 200:
             st.error(f"HTTP Error: {response.status_code}")

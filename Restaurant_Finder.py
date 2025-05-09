@@ -1,5 +1,7 @@
 import streamlit as st
+from streamlit_js_eval import streamlit_js_eval  # For geolocation
 import requests
+from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 
 # Set page configuration (must be first)
@@ -28,7 +30,7 @@ price_range = st.selectbox(
 # Cuisine Selection
 food_type = st.multiselect(
     "What type of food are you in the mood for?",
-    ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "American", "Mediterranean", "Vegan", "Seafood"]
+    ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish","Korean", "Vietnamese"],
 )
 
 # Distance
@@ -62,16 +64,17 @@ else:
 
 # Maps for robust keywords
 cuisine_map = {
-    "Italian": ["Italian restaurant", "pizzeria", "pizza", "ristorante", "Italienisches Restaurant"],
-    "Swiss":   ["Swiss restaurant", "fondue", "raclette", "Schweizer Restaurant", "Alpine cuisine"],
-    "Chinese": ["Chinese restaurant", "dim sum", "noodle", "szechuan", "Chinesisches Restaurant"],
-    "Mexican": ["Mexican restaurant", "taco", "burrito", "enchilada", "Mexikanisches Restaurant"],
-    "Indian":  ["Indian restaurant", "curry", "tandoori", "masala", "naan", "Indisches Restaurant"],
-    "Japanese": ["Japanese restaurant", "sushi", "ramen", "izakaya", "udon", "tempura", "Japanisches Restaurant"],
-    "American": ["American restaurant", "burger", "steakhouse", "grill", "fast food", "Amerikanisches Restaurant"],
-    "Mediterranean": ["Mediterranean restaurant", "meze", "kebab", "hummus", "falafel", "grilled vegetables"],
-    "Vegan":   ["vegan restaurant", "plant based", "vegetarian", "Veganes Restaurant", "fleischlos"],
-    "Seafood": ["seafood restaurant", "fish", "oyster bar", "shrimp", "lobster", "Fischrestaurant"]
+    "Italian": ["Italian", "pizzeria", "pizza", "ristorante", "Italienisch", "Pasta", "Spaghetti"],
+    "Swiss":   ["Swiss", "Schweizer", "restaurant", "fondue", "raclette", "Alpenküche"],
+    "Chinese": ["Chinese", "dim sum", "noodle", "szechuan", "Chinesisch"],
+    "Mexican": ["Mexican", "taco", "burrito", "enchilada", "Mexikanisch", "Tacos"],
+    "Indian":  ["Indian", "curry", "tandoori", "masala", "naan", "Indisch", "Curry"],
+    "Thai":    ["Thai", "pad thai", "green curry", "red curry", "Tom Yum", "Thailändisch"],
+    "Japanese": ["Japanese restaurant", "sushi", "ramen", "izakaya", "udon", "tempura", "Japanisch", "Sushi"],
+    "Korean":  ["Korean", "kimchi", "bulgogi", "bibimbap", "Koreanisch", "Korean BBQ"],
+    "Vietnamese": ["Vietnamese", "pho", "banh mi", "spring rolls", "Vietnamese restaurant", "Vietnamesisch"],
+    "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger"],
+    "Turkish": ["Turkish", "kebab", "doner", "lahmacun", "Turkish restaurant", "Türkisch"],
 }
 
 

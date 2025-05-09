@@ -33,12 +33,6 @@ food_type = st.selectbox(
     ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese"]
 )
 
-# Distance (for radius)
-distance = st.slider(
-    "How far are you willing to travel? (in km)",
-    min_value=1, max_value=50, value=10
-)
-
 # Geolocation
 st.subheader("Your Location")
 location = streamlit_geolocation()
@@ -81,7 +75,7 @@ cuisine_map = {
 # Find Restaurants
 st.subheader("Find Restaurants")
 if st.button("Search Restaurants"):
-    if not (GOOGLE_API_KEY):
+    if not GOOGLE_API_KEY:
         st.error("Missing API key. Cannot search.")
     elif not city:
         st.error("City not determined. Cannot search by city.")
@@ -93,14 +87,11 @@ if st.button("Search Restaurants"):
         min_price = min(price_map[pr] for pr in price_range)
         max_price = max(price_map[pr] for pr in price_range)
 
-        # Radius in meters
-        radius_m = distance * 1000
-
         # Build keyword list
         selected_cuisines = cuisine_map.get(food_type, [])
         cuisine_keyword = " ".join(selected_cuisines)
 
-        # Use Places Text Search to query by city name
+        # Build text search query by city
         query = f"restaurants in {city}"
         if cuisine_keyword:
             query += f" {cuisine_keyword}"
@@ -112,7 +103,6 @@ if st.button("Search Restaurants"):
             "minprice": min_price,
             "maxprice": max_price,
             "opennow": True,
-            "radius": radius_m,
             "language": "en"
         }
 

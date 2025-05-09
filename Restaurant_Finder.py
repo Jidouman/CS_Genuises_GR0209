@@ -1,21 +1,21 @@
 import streamlit as st
-from streamlit_js_eval import streamlit_js_eval  # For geolocation
 import requests
+from streamlit_js_eval import streamlit_js_eval  # For geolocation
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 
-# Set page configuration (must come first)
+# Set page configuration (must be first)
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
 
-# Load API keys from Streamlit secrets
+# Load API keys from Streamlit Cloud secrets
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY")
 
 # Warn if keys missing
 if not GOOGLE_API_KEY:
-    st.error("Missing GOOGLE_API_KEY in Streamlit Secrets.")
+    st.error("Missing GOOGLE_API_KEY in Streamlit secrets. Please add it under App settings > Secrets.")
 if not OPENCAGE_API_KEY:
-    st.warning("OPENCAGE_API_KEY not found in Streamlit Secrets—reverse geocoding may fail.")
+    st.warning("OPENCAGE_API_KEY not set—reverse geocoding may fail.")
 
 # Title and Introduction
 st.title("Restaurant Finder 🍴")
@@ -53,7 +53,7 @@ distance = st.slider(
 
 # Geolocation
 st.subheader("Your Location")
-st.write("Click the button below:")
+st.write("Click the button below to share your location:")
 location = streamlit_geolocation()
 
 latitude = longitude = None
@@ -61,7 +61,6 @@ if location:
     latitude = location.get("latitude")
     longitude = location.get("longitude")
     if latitude and longitude and OPENCAGE_API_KEY:
-        # Reverse Geocoding to get city name
         geocoding_api_url = (
             f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}"
             f"&key={OPENCAGE_API_KEY}"
@@ -72,7 +71,7 @@ if location:
             city = comp.get('city') or comp.get('town') or comp.get('village') or 'Unknown'
             st.write(f"**You are in** **{city}** — {latitude}, {longitude}")
         else:
-            st.write("Unable to fetch city name. Please check your OPENCAGE_API_KEY or network.")
+            st.write("Unable to fetch city name. Please check OPENCAGE_API_KEY.")
     elif latitude and longitude:
         st.write(f"Coordinates: {latitude}, {longitude}")
     else:

@@ -120,18 +120,32 @@ if st.button("Search Restaurants"):
                 st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
             else:
                 places = data.get("results", [])
-                # Sort by rating (highest first)
-                places_sorted = sorted(places, key=lambda x: x.get('rating', 0), reverse=True)
-                # Show only top 5
-                top5 = places_sorted[:5]
-                if not top5:
+                # Sort by rating (highest first) and limit to top 5
+                places_sorted = sorted(places, key=lambda x: x.get('rating', 0), reverse=True)[:5]
+                if not places_sorted:
                     st.info("No restaurants found in your city with those criteria.")
-                for p in top5:
-                    st.write(f"**{p.get('name','N/A')}** — Rating: {p.get('rating','N/A')} — {p.get('formatted_address','')}")
+                # Display with ranking numbers and photos
+                for idx, p in enumerate(places_sorted, start=1):
+                    name = p.get('name', 'N/A')
+                    rating = p.get('rating', 'N/A')
+                    address = p.get('formatted_address', '')
+                    st.markdown(f"### {idx}. {name} — Rating: {rating}")
+                    # Show photo if available
+                    photos = p.get('photos')
+                    if photos:
+                        photo_ref = photos[0].get('photo_reference')
+                        photo_url = (
+                            f"https://maps.googleapis.com/maps/api/place/photo"
+                            f"?maxwidth=400&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
+                        )
+                        st.image(photo_url, caption=name, use_column_width=True)
+                    st.write(address)
+                    st.write("---")
 
 # Footer
 st.write("---")
 st.write("Restaurant Finder • by CS Geniuses 🍴")
+
 
 # Sidebar Navigation
 page = st.sidebar.selectbox("Choose a page", ["Restaurant Finder", "Visited Restaurants"])

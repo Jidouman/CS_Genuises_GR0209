@@ -103,7 +103,7 @@ if st.button("Search Restaurants"):
     else:
         # Price flags: cheap => 0-2, expensive => 2-4
         if price_category.startswith("Cheap"):
-            min_price, max_price = 0, 1, 2
+            min_price, max_price = 0, 2
         else:
             min_price, max_price = 3, 4
 

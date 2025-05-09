@@ -85,47 +85,53 @@ if st.button("Search Restaurants"):
         st.error("Missing location or API key. Cannot search.")
     else:
         # 1. Price flags: map $ to minprice/maxprice (0–4)
-        price_map = {"$": (0, 1), "$$": (1, 2), "$$$": (2, 3), "$$$$": (3, 4)}
-        min_price, max_price = price_map[price_range]
-
-        # Radius
-        radius_m = distance * 1000
-
-        # Build keyword list
-        selected_cuisines = [term for ft in food_type for term in cuisine_map.get(ft, [])]
-        keyword = " ".join(selected_cuisines)
-
-        # Build params dict
-        params = {
-            "key": GOOGLE_API_KEY,
-            "location": f"{latitude},{longitude}",
-            "radius": radius_m,
-            "type": "restaurant",
-            "keyword": keyword,
-            "minprice": min_price,
-            "maxprice": max_price,
-            "opennow": True,
-            "language": "en"
-        }
-
-        # API call
-        resp = requests.get(
-            "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-            params=params
-        )
+        price_map = {"$": 0, "$$": 1, "$$$": 2, "$$$$": 3}
         
-        if resp.status_code != 200:
-            st.error(f"HTTP Error: {resp.status_code}")
+        # Handle multiple price ranges
+        if not price_range:
+            st.error("Please select at least one price range.")
         else:
-            data = resp.json()
-            if data.get("status") != "OK":
-                st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
+            min_price = min(price_map[pr] for pr in price_range)
+            max_price = max(price_map[pr] for pr in price_range)
+
+            # Radius
+            radius_m = distance * 1000
+
+            # Build keyword list
+            selected_cuisines = [term for ft in food_type for term in cuisine_map.get(ft, [])]
+            keyword = " ".join(selected_cuisines)
+
+            # Build params dict
+            params = {
+                "key": GOOGLE_API_KEY,
+                "location": f"{latitude},{longitude}",
+                "radius": radius_m,
+                "type": "restaurant",
+                "keyword": keyword,
+                "minprice": min_price,
+                "maxprice": max_price,
+                "opennow": True,
+                "language": "en"
+            }
+
+            # API call
+            resp = requests.get(
+                "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+                params=params
+            )
+            
+            if resp.status_code != 200:
+                st.error(f"HTTP Error: {resp.status_code}")
             else:
-                places = data.get("results", [])
-                if not places:
-                    st.info("No restaurants found with those criteria.")
-                for p in places:
-                    st.write(f"**{p.get('name','N/A')}** — Rating: {p.get('rating','N/A')} — {p.get('vicinity','')}")
+                data = resp.json()
+                if data.get("status") != "OK":
+                    st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
+                else:
+                    places = data.get("results", [])
+                    if not places:
+                        st.info("No restaurants found with those criteria.")
+                    for p in places:
+                        st.write(f"**{p.get('name','N/A')}** — Rating: {p.get('rating','N/A')} — {p.get('vicinity','')}")
 
 # Footer
 st.write("---")

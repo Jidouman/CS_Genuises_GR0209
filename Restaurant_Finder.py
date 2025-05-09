@@ -138,9 +138,7 @@ if st.button("Search Restaurants"):
 **{idx}. {name}**  
 Rating: {rating}  
 {address}
-""")  
-Rating: {rating}  
-{address}")
+""")
                         # Google Maps link button
                         maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
                         st.markdown(

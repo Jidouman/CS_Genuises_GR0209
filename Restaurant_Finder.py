@@ -120,9 +120,13 @@ if st.button("Search Restaurants"):
                 st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
             else:
                 places = data.get("results", [])
-                if not places:
+                # Sort by rating (highest first)
+                places_sorted = sorted(places, key=lambda x: x.get('rating', 0), reverse=True)
+                # Show only top 5
+                top5 = places_sorted[:5]
+                if not top5:
                     st.info("No restaurants found in your city with those criteria.")
-                for p in places:
+                for p in top5:
                     st.write(f"**{p.get('name','N/A')}** — Rating: {p.get('rating','N/A')} — {p.get('formatted_address','')}")
 
 # Footer

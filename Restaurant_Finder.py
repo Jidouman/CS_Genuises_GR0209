@@ -1,22 +1,21 @@
-import os
 import streamlit as st
 from streamlit_js_eval import streamlit_js_eval  # For geolocation
 import requests
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 
-# Set page configuration (must be the first Streamlit command)
+# Set page configuration (must come first)
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
 
-# Load API keys from environment variables (e.g. set via GitHub Actions or your host)
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
-OPENCAGE_API_KEY = os.environ.get("OPENCAGE_API_KEY")
+# Load API keys from Streamlit secrets
+GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")
+OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY")
 
 # Warn if keys missing
 if not GOOGLE_API_KEY:
-    st.error("Missing GOOGLE_API_KEY environment variable.")
+    st.error("Missing GOOGLE_API_KEY in Streamlit Secrets.")
 if not OPENCAGE_API_KEY:
-    st.warning("OPENCAGE_API_KEY not set—reverse geocoding may fail.")
+    st.warning("OPENCAGE_API_KEY not found in Streamlit Secrets—reverse geocoding may fail.")
 
 # Title and Introduction
 st.title("Restaurant Finder 🍴")

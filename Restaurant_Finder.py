@@ -7,7 +7,7 @@ from streamlit_geolocation import streamlit_geolocation
 # Set page configuration (must be first)
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
 
-# Load API keys from Streamlit secrets management, retreieve from https://docs.streamlit.io/develop/concepts/connections/secrets-management
+# Load API keys from Streamlit secrets management
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY")
 
@@ -29,11 +29,11 @@ price_range = st.multiselect(
 
 # Cuisine Selection
 food_type = st.selectbox(
-    "What type of food are you in the mood for?",
+    "Select cuisine type:",
     ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese"]
 )
 
-# Distance
+# Distance (for radius)
 distance = st.slider(
     "How far are you willing to travel? (in km)",
     min_value=1, max_value=50, value=10
@@ -43,15 +43,16 @@ distance = st.slider(
 st.subheader("Your Location")
 location = streamlit_geolocation()
 latitude = longitude = None
+city = None
 if location:
     latitude = location.get("latitude")
     longitude = location.get("longitude")
     if latitude and longitude and OPENCAGE_API_KEY:
         geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
         r = requests.get(geocode_url)
-        if r.status_code == 200:
+        if r.status_code == 200 and r.json().get("results"):
             comp = r.json()["results"][0]["components"]
-            city = comp.get("city") or comp.get("town") or comp.get("village") or "Unknown"
+            city = comp.get("city") or comp.get("town") or comp.get("village")
             st.write(f"**You are in {city}** — {latitude}, {longitude}")
         else:
             st.write("Unable to fetch city name.")
@@ -77,61 +78,62 @@ cuisine_map = {
     "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"],
 }
 
-
 # Find Restaurants
 st.subheader("Find Restaurants")
 if st.button("Search Restaurants"):
-    if not (latitude and longitude and GOOGLE_API_KEY):
-        st.error("Missing location or API key. Cannot search.")
+    if not (GOOGLE_API_KEY):
+        st.error("Missing API key. Cannot search.")
+    elif not city:
+        st.error("City not determined. Cannot search by city.")
+    elif not price_range:
+        st.error("Please select at least one price range.")
     else:
-        # 1. Price flags: map $ to minprice/maxprice (0–4)
+        # Price flags: map $ to minprice/maxprice (0–4)
         price_map = {"$": 0, "$$": 1, "$$$": 2, "$$$$": 3}
-        
-        # Handle multiple price ranges
-        if not price_range:
-            st.error("Please select at least one price range.")
+        min_price = min(price_map[pr] for pr in price_range)
+        max_price = max(price_map[pr] for pr in price_range)
+
+        # Radius in meters
+        radius_m = distance * 1000
+
+        # Build keyword list
+        selected_cuisines = cuisine_map.get(food_type, [])
+        cuisine_keyword = " ".join(selected_cuisines)
+
+        # Use Places Text Search to query by city name
+        query = f"restaurants in {city}"
+        if cuisine_keyword:
+            query += f" {cuisine_keyword}"
+
+        params = {
+            "key": GOOGLE_API_KEY,
+            "query": query,
+            "type": "restaurant",
+            "minprice": min_price,
+            "maxprice": max_price,
+            "opennow": True,
+            "radius": radius_m,
+            "language": "en"
+        }
+
+        # API call to Text Search endpoint
+        resp = requests.get(
+            "https://maps.googleapis.com/maps/api/place/textsearch/json",
+            params=params
+        )
+
+        if resp.status_code != 200:
+            st.error(f"HTTP Error: {resp.status_code}")
         else:
-            min_price = min(price_map[pr] for pr in price_range)
-            max_price = max(price_map[pr] for pr in price_range)
-
-            # Radius
-            radius_m = distance * 1000
-
-            # Build keyword list
-            selected_cuisines = cuisine_map.get(food_type, [])
-            keyword = " ".join(selected_cuisines)
-
-            # Build params dict
-            params = {
-                "key": GOOGLE_API_KEY,
-                "location": f"{latitude},{longitude}",
-                "radius": radius_m,
-                "type": "restaurant",
-                "keyword": keyword,
-                "minprice": min_price,
-                "maxprice": max_price,
-                "opennow": True,
-                "language": "en"
-            }
-
-            # API call
-            resp = requests.get(
-                "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-                params=params
-            )
-            
-            if resp.status_code != 200:
-                st.error(f"HTTP Error: {resp.status_code}")
+            data = resp.json()
+            if data.get("status") != "OK":
+                st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
             else:
-                data = resp.json()
-                if data.get("status") != "OK":
-                    st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
-                else:
-                    places = data.get("results", [])
-                    if not places:
-                        st.info("No restaurants found with those criteria.")
-                    for p in places:
-                        st.write(f"**{p.get('name','N/A')}** — Rating: {p.get('rating','N/A')} — {p.get('vicinity','')}")
+                places = data.get("results", [])
+                if not places:
+                    st.info("No restaurants found in your city with those criteria.")
+                for p in places:
+                    st.write(f"**{p.get('name','N/A')}** — Rating: {p.get('rating','N/A')} — {p.get('formatted_address','')}")
 
 # Footer
 st.write("---")

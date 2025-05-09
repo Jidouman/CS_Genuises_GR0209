@@ -137,8 +137,10 @@ if st.button("Search Restaurants"):
 st.write("---")
 st.write("Restaurant Finder • by CS Geniuses 🍴")
 
-# Other features
-elif page == "Visited Restaurants":
+# Sidebar Navigation
+page = st.sidebar.selectbox("Choose a page", ["Restaurant Finder", "Visited Restaurants"])
+
+if page == "Restaurant Finder":
     st.title("Visited Restaurants ⭐")
 
     if "history" not in st.session_state:

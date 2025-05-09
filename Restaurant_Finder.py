@@ -74,25 +74,25 @@ else:
 
 # Maps for robust keywords
 cuisine_map = {
-    "Italian": ["Italian restaurant", "pizzeria", "pizza"],
-    "Swiss":   ["Swiss restaurant", "fondue", "raclette"],
-    "Chinese": ["Chinese restaurant", "dim sum", "noodle"],
-    "Mexican": ["Mexican restaurant", "taco", "burrito"],
-    "Indian":  ["Indian restaurant", "curry", "tandoori"],
-    "Japanese": ["Japanese restaurant", "sushi", "ramen", "izakaya"],
-    "American": ["American restaurant", "burger", "steakhouse"],
-    "Mediterranean": ["Mediterranean restaurant", "meze", "kebabs"],
-    "Vegan":   ["vegan restaurant", "plant based"],
-    "Seafood": ["seafood restaurant", "fish", "oyster bar"]
+    "Italian": ["Italian restaurant", "pizzeria", "pizza", "ristorante", "Italienisches Restaurant"],
+    "Swiss":   ["Swiss restaurant", "fondue", "raclette", "Schweizer Restaurant", "Alpine cuisine"],
+    "Chinese": ["Chinese restaurant", "dim sum", "noodle", "szechuan", "Chinesisches Restaurant"],
+    "Mexican": ["Mexican restaurant", "taco", "burrito", "enchilada", "Mexikanisches Restaurant"],
+    "Indian":  ["Indian restaurant", "curry", "tandoori", "masala", "naan", "Indisches Restaurant"],
+    "Japanese": ["Japanese restaurant", "sushi", "ramen", "izakaya", "udon", "tempura", "Japanisches Restaurant"],
+    "American": ["American restaurant", "burger", "steakhouse", "grill", "fast food", "Amerikanisches Restaurant"],
+    "Mediterranean": ["Mediterranean restaurant", "meze", "kebab", "hummus", "falafel", "grilled vegetables"],
+    "Vegan":   ["vegan restaurant", "plant based", "vegetarian", "Veganes Restaurant", "fleischlos"],
+    "Seafood": ["seafood restaurant", "fish", "oyster bar", "shrimp", "lobster", "Fischrestaurant"]
 }
 
 mood_map = {
-    "Casual": ["casual", "diner"],
-    "Romantic": ["romantic", "cozy", "intimate"],
-    "Family-Friendly": ["family", "kids"],
-    "Business": ["business", "meeting"],
-    "Trendy": ["trendy", "hipster"],
-    "Quiet": ["quiet", "peaceful"]
+    "Casual": ["casual", "diner", "lässig", "Speiselokal"],
+    "Romantic": ["romantic", "cozy", "intimate", "romantisch", "gemütlich"],
+    "Family-Friendly": ["family", "kids", "familienfreundlich", "Kinderfreundlich"],
+    "Business": ["business", "meeting", "geschäftlich", "Business lunch"],
+    "Trendy": ["trendy", "hipster", "angesagt", "modern", "stylish"],
+    "Quiet": ["quiet", "peaceful", "ruhig", "leise"]
 }
 
 # Find Restaurants

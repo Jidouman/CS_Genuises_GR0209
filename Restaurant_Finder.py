@@ -5,16 +5,18 @@ import requests
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 
+# Set page configuration (must be the first Streamlit command)
+st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
+
 # Load API keys from environment variables (e.g. set via GitHub Actions or your host)
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 OPENCAGE_API_KEY = os.environ.get("OPENCAGE_API_KEY")
+
+# Warn if keys missing
 if not GOOGLE_API_KEY:
     st.error("Missing GOOGLE_API_KEY environment variable.")
 if not OPENCAGE_API_KEY:
     st.warning("OPENCAGE_API_KEY not set—reverse geocoding may fail.")
-
-# Set page configuration
-st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
 
 # Title and Introduction
 st.title("Restaurant Finder 🍴")
@@ -59,7 +61,7 @@ latitude = longitude = None
 if location:
     latitude = location.get("latitude")
     longitude = location.get("longitude")
-    if latitude and longitude:
+    if latitude and longitude and OPENCAGE_API_KEY:
         # Reverse Geocoding to get city name
         geocoding_api_url = (
             f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}"
@@ -72,6 +74,8 @@ if location:
             st.write(f"**You are in** **{city}** — {latitude}, {longitude}")
         else:
             st.write("Unable to fetch city name. Please check your OPENCAGE_API_KEY or network.")
+    elif latitude and longitude:
+        st.write(f"Coordinates: {latitude}, {longitude}")
     else:
         st.write("Invalid coordinates received.")
 else:
@@ -82,6 +86,8 @@ st.subheader("Find Restaurants")
 if st.button("Search Restaurants"):
     if not latitude or not longitude:
         st.error("Location not available. Cannot search without coordinates.")
+    elif not GOOGLE_API_KEY:
+        st.error("Missing GOOGLE_API_KEY; cannot call Google Places API.")
     else:
         # 1. Price flags: map $ to minprice/maxprice (0–4)
         price_map = {"$": (0, 1), "$$": (1, 2), "$$$": (2, 3), "$$$$": (3, 4)}
@@ -141,7 +147,7 @@ if st.button("Search Restaurants"):
             data = response.json()
             status = data.get("status")
             if status != "OK":
-                st.error(f"Google Places API error: {status} — {data.get('error_message','')}")
+                st.error(f"Google Places API error: {status} — {data.get('error_message','')}" )
             else:
                 places = data.get("results", [])
                 if not places:

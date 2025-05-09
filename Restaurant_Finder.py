@@ -74,7 +74,7 @@ cuisine_map = {
     "Korean":  ["Korean", "kimchi", "bulgogi", "bibimbap", "Koreanisch", "Korean BBQ"],
     "Vietnamese": ["Vietnamese", "pho", "banh mi", "spring rolls", "Vietnamese restaurant", "Vietnamesisch"],
     "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger"],
-    "Turkish": ["Turkish", "kebab", "doner", "lahmacun", "Turkish restaurant", "Türkisch"],
+    "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"],
 }
 
 

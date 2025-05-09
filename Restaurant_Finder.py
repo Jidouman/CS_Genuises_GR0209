@@ -6,7 +6,7 @@ from streamlit_geolocation import streamlit_geolocation
 
 
 # Set page configuration
-st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
+st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # 
 
 # Title and Introduction
 st.title("Restaurant Finder 🍴")
@@ -64,7 +64,7 @@ if location:
                    'Unknown Location'
             st.write(f"**You are in** **{city}** - {latitude}, {longitude}")
         else:
-            st.write("Unable to fetch city name. Please check your API key or network connection.")
+            st.write("Unable to fetch city name. Please check if you allowed the location (pop-up) or your network connection.")
     else:
         st.write("Invalid coordinates received.")
 else:

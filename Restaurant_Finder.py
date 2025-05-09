@@ -25,10 +25,10 @@ Simply select your criteria below, and we'll help you find the perfect spot.
 # User Inputs
 st.subheader("Search Criteria")
 
-# Price Range
+# Price Range with option to ignore
 price_range = st.selectbox(
     "Select your price range:",
-    ["$", "$$", "$$$", "$$$$"]
+    ["Any", "$", "$$", "$$$", "$$$$"]
 )
 
 # Cuisine Selection
@@ -98,51 +98,4 @@ mood_map = {
 # Find Restaurants
 st.subheader("Find Restaurants")
 if st.button("Search Restaurants"):
-    if not (latitude and longitude and GOOGLE_API_KEY):
-        st.error("Missing location or API key. Cannot search.")
-    else:
-        # Price flags
-        price_map = {"$": (0,1), "$$": (1,2), "$$$": (2,3), "$$$$": (3,4)}
-        min_price, max_price = price_map[price_range]
-
-        # Radius
-        radius_m = distance * 1000
-
-        # Build keyword list
-        selected_cuisines = [term for ft in food_type for term in cuisine_map.get(ft, [])]
-        selected_moods    = mood_map.get(mood, [])
-        keyword = " ".join(selected_cuisines + selected_moods)
-
-        params = {
-            "key": GOOGLE_API_KEY,
-            "location": f"{latitude},{longitude}",
-            "radius": radius_m,
-            "type": "restaurant",
-            "keyword": keyword,
-            "minprice": min_price,
-            "maxprice": max_price,
-            "opennow": True,
-            "language": "en"
-        }
-
-        resp = requests.get(
-            "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-            params=params
-        )
-
-        if resp.status_code != 200:
-            st.error(f"HTTP Error: {resp.status_code}")
-        else:
-            data = resp.json()
-            if data.get("status") != "OK":
-                st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
-            else:
-                places = data.get("results", [])
-                if not places:
-                    st.info("No restaurants found with those criteria.")
-                for p in places:
-                    st.write(f"**{p.get('name','N/A')}** — Rating: {p.get('rating','N/A')} — {p.get('vicinity','')}")
-
-# Footer
-st.write("---")
-st.write("Restaurant Finder • by CS Geniuses 🍴")
+    if not (latitude and longitude and GOOGLE

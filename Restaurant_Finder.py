@@ -5,7 +5,7 @@ from streamlit_geolocation import streamlit_geolocation
 # Set page configuration (must be first)
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
 
-# Load API keys from Streamlit Cloud secrets
+# Load API keys from Streamlit secrets management, retreieve from https://docs.streamlit.io/develop/concepts/connections/secrets-management
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY")
 

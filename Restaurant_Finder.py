@@ -28,9 +28,9 @@ price_range = st.multiselect(
 )
 
 # Cuisine Selection
-food_type = st.multiselect(
+food_type = st.selectbox(
     "What type of food are you in the mood for?",
-    ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish","Korean", "Vietnamese"],
+    ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese"]
 )
 
 # Distance
@@ -98,7 +98,7 @@ if st.button("Search Restaurants"):
             radius_m = distance * 1000
 
             # Build keyword list
-            selected_cuisines = [term for ft in food_type for term in cuisine_map.get(ft, [])]
+            selected_cuisines = cuisine_map.get(food_type, [])
             keyword = " ".join(selected_cuisines)
 
             # Build params dict

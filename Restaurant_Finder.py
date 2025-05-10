@@ -21,6 +21,24 @@ with st.sidebar:
         default_index=0
     )
 
+# Cuisine map shared between both pages
+# ⚠️ Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
+# That's why it is defined here — before the conditional blocks — to ensure
+# it is accessible no matter which page the user is on.
+cuisine_map = {
+    "Italian": ["Italian", "pizzeria", "pizza", "ristorante", "Italienisch", "Pasta", "Spaghetti"],
+    "Swiss":   ["Swiss", "Schweizer", "restaurant", "fondue", "raclette", "Alpenküche"],
+    "Chinese": ["Chinese", "dim sum", "noodle", "szechuan", "Chinesisch"],
+    "Mexican": ["Mexican", "taco", "burrito", "enchilada", "Mexikanisch", "Tacos"],
+    "Indian":  ["Indian", "curry", "tandoori", "masala", "naan", "Indisch", "Curry"],
+    "Thai":    ["Thai", "pad thai", "green curry", "red curry", "Tom Yum", "Thailändisch"],
+    "Japanese": ["Japanese restaurant", "sushi", "ramen", "izakaya", "udon", "tempura", "Japanisch", "Sushi"],
+    "Korean":  ["Korean", "kimchi", "bulgogi", "bibimbap", "Koreanisch", "Korean BBQ"],
+    "Vietnamese": ["Vietnamese", "pho", "banh mi", "spring rolls", "Vietnamese restaurant", "Vietnamesisch"],
+    "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger"],
+    "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"]
+}
+
 # Main Page
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
@@ -67,21 +85,6 @@ if location:
         st.write("Invalid coordinates received.")
 else:
     st.write("Enable location services to fetch your coordinates.")
-
-# Maps for robust keywords
-cuisine_map = {
-    "Italian": ["Italian", "pizzeria", "pizza", "ristorante", "Italienisch", "Pasta", "Spaghetti"],
-    "Swiss":   ["Swiss", "Schweizer", "restaurant", "fondue", "raclette", "Alpenküche"],
-    "Chinese": ["Chinese", "dim sum", "noodle", "szechuan", "Chinesisch"],
-    "Mexican": ["Mexican", "taco", "burrito", "enchilada", "Mexikanisch", "Tacos"],
-    "Indian":  ["Indian", "curry", "tandoori", "masala", "naan", "Indisch", "Curry"],
-    "Thai":    ["Thai", "pad thai", "green curry", "red curry", "Tom Yum", "Thailändisch"],
-    "Japanese": ["Japanese restaurant", "sushi", "ramen", "izakaya", "udon", "tempura", "Japanisch", "Sushi"],
-    "Korean":  ["Korean", "kimchi", "bulgogi", "bibimbap", "Koreanisch", "Korean BBQ"],
-    "Vietnamese": ["Vietnamese", "pho", "banh mi", "spring rolls", "Vietnamese restaurant", "Vietnamesisch"],
-    "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger"],
-    "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"],
-}
 
 # Find Restaurants
 st.subheader("Find Restaurants")
@@ -171,6 +174,8 @@ Rating: {rating}
 st.write("---")
 st.write("Restaurant Finder • by CS Geniuses 🍴")
 
+# Visited Restaurants Page
+# This page allows users to keep track of restaurants they have visited and rate them.
 elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
 

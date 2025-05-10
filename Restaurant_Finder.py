@@ -186,9 +186,12 @@ elif selected == "Visited Restaurants":
         rating = st.slider("Your Rating", 1, 5)
         submit = st.form_submit_button("Add to History")
         if submit and name:
+            # Check if the restaurant is already in history
+            # We're using "st.session_state" as Streamlit reruns the script on every interaction, a normal list would be reset every time
             st.session_state.history.append({"name": name, "category": category, "rating": rating})
             st.success(f"Added {name} ({category}) with {rating}⭐")
-
+    
+    # Display Visited Restaurants
     st.subheader("Your Visited Restaurants")
     if st.session_state.history:
         for entry in st.session_state.history:

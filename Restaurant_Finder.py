@@ -4,8 +4,8 @@ import requests
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 
-# Set page configuration (must be first)
-st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
+# Set page configuration (must be first) 
+st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
 
 # Load API keys from Streamlit secrets management
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")

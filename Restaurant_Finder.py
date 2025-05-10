@@ -157,10 +157,19 @@ if selected == "Restaurant Finder":
     """)
                             # Google Maps link button
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
-                            st.markdown(
-                                f'<a href="{maps_url}" target="_blank"><button style="padding:6px 12px; border-radius:4px;">Open in Google Maps</button></a>',
-                                unsafe_allow_html=True
-                         )
+                            # Feature: Automatically save restaurant to visited list when user clicks 'Open in Google Maps'
+# Source: https://docs.streamlit.io/library/api-reference/session-state
+# Source: https://github.com/andfanilo/streamlit-javascript
+if st.button(f"Visit & Open in Google Maps: {name}"):
+    st_javascript(f"window.open('{maps_url}')")
+    if "history" not in st.session_state:
+        st.session_state.history = []
+    st.session_state.history.append({
+        "name": name,
+        "category": food_type,
+        "rating": 0  # Default rating to be updated manually later
+    })
+    st.success(f"{name} added to your visited list.")
                         with col2:
                             photos = p.get('photos')
                             if photos:

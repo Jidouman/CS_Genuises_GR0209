@@ -11,12 +11,23 @@ st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retr
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY")
 
-# Title and Introduction
-st.title("Restaurant Finder 🍴")
-st.write("""
-Welcome to the Restaurant Finder! Use this app to discover restaurants in Switzerland that match your preferences.
-Simply select your criteria below, and we'll help you find the perfect spot.
-""")
+# Sidebar Navigation code retrieved from Youtube video: https://www.youtube.com/watch?v=flFy5o-2MvIE
+with st.sidebar:
+    selected = option_menu(
+        menu_title="Navigation",
+        options=["Restaurant Finder", "Visited Restaurants"],
+        icons=["geo-alt-fill", "star-fill"],
+        menu_icon="👨‍🍳",
+        default_index=0
+    )
+
+# Main Page
+if selected == "Restaurant Finder":
+    st.title("Restaurant Finder 🍴")
+    st.write("""      
+    Welcome to the Restaurant Finder! Use this app to discover restaurants in Switzerland that match your preferences.
+    Simply select your criteria below, and we'll help you find the perfect spot.
+    You can also keep track of the restaurants you've visited and rate them. Enjoy your meal!""")
 
 # User Inputs
 st.subheader("Search Criteria")
@@ -160,11 +171,7 @@ Rating: {rating}
 st.write("---")
 st.write("Restaurant Finder • by CS Geniuses 🍴")
 
-
-# Sidebar Navigation
-page = st.sidebar.selectbox("Choose a page", ["Restaurant Finder", "Visited Restaurants"])
-
-if page == "Restaurant Finder":
+elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
 
     if "history" not in st.session_state:
@@ -185,3 +192,6 @@ if page == "Restaurant Finder":
             st.write(f"**{entry['name']}** ({entry['category']}) — {entry['rating']}⭐")
     else:
         st.info("No visits added yet.")
+# Footer
+st.write("---")
+st.write("Restaurant Finder • by CS Geniuses 🍴")

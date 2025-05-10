@@ -172,10 +172,6 @@ if selected == "Restaurant Finder":
                                 st.image(photo_url, width=200)
                         st.write("---")
 
-    # Footer
-    st.write("---")
-    st.write("Restaurant Finder • by CS Geniuses 🍴")
-
 # Visited Restaurants Page
 # This page allows users to keep track of restaurants they have visited and rate them.
 elif selected == "Visited Restaurants":
@@ -201,4 +197,4 @@ elif selected == "Visited Restaurants":
         st.info("No visits added yet.")
 # Footer
 st.write("---")
-st.write("Restaurant Finder • by CS Geniuses 🍴")
+st.write("Restaurant Finder • by CS Geniuses 🍴 • Powered by Google Maps and OpenCage")

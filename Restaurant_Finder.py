@@ -161,15 +161,15 @@ if selected == "Restaurant Finder":
 # Source: https://docs.streamlit.io/library/api-reference/session-state
 # Source: https://github.com/andfanilo/streamlit-javascript
 if st.button(f"Visit & Open in Google Maps: {name}"):
-    st_javascript(f"window.open('{maps_url}')")
     if "history" not in st.session_state:
         st.session_state.history = []
     st.session_state.history.append({
         "name": name,
         "category": food_type,
-        "rating": 0  # Default rating to be updated manually later
+        "rating": 0  # Default rating
     })
     st.success(f"{name} added to your visited list.")
+    st_javascript(f"window.open('{maps_url}')")
                         with col2:
                             photos = p.get('photos')
                             if photos:

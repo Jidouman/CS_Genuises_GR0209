@@ -19,7 +19,7 @@ with st.sidebar:
         icons=["geo-alt-fill", "star-fill"],
         menu_icon="👨‍🍳",
         default_index=0
-        )
+    )
 
 # Cuisine map shared between both pages
 # ⚠️ Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).

@@ -157,7 +157,19 @@ if selected == "Restaurant Finder":
     """)
                             # Google Maps link button
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
-                            # Feature: Automatically save restaurant to visited list when user clicks 'Open in Google Maps'
+                                                        # Feature: Automatically save restaurant when user clicks 'Open in Google Maps'
+                            # References: session_state & streamlit-javascript
+                            maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
+                            if st.button("Visit & Open Google Maps"):
+                                if "history" not in st.session_state:
+                                    st.session_state.history = []
+                                already = any(e["name"].lower()==name.lower() for e in st.session_state.history)
+                                if not already:
+                                    st.session_state.history.append({"name":name,"category":food_type,"rating":0})
+                                    st.success(f"{name} added to visited list.")
+                                else:
+                                    st.info(f"{name} already visited.")
+                                st_javascript(f"window.open('{maps_url}')")
 # Source: https://docs.streamlit.io/library/api-reference/session-state
 # Source: https://github.com/andfanilo/streamlit-javascript
 # Feature: Automatically save restaurant to visited list when user clicks 'Open in Google Maps'

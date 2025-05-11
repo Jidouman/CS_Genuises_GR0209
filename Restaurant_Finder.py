@@ -186,16 +186,16 @@ if selected == "Restaurant Finder":
     # Open Google Maps in new tab
     st_javascript(f"window.open('{maps_url}')")
 
-                        with col2:
-                            photos = p.get('photos')
-                            if photos:
-                                photo_ref = photos[0].get('photo_reference')
-                                photo_url = (
-                                    f"https://maps.googleapis.com/maps/api/place/photo"
-                                    f"?maxwidth=200&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
-                                )
-                                st.image(photo_url, width=200)
-                        st.write("---")
+    with col2:
+        photos = p.get('photos')
+        if photos:
+            photo_ref = photos[0].get('photo_reference')
+            photo_url = (
+                f"https://maps.googleapis.com/maps/api/place/photo"
+                f"?maxwidth=200&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
+            )
+            st.image(photo_url, width=200)
+    st.write("---")
 
 # Visited Restaurants Page
 # This page allows users to keep track of restaurants they have visited and rate them.

@@ -45,7 +45,7 @@ cuisine_map = {
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
     st.write("""      
-    Welcome to the Restaurant Finder! Use this app to discover restaurants in Switzerland that match your preferences.
+    Welcome to the Restaurant Finder! Use this app to discover restaurants in Switzerland and all over the world that match your preferences!
     Simply select your criteria below, and we'll help you find the perfect spot.
     You can also keep track of the restaurants you've visited and rate them. Enjoy your meal!""")
 

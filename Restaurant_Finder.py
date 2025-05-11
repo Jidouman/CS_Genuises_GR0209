@@ -77,25 +77,39 @@ def get_closing_time(place_id, api_key):
         return None
 
     periods = data["result"]["opening_hours"].get("periods", [])
-    # Google Places uses 0=Sunday,1=Monday,…6=Saturday,
-    # Python’s weekday() is 0=Monday,…6=Sunday, so shift by +1 mod 7:
-    py_wd = datetime.datetime.today().weekday()     # 0=Mon…6=Sun
-    google_wd = (py_wd + 1) % 7                    # 0=Sun…6=Sat
+    # Map Python weekday (0=Mon…6=Sun) to Google Places weekday (0=Sun…6=Sat)
+    py_wd = datetime.datetime.today().weekday()
+    google_wd = (py_wd + 1) % 7
+    now = datetime.datetime.now()
+
+    # Find the period that covers 'now', even if it closes after midnight
     for period in periods:
-        # match the period that actually closes on today’s Google-indexed weekday
-        if period.get("close", {}).get("day") == google_wd:
-            closing = period["close"].get("time")  # e.g., "2200"
-            if closing:
-                close_hour = int(closing[:2])
-                close_minute = int(closing[2:])
-                now = datetime.datetime.now()
-                close_time = now.replace(hour=close_hour, minute=close_minute, second=0, microsecond=0)
-                if close_time < now:
-                    return "Already closed today"
-                delta = close_time - now
-                hours, remainder = divmod(delta.seconds, 3600)
-                minutes = remainder // 60
-                return f"Closing at: {close_hour:02d}:{close_minute:02d} ({hours:02d}h{minutes:02d} remaining)"
+        o = period.get("open", {})
+        c = period.get("close", {})
+        d_open, t_open = o.get("day"), o.get("time")
+        d_close, t_close = c.get("day"), c.get("time")
+        if d_open is None or d_close is None or not t_open or not t_close:
+            continue
+
+        # Compute the actual open datetime (most recent d_open)
+        diff_open = (google_wd - d_open) % 7
+        open_date = now.date() - datetime.timedelta(days=diff_open)
+        oh, om = int(t_open[:2]), int(t_open[2:])
+        open_dt = datetime.datetime.combine(open_date, datetime.time(oh, om))
+
+        # Compute close datetime (may roll into next calendar day)
+        diff_close = (d_close - d_open) % 7
+        close_date = open_date + datetime.timedelta(days=diff_close)
+        ch, cm = int(t_close[:2]), int(t_close[2:])
+        close_dt = datetime.datetime.combine(close_date, datetime.time(ch, cm))
+
+        # If 'now' falls between open_dt and close_dt, show remaining
+        if open_dt <= now <= close_dt:
+            remaining = close_dt - now
+            hrs, rem = divmod(int(remaining.total_seconds()), 3600)
+            mins = rem // 60
+            return f"Closing at: {ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)"
+
     return "Closing info not available"
 
 # Main Page

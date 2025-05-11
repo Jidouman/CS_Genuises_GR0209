@@ -168,22 +168,23 @@ if selected == "Restaurant Finder":
 
                             # Google Maps link button
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
-                            if st.button(f"Visit & Open in Google Maps: {name}"):
-                                # Automatically add to visited history
+                            if st.button("Visit & Open Google Maps"):
                                 if "history" not in st.session_state:
                                     st.session_state.history = []
-                                # Check if the restaurant is already in history
+
                                 already_visited = any(entry["name"].lower() == name.lower() for entry in st.session_state.history)
                                 if not already_visited:
                                     st.session_state.history.append({
                                         "name": name,
                                         "category": food_type,
-                                        "rating": 0  # Default rating
+                                        "rating": 0
                                     })
                                     st.success(f"{name} added to your visited list.")
                                 else:
                                     st.info(f"{name} is already in your visited list.")
-                                st_javascript(f"window.open('{maps_url}')")
+    
+    # Open Google Maps in new tab
+    st_javascript(f"window.open('{maps_url}')")
 
                         with col2:
                             photos = p.get('photos')

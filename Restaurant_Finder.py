@@ -1,19 +1,18 @@
 import streamlit as st
 from streamlit_js_eval import streamlit_js_eval  # For geolocation
 import requests
-from streamlit_javascript import st_javascript
+from streamlit_javascript import st_javascript  # For opening links client-side
 from streamlit_geolocation import streamlit_geolocation
-from streamlit_option_menu import option_menu # For sidebar navigation
+from streamlit_option_menu import option_menu  # For sidebar navigation
 
+# Page config
+st.set_page_config(page_title="Restaurant Finder", page_icon="🍴")
 
-# Set page configuration (must be first) 
-st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
-
-# Load API keys from Streamlit secrets management
+# API keys
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY")
 
-# Sidebar Navigation code retrieved from Youtube video: https://www.youtube.com/watch?v=flFy5o-2MvIE
+# Sidebar navigation
 with st.sidebar:
     selected = option_menu(
         menu_title="Navigation",
@@ -23,216 +22,137 @@ with st.sidebar:
         default_index=0
     )
 
-# Cuisine map shared between both pages
-# ⚠️ Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
-# That's why it is defined here — before the conditional blocks — to ensure
-# it is accessible no matter which page the user is on.
+# Shared cuisine map
 cuisine_map = {
-    "Italian": ["Italian", "pizzeria", "pizza", "ristorante", "Italienisch", "Pasta", "Spaghetti"],
-    "Swiss":   ["Swiss", "Schweizer", "restaurant", "fondue", "raclette", "Alpenküche"],
-    "Chinese": ["Chinese", "dim sum", "noodle", "szechuan", "Chinesisch"],
-    "Mexican": ["Mexican", "taco", "burrito", "enchilada", "Mexikanisch", "Tacos"],
-    "Indian":  ["Indian", "curry", "tandoori", "masala", "naan", "Indisch", "Curry"],
-    "Thai":    ["Thai", "pad thai", "green curry", "red curry", "Tom Yum", "Thailändisch"],
-    "Japanese": ["Japanese restaurant", "sushi", "ramen", "izakaya", "udon", "tempura", "Japanisch", "Sushi"],
-    "Korean":  ["Korean", "kimchi", "bulgogi", "bibimbap", "Koreanisch", "Korean BBQ"],
-    "Vietnamese": ["Vietnamese", "pho", "banh mi", "spring rolls", "Vietnamese restaurant", "Vietnamesisch"],
-    "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger"],
-    "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"]
+    "Italian": ["Italian", "pizzeria", "pizza", "ristorante"],
+    "Swiss":   ["Swiss", "fondue", "raclette", "Schweizer"],
+    "Chinese": ["Chinese", "dim sum", "noodle"],
+    "Mexican": ["Mexican", "taco", "burrito"],
+    "Indian":  ["Indian", "curry", "naan"],
+    "Thai":    ["Thai", "pad thai", "green curry"],
+    "Japanese": ["Japanese", "sushi", "ramen"],
+    "Korean":  ["Korean", "kimchi", "bibimbap"],
+    "Vietnamese": ["Vietnamese", "pho", "banh mi"],
+    "American": ["American", "burger", "steakhouse"],
+    "Turkish": ["Turkish", "kebab", "döner"]
 }
 
-# Main Page
+# Restaurant Finder Page
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
-    st.write("""      
-    Welcome to the Restaurant Finder! Use this app to discover restaurants in Switzerland that match your preferences.
-    Simply select your criteria below, and we'll help you find the perfect spot.
-    You can also keep track of the restaurants you've visited and rate them. Enjoy your meal!""")
+    st.write("Use this app to discover restaurants in Switzerland. Select criteria below.")
 
-    # User Inputs
-    st.subheader("Search Criteria")
-
-    # Price Range
-    price_range = st.multiselect(
-        "Select your price range:",
-        ["$", "$$", "$$$", "$$$$"]
-    )
-
-    # Cuisine Selection
-    food_type = st.selectbox(
-        "Select cuisine type:",
-        ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese"]
-    )
+    # Inputs
+    price_range = st.multiselect("Select your price range:", ["$", "$$", "$$$", "$$$$"])
+    food_type = st.selectbox("Select cuisine type:", list(cuisine_map.keys()))
 
     # Geolocation
     st.subheader("Your Location")
     location = streamlit_geolocation()
-    latitude = longitude = None
     city = None
     if location:
-        latitude = location.get("latitude")
-        longitude = location.get("longitude")
-        if latitude and longitude and OPENCAGE_API_KEY:
-            geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
-            r = requests.get(geocode_url)
-            if r.status_code == 200 and r.json().get("results"):
-                comp = r.json()["results"][0]["components"]
+        lat, lon = location.get("latitude"), location.get("longitude")
+        if lat and lon and OPENCAGE_API_KEY:
+            res = requests.get(
+                f"https://api.opencagedata.com/geocode/v1/json?q={lat}+{lon}&key={OPENCAGE_API_KEY}"
+            ).json()
+            if res.get("results"):
+                comp = res["results"][0]["components"]
                 city = comp.get("city") or comp.get("town") or comp.get("village")
-                st.write(f"**You are in {city}** — {latitude}, {longitude}")
+                st.write(f"**You are in {city}** — {lat}, {lon}")
             else:
                 st.write("Unable to fetch city name.")
-        elif latitude and longitude:
-            st.write(f"Coordinates: {latitude}, {longitude}")
         else:
-            st.write("Invalid coordinates received.")
+            st.write(f"Coordinates: {lat}, {lon}")
     else:
-        st.write("Enable location services to fetch your coordinates.")
+        st.write("Enable location services.")
 
-    # Find Restaurants
-    st.subheader("Find Restaurants")
+    # Search
     if st.button("Search Restaurants"):
-        if not GOOGLE_API_KEY:
-            st.error("Missing API key. Cannot search.")
-        elif not city:
-            st.error("City not determined. Cannot search by city.")
-        elif not price_range:
-            st.error("Please select at least one price range.")
+        if not (GOOGLE_API_KEY and city and price_range):
+            st.error("Missing input or API key.")
         else:
-            # Price flags: map $ to minprice/maxprice (0–4)
-            price_map = {"$": 0, "$$": 1, "$$$": 2, "$$$$": 3}
-            min_price = min(price_map[pr] for pr in price_range)
-            max_price = max(price_map[pr] for pr in price_range)
-
-            # Build keyword list
-            selected_cuisines = cuisine_map.get(food_type, [])
-            cuisine_keyword = " ".join(selected_cuisines)
-
-            # Build text search query by city
-            query = f"restaurants in {city}"
-            if cuisine_keyword:
-                query += f" {cuisine_keyword}"
+            # Build query
+            price_map = {"$":0, "$$":1, "$$$":2, "$$$$":3}
+            min_p = min(price_map[p] for p in price_range)
+            max_p = max(price_map[p] for p in price_range)
+            keywords = " ".join(cuisine_map[food_type])
+            query = f"restaurants in {city} {keywords}"
 
             params = {
                 "key": GOOGLE_API_KEY,
                 "query": query,
-                "type": "restaurant",
-                "minprice": min_price,
-                "maxprice": max_price,
-                "opennow": True,
-                "language": "en"
+                "minprice": min_p,
+                "maxprice": max_p,
+                "opennow": True
             }
+            places = requests.get(
+                "https://maps.googleapis.com/maps/api/place/textsearch/json", params=params
+            ).json().get("results", [])
 
-            # API call to Text Search endpoint
-            resp = requests.get(
-                "https://maps.googleapis.com/maps/api/place/textsearch/json",
-                params=params
-            )
+            # Ensure session history exists
+            if "history" not in st.session_state:
+                st.session_state.history = []
 
-            if resp.status_code != 200:
-                st.error(f"HTTP Error: {resp.status_code}")
-            else:
-                data = resp.json()
-                if data.get("status") != "OK":
-                    st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
-                else:
-                    places = data.get("results", [])
-                    # Sort by rating (highest first) and limit to top 5
-                    places_sorted = sorted(places, key=lambda x: x.get('rating', 0), reverse=True)[:5]
-                    if not places_sorted:
-                        st.info("No restaurants found in your city with those criteria.")
+            # Display top 5
+            for idx, p in enumerate(sorted(places, key=lambda x: x.get("rating",0), reverse=True)[:5], start=1):
+                name = p.get("name","N/A")
+                rating = p.get("rating","N/A")
+                addr = p.get("formatted_address","")
+                maps_url = (
+                    "https://www.google.com/maps/search/?api=1&query=" +
+                    requests.utils.quote(f"{name} {city}")
+                )
 
-                    # Display with ranking, details on left and photo on right
-                    for idx, p in enumerate(places_sorted, start=1):
-                        name = p.get('name', 'N/A')
-                        rating = p.get('rating', 'N/A')
-                        address = p.get('formatted_address', '')
+                col1, col2 = st.columns([3,1])
+                with col1:
+                    # Basic info
+                    st.markdown(f"**{idx}. {name}**  \nRating: {rating}  \n{addr}")
+                    # Show user rating if exists
+                    user_rating = next((e["rating"] for e in st.session_state.history if e["name"].lower()==name.lower()), None)
+                    if user_rating is not None:
+                        st.markdown(f"Your rating: ⭐{user_rating}")
 
-                        # Create two columns: text and image
-                        col1, col2 = st.columns([2, 1])
-                        with col1:
-                            st.markdown(f"""
-    **{idx}. {name}**  
-    Rating: {rating}  
-    {address}
-    """)
-                            # Google Maps link button
-                            maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
-                                                        # Feature: Automatically save restaurant when user clicks 'Open in Google Maps'
-                            # References: session_state & streamlit-javascript
-                            maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
-                            if st.button("Visit & Open Google Maps"):
-                                if "history" not in st.session_state:
-                                    st.session_state.history = []
-                                already = any(e["name"].lower()==name.lower() for e in st.session_state.history)
-                                if not already:
-                                    st.session_state.history.append({"name":name,"category":food_type,"rating":0})
-                                    st.success(f"{name} added to visited list.")
-                                else:
-                                    st.info(f"{name} already visited.")
-                                st_javascript(f"window.open('{maps_url}')")
-# Source: https://docs.streamlit.io/library/api-reference/session-state
-# Source: https://github.com/andfanilo/streamlit-javascript
-# Feature: Automatically save restaurant to visited list when user clicks 'Open in Google Maps'
-# Note: We must save the restaurant BEFORE opening the link, because Streamlit reruns the script on interaction.
-# Source: https://docs.streamlit.io/library/api-reference/session-state
-# Source: https://github.com/andfanilo/streamlit-javascript
-if st.button("Visit & Open Google Maps"):
-    if "history" not in st.session_state:
-        st.session_state.history = []
+                    # Auto-save & open map
+                    if st.button("Visit & Open Google Maps"):
+                        if not any(e["name"].lower()==name.lower() for e in st.session_state.history):
+                            st.session_state.history.append({"name":name,"category":food_type,"rating":0})
+                            st.success(f"{name} added to your visited list.")
+                        else:
+                            st.info(f"{name} already visited.")
+                        st_javascript(f"window.open('{maps_url}')")
 
-    already_visited = any(entry["name"].lower() == name.lower() for entry in st.session_state.history)
-    if not already_visited:
-        st.session_state.history.append({
-            "name": name,
-            "category": food_type,
-            "rating": 0
-        })
-        st.success(f"{name} added to your visited list.")
-    else:
-        st.info(f"{name} is already in your visited list.")
-
-    st_javascript(f"window.open('{maps_url}')")
-                        with col2:
-                            photos = p.get('photos')
-                            if photos:
-                                photo_ref = photos[0].get('photo_reference')
-                                photo_url = (
-                                    f"https://maps.googleapis.com/maps/api/place/photo"
-                                    f"?maxwidth=200&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
-                                )
-                                st.image(photo_url, width=200)
-                        st.write("---")
+                with col2:
+                    photo_ref = p.get("photos",[])
+                    if photo_ref:
+                        url = (
+                            "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200" +
+                            f"&photoreference={photo_ref[0]['photo_reference']}&key={GOOGLE_API_KEY}"
+                        )
+                        st.image(url, width=150)
+                st.markdown("---")
 
 # Visited Restaurants Page
-# This page allows users to keep track of restaurants they have visited and rate them.
-# 📝 This approach is inspired by the Streamlit community and official docs on using `st.session_state`to accumulate user input over time during an interactive session:
-# - https://docs.streamlit.io/library/api-reference/session-state
-# - https://discuss.streamlit.io/t/accumulating-user-inputs-in-a-list/21171/2
-# - https://www.kanaries.net/blog/building-a-chat-app-with-streamlit#handling-user-messages-and-state
 elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
-
     if "history" not in st.session_state:
         st.session_state.history = []
 
     with st.form("add_visit_form"):
-        name = st.text_input("Restaurant Name")
-        category = st.selectbox("Type of Restaurant", list(cuisine_map.keys()))
-        rating = st.slider("Your Rating", 1, 5)
-        submit = st.form_submit_button("Add to History")
-        if submit and name:
-            # Check if the restaurant is already in history
-            # We're using "st.session_state" as Streamlit reruns the script on every interaction, a normal list would be reset every time
-            st.session_state.history.append({"name": name, "category": category, "rating": rating})
-            st.success(f"Added {name} ({category}) with {rating}⭐")
-    
-    # Display Visited Restaurants
+        n = st.text_input("Restaurant Name")
+        c = st.selectbox("Type of Restaurant", list(cuisine_map.keys()))
+        r = st.slider("Your Rating",1,5)
+        if st.form_submit_button("Add to History") and n:
+            st.session_state.history.append({"name":n,"category":c,"rating":r})
+            st.success(f"Added {n} ({c}) — {r}⭐")
+
     st.subheader("Your Visited Restaurants")
     if st.session_state.history:
-        for entry in st.session_state.history:
-            st.write(f"**{entry['name']}** ({entry['category']}) — {entry['rating']}⭐")
+        for e in st.session_state.history:
+            st.write(f"**{e['name']}** ({e['category']}) — {e['rating']}⭐")
     else:
-        st.info("No visits added yet.")
+        st.info("No visits yet.")
+
 # Footer
-st.write("---")
+st.markdown("---")
 st.write("Restaurant Finder • by CS Geniuses 🍴 • Powered by Google Maps and OpenCage")

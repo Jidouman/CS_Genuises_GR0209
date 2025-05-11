@@ -106,7 +106,15 @@ if selected == "Restaurant Finder":
 
     # Find Restaurants
     st.subheader("Find Restaurants")
-    if st.button("Search Restaurants"):
+    # keep the search button “on” even after reruns, so sorting doesn’t clear results
+    if "search_clicked" not in st.session_state:
+        st.session_state.search_clicked = False
+    search_pressed = st.button("Search Restaurants")
+    if search_pressed:
+        st.session_state.search_clicked = True
+
+    # only run the API call & display if the user has clicked “Search” (even on reruns)
+    if st.session_state.search_clicked:
         if not GOOGLE_API_KEY:
             st.error("Missing API key. Cannot search.")
         elif not city:

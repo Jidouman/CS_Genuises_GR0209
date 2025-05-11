@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_js_eval import streamlit_js_eval  # For geolocation
 import requests
+import math # For distance calculation
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 from streamlit_option_menu import option_menu # For sidebar navigation
@@ -162,7 +163,14 @@ if selected == "Restaurant Finder":
                         rating = p.get('rating', 'N/A')
                         address = p.get('formatted_address', '')
                         maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
-
+                        p_loc = p.get("geometry", {}).get("location", {})
+                        rest_lat = p_loc.get("lat")
+                        rest_lng = p_loc.get("lng")
+                        if latitude is not None and longitude is not None and rest_lat is not None and rest_lng is not None:
+                            distance_km = calculate_distance_km(latitude, longitude, rest_lat, rest_lng)
+                        else:
+                            distance_km = "N/A"
+                            
                         # Create two columns: text and image
                         col1, col2 = st.columns([2, 1])
                         with col1:

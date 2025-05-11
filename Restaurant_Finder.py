@@ -58,6 +58,42 @@ def calculate_distance_km(lat1, lon1, lat2, lon2):
 
     return round(R * c, 1)  # return result rounded to 1 decimal place
 
+# Function to get today's closing time for a place using Google Places Details API
+# Source: https://developers.google.com/maps/documentation/places/web-service/details
+# Adapted logic from: https://stackoverflow.com/questions/40745384/how-to-get-open-and-close-time-in-google-places-api
+def get_closing_time(place_id, api_key):
+    url = "https://maps.googleapis.com/maps/api/place/details/json"
+    params = {
+        "place_id": place_id,
+        "fields": "opening_hours",
+        "key": api_key
+    }
+    res = requests.get(url, params=params)
+    if res.status_code != 200:
+        return None
+
+    data = res.json()
+    if "result" not in data or "opening_hours" not in data["result"]:
+        return None
+
+    periods = data["result"]["opening_hours"].get("periods", [])
+    weekday = datetime.datetime.today().weekday()  # Monday = 0
+    for period in periods:
+        if period.get("open", {}).get("day") == weekday:
+            closing = period.get("close", {}).get("time")  # e.g., "1730"
+            if closing:
+                close_hour = int(closing[:2])
+                close_minute = int(closing[2:])
+                now = datetime.datetime.now()
+                close_time = now.replace(hour=close_hour, minute=close_minute, second=0, microsecond=0)
+                if close_time < now:
+                    return "Already closed today"
+                delta = close_time - now
+                hours, remainder = divmod(delta.seconds, 3600)
+                minutes = remainder // 60
+                return f"Closing at: {close_hour:02d}:{close_minute:02d} ({hours:02d}h{minutes:02d} remaining)"
+    return "Closing info not available"
+
 # Main Page
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
@@ -185,6 +221,7 @@ if selected == "Restaurant Finder":
                         name = p.get('name', 'N/A')
                         rating = p.get('rating', 'N/A')
                         address = p.get('formatted_address', '')
+                        closing_info = get_closing_time(p.get("place_id"), GOOGLE_API_KEY) if p.get("place_id") else "N/A"
                         maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
                         p_loc = p.get("geometry", {}).get("location", {})
                         rest_lat = p_loc.get("lat")
@@ -201,7 +238,8 @@ if selected == "Restaurant Finder":
     **{idx}. {name}**  
     Rating: {rating}  
     {address}  
-    Distance from you: {distance_km} km
+    Distance from you: {distance_km} km  
+    {closing_info}
     """)
                             # Google Maps link button
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"

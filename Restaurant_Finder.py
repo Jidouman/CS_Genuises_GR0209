@@ -152,8 +152,12 @@ if selected == "Restaurant Finder":
                     st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
                 else:
                     places = data.get("results", [])
-                    # Sort by rating (highest first) and limit to top 5
-                    places_sorted = sorted(places, key=lambda x: x.get('rating', 0), reverse=True)[:5]
+                    # Let the user choose how to sort the visible results (after loading)
+                    sort_by = st.selectbox("Sort restaurants by:", ["Rating", "Distance"])
+                    if sort_by == "Distance":
+                        places_sorted = sorted(places, key=lambda x: x["distance_km"])[:5]
+                    else:
+                        places_sorted = sorted(places, key=lambda x: x.get("rating", 0), reverse=True)[:5]
                     if not places_sorted:
                         st.info("No restaurants found in your city with those criteria.")
 

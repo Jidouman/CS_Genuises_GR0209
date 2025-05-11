@@ -150,52 +150,46 @@ if selected == "Restaurant Finder":
                         # Create two columns: text and image
                         col1, col2 = st.columns([2, 1])
                         with col1:
-                            # Check if this restaurant was already visited
-                            visited_rating = None
-                            if "history" in st.session_state:
-                                for entry in st.session_state.history:
-                                    if entry["name"].lower() == name.lower():
-                                        visited_rating = entry["rating"]
-                                        break
-
-                            # Build info string
-                            info = f"**{idx}. {name}**  \nRating: {rating}  \n"
-                            if visited_rating is not None:
-                                info += f"Your rating: ⭐{visited_rating}  \n"
-                            info += f"{address}"
-
-                            st.markdown(info)
-
+                            st.markdown(f"""
+    **{idx}. {name}**  
+    Rating: {rating}  
+    {address}
+    """)
                             # Google Maps link button
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
-                            if st.button("Visit & Open Google Maps"):
-                                if "history" not in st.session_state:
-                                    st.session_state.history = []
+                            # Feature: Automatically save restaurant to visited list when user clicks 'Open in Google Maps'
+# Source: https://docs.streamlit.io/library/api-reference/session-state
+# Source: https://github.com/andfanilo/streamlit-javascript
+# Feature: Automatically save restaurant to visited list when user clicks 'Open in Google Maps'
+# Note: We must save the restaurant BEFORE opening the link, because Streamlit reruns the script on interaction.
+# Source: https://docs.streamlit.io/library/api-reference/session-state
+# Source: https://github.com/andfanilo/streamlit-javascript
+if st.button("Visit & Open Google Maps"):
+    if "history" not in st.session_state:
+        st.session_state.history = []
 
-                                already_visited = any(entry["name"].lower() == name.lower() for entry in st.session_state.history)
-                                if not already_visited:
-                                    st.session_state.history.append({
-                                        "name": name,
-                                        "category": food_type,
-                                        "rating": 0
-                                    })
-                                    st.success(f"{name} added to your visited list.")
-                                else:
-                                    st.info(f"{name} is already in your visited list.")
-    
-    # Open Google Maps in new tab
+    already_visited = any(entry["name"].lower() == name.lower() for entry in st.session_state.history)
+    if not already_visited:
+        st.session_state.history.append({
+            "name": name,
+            "category": food_type,
+            "rating": 0
+        })
+        st.success(f"{name} added to your visited list.")
+    else:
+        st.info(f"{name} is already in your visited list.")
+
     st_javascript(f"window.open('{maps_url}')")
-
-    with col2:
-        photos = p.get('photos')
-        if photos:
-            photo_ref = photos[0].get('photo_reference')
-            photo_url = (
-                f"https://maps.googleapis.com/maps/api/place/photo"
-                f"?maxwidth=200&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
-            )
-            st.image(photo_url, width=200)
-    st.write("---")
+                        with col2:
+                            photos = p.get('photos')
+                            if photos:
+                                photo_ref = photos[0].get('photo_reference')
+                                photo_url = (
+                                    f"https://maps.googleapis.com/maps/api/place/photo"
+                                    f"?maxwidth=200&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
+                                )
+                                st.image(photo_url, width=200)
+                        st.write("---")
 
 # Visited Restaurants Page
 # This page allows users to keep track of restaurants they have visited and rate them.

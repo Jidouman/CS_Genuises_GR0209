@@ -77,10 +77,14 @@ def get_closing_time(place_id, api_key):
         return None
 
     periods = data["result"]["opening_hours"].get("periods", [])
-    weekday = datetime.datetime.today().weekday()  # Monday = 0
+    # Google Places uses 0=Sunday,1=Monday,…6=Saturday,
+    # Python’s weekday() is 0=Monday,…6=Sunday, so shift by +1 mod 7:
+    py_wd = datetime.datetime.today().weekday()     # 0=Mon…6=Sun
+    google_wd = (py_wd + 1) % 7                    # 0=Sun…6=Sat
     for period in periods:
-        if period.get("open", {}).get("day") == weekday:
-            closing = period.get("close", {}).get("time")  # e.g., "1730"
+        # match the period that actually closes on today’s Google-indexed weekday
+        if period.get("close", {}).get("day") == google_wd:
+            closing = period["close"].get("time")  # e.g., "2200"
             if closing:
                 close_hour = int(closing[:2])
                 close_minute = int(closing[2:])

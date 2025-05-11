@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_js_eval import streamlit_js_eval  # For geolocation
 import requests
 import math # For distance calculation
+import datetime # For displaying closing time and remaining time of restaurants 
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 from streamlit_option_menu import option_menu # For sidebar navigation
@@ -25,7 +26,7 @@ with st.sidebar:
     )
 
 # Cuisine map shared between both pages
-# ⚠️ Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
+# Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
 # That's why it is defined here — before the conditional blocks — to ensure
 # it is accessible no matter which page the user is on.
 cuisine_map = {
@@ -106,7 +107,7 @@ if selected == "Restaurant Finder":
 
     # Find Restaurants
     st.subheader("Find Restaurants")
-    # keep the search button “on” even after reruns, so sorting doesn’t clear results
+    # keep the search button “on” even after reruns, so sorting doesn’t clear results (before that it was resetting the result display)
     if "search_clicked" not in st.session_state:
         st.session_state.search_clicked = False
     search_pressed = st.button("Search Restaurants")

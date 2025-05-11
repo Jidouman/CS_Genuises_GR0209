@@ -152,14 +152,24 @@ if selected == "Restaurant Finder":
                     st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
                 else:
                     places = data.get("results", [])
+                
+                    places = data.get("results", [])
+                    # Compute distance for each place so we can sort by it
+                    for p in places:
+                        loc = p.get("geometry", {}).get("location", {})
+                        lat2 = loc.get("lat")
+                        lon2 = loc.get("lng")
+                        if latitude is not None and longitude is not None and lat2 is not None and lon2 is not None:
+                            p["distance_km"] = calculate_distance_km(latitude, longitude, lat2, lon2)
+                        else:
+                            # if we don’t have coords, push it to the bottom when sorting
+                            p["distance_km"] = float("inf")
                     # Let the user choose how to sort the visible results (after loading)
                     sort_by = st.selectbox("Sort restaurants by:", ["Rating", "Distance"])
                     if sort_by == "Distance":
                         places_sorted = sorted(places, key=lambda x: x["distance_km"])[:5]
                     else:
                         places_sorted = sorted(places, key=lambda x: x.get("rating", 0), reverse=True)[:5]
-                    if not places_sorted:
-                        st.info("No restaurants found in your city with those criteria.")
 
                     # Display with ranking, details on left and photo on right
                     for idx, p in enumerate(places_sorted, start=1):

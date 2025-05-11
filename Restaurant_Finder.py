@@ -82,31 +82,35 @@ def get_closing_time(place_id, api_key):
     google_wd = (py_wd + 1) % 7
     now = datetime.datetime.now()
 
-    # 1) grab the period that *starts* today
-    today_period = next(
-        (p for p in periods if p.get("open", {}).get("day") == google_wd),
-        None
-    )
-    if not today_period or "close" not in today_period or not today_period["close"].get("time"):
-        return "Closing info not available"
+    for period in periods:
+        o = period.get("open", {})
+        c = period.get("close", {})
+        if not o or not c or "time" not in o or "time" not in c:
+            continue
+        day_open, t_open = o["day"], o["time"]
+        day_close, t_close = c["day"], c["time"]
+        oh, om = int(t_open[:2]), int(t_open[2:])
+        ch, cm = int(t_close[:2]), int(t_close[2:])
 
-    # 2) pull out the close-day and time
-    d_close = today_period["close"]["day"]
-    t_close = today_period["close"]["time"]      # e.g. "2200"
-    ch, cm = int(t_close[:2]), int(t_close[2:])
+        # build the open datetime (nearest past open day)
+        diff_open = (google_wd - day_open) % 7
+        open_date = now.date() - datetime.timedelta(days=diff_open)
+        open_dt = datetime.datetime.combine(open_date, datetime.time(oh, om))
 
-    # 3) build a full datetime for that closing (roll into next day if needed)
-    days_ahead = (d_close - google_wd) % 7
-    close_date = now.date() + datetime.timedelta(days=days_ahead)
-    close_dt = datetime.datetime.combine(close_date, datetime.time(ch, cm))
+        # build the close datetime (rolling into next day(s) if needed)
+        days_to_close = (day_close - day_open) % 7
+        close_date = open_date + datetime.timedelta(days=days_to_close)
+        close_dt = datetime.datetime.combine(close_date, datetime.time(ch, cm))
 
-    # 4) compare
-    if now > close_dt:
-        return "Already closed today"
-    remaining = close_dt - now
-    hrs, rem = divmod(int(remaining.total_seconds()), 3600)
-    mins = rem // 60
-    return f"Closing at: {ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)"
+        # if we're currently in that window, compute remaining time
+        if open_dt <= now <= close_dt:
+            remaining = close_dt - now
+            hrs, rem = divmod(int(remaining.total_seconds()), 3600)
+            mins = rem // 60
+            return f"Closing at: {ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)"
+
+    # fallback if nothing matched (shouldn’t happen for opennow=True)
+    return "Closing info not available"
 
 # Main Page
 if selected == "Restaurant Finder":

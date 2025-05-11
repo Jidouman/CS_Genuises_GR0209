@@ -41,6 +41,21 @@ cuisine_map = {
     "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"]
 }
 
+# Haversine formula to calculate great-circle distance between two lat/lon points
+# Source: https://en.wikipedia.org/wiki/Haversine_formula
+# This will allow us to show how far each restaurant is from the user's location
+def calculate_distance_km(lat1, lon1, lat2, lon2):
+    R = 6371  # Radius of Earth in km
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
+    delta_phi = math.radians(lat2 - lat1)
+    delta_lambda = math.radians(lon2 - lon1)
+
+    a = math.sin(delta_phi / 2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2)**2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    return round(R * c, 1)  # return result rounded to 1 decimal place
+
 # Main Page
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
@@ -146,6 +161,7 @@ if selected == "Restaurant Finder":
                         name = p.get('name', 'N/A')
                         rating = p.get('rating', 'N/A')
                         address = p.get('formatted_address', '')
+                        maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
 
                         # Create two columns: text and image
                         col1, col2 = st.columns([2, 1])
@@ -154,6 +170,7 @@ if selected == "Restaurant Finder":
     **{idx}. {name}**  
     Rating: {rating}  
     {address}
+    Distance from you: {distance_km} km
     """)
                             # Google Maps link button
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"

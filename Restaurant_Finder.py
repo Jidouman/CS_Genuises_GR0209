@@ -150,26 +150,41 @@ if selected == "Restaurant Finder":
                         # Create two columns: text and image
                         col1, col2 = st.columns([2, 1])
                         with col1:
-                            st.markdown(f"""
-    **{idx}. {name}**  
-    Rating: {rating}  
-    {address}
-    """)
+                            # Check if this restaurant was already visited
+                            visited_rating = None
+                            if "history" in st.session_state:
+                                for entry in st.session_state.history:
+                                    if entry["name"].lower() == name.lower():
+                                        visited_rating = entry["rating"]
+                                        break
+
+                            # Build info string
+                            info = f"**{idx}. {name}**  \nRating: {rating}  \n"
+                            if visited_rating is not None:
+                                info += f"Your rating: ⭐{visited_rating}  \n"
+                            info += f"{address}"
+
+                            st.markdown(info)
+
                             # Google Maps link button
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
-                            # Feature: Automatically save restaurant to visited list when user clicks 'Open in Google Maps'
-# Source: https://docs.streamlit.io/library/api-reference/session-state
-# Source: https://github.com/andfanilo/streamlit-javascript
-if st.button(f"Visit & Open in Google Maps: {name}"):
-    if "history" not in st.session_state:
-        st.session_state.history = []
-    st.session_state.history.append({
-        "name": name,
-        "category": food_type,
-        "rating": 0  # Default rating
-    })
-    st.success(f"{name} added to your visited list.")
-    st_javascript(f"window.open('{maps_url}')")
+                            if st.button(f"Visit & Open in Google Maps: {name}"):
+                                # Automatically add to visited history
+                                if "history" not in st.session_state:
+                                    st.session_state.history = []
+                                # Check if the restaurant is already in history
+                                already_visited = any(entry["name"].lower() == name.lower() for entry in st.session_state.history)
+                                if not already_visited:
+                                    st.session_state.history.append({
+                                        "name": name,
+                                        "category": food_type,
+                                        "rating": 0  # Default rating
+                                    })
+                                    st.success(f"{name} added to your visited list.")
+                                else:
+                                    st.info(f"{name} is already in your visited list.")
+                                st_javascript(f"window.open('{maps_url}')")
+
                         with col2:
                             photos = p.get('photos')
                             if photos:

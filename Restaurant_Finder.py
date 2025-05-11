@@ -170,14 +170,14 @@ if selected == "Restaurant Finder":
                             distance_km = calculate_distance_km(latitude, longitude, rest_lat, rest_lng)
                         else:
                             distance_km = "N/A"
-                            
+
                         # Create two columns: text and image
                         col1, col2 = st.columns([2, 1])
                         with col1:
                             st.markdown(f"""
     **{idx}. {name}**  
     Rating: {rating}  
-    {address}
+    {address}  
     Distance from you: {distance_km} km
     """)
                             # Google Maps link button

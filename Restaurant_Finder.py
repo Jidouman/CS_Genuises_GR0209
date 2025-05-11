@@ -102,7 +102,8 @@ def get_closing_time(place_id, api_key):
 
     # 4) compare
     if now > close_dt:
-        return "Already closed today"
+        return """press on "Open in Google Maps" for more details"""
+    # 5) return the closing time and remaining time
     remaining = close_dt - now
     hrs, rem = divmod(int(remaining.total_seconds()), 3600)
     mins = rem // 60

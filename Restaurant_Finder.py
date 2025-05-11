@@ -239,7 +239,7 @@ if selected == "Restaurant Finder":
     Rating: {rating}  
     {address}  
     Distance from you: {distance_km} km  
-    {closing_info}
+    Closing info: {closing_info}
     """)
                             # Google Maps link button
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"

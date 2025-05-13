@@ -46,7 +46,7 @@ def save_history(user, history):
 # Load data
 @st.cache_data
 def load_ml_data():
-    return pd.read_csv("/merged_output_ML.csv")
+    return pd.read_csv("merged_output_ML.csv")
 
 # Train models
 @st.cache_resource

@@ -66,7 +66,7 @@ def train_models(df):
     X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(df_encoded, y_cuisine, test_size=0.2, random_state=42)
     model_cuisine = RandomForestClassifier().fit(X_train_c, y_train_c)
 
-    return model_price, model_cuisine
+    return model_price, model_cuisine, df_encoded.columns
 
 # Make sure we always have a slot for “who’s loaded”
 if "loaded_for" not in st.session_state:
@@ -415,6 +415,7 @@ if selected == "Restaurant Recommender":
         model_price, model_cuisine = train_models(df)
         input_df = pd.DataFrame([[drink_level, dress_preference, hijos, birth_year, activity]], columns=['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'])
         input_encoded = pd.get_dummies(input_df)
+        input_encoded = input_encoded.reindex(columns=model_columns, fill_value=0)
 
         predicted_price = model_price.predict(input_df)[0]
         predicted_cuisine = model_cuisine.predict(input_df)[0]

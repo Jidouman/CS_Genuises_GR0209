@@ -414,6 +414,7 @@ if selected == "Restaurant Recommender":
         df = load_ml_data()
         model_price, model_cuisine = train_models(df)
         input_df = pd.DataFrame([[drink_level, dress_preference, hijos, birth_year, activity]], columns=['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'])
+        input_encoded = pd.get_dummies(input_df)
 
         predicted_price = model_price.predict(input_df)[0]
         predicted_cuisine = model_cuisine.predict(input_df)[0]

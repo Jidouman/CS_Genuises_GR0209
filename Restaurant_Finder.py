@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from streamlit_js_eval import streamlit_js_eval  # For geolocation
 import requests
 import math # For distance calculation
@@ -9,8 +10,10 @@ from streamlit_option_menu import option_menu # For sidebar navigation
 import json # For user visited restaurant save
 import os # For user visited restaurant save
 from collections import Counter
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
 
-# test
 # Set page configuration (must be first) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
 
@@ -39,6 +42,27 @@ def save_history(user, history):
     filename = f"visited_{user.lower().replace(' ', '_')}.json"
     with open(filename, "w") as f:
         json.dump(history, f, indent=2)
+
+# Load data
+@st.cache_data
+def load_ml_data():
+    return pd.read_csv("/merged_output_ML.csv")
+
+# Train models
+@st.cache_resource
+def train_models(df):
+    features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity']
+    X = df[features]
+
+    y_price = df['price']
+    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(X, y_price, test_size=0.2, random_state=42)
+    model_price = RandomForestClassifier().fit(X_train_p, y_train_p)
+
+    y_cuisine = df['Rcuisine']
+    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(X, y_cuisine, test_size=0.2, random_state=42)
+    model_cuisine = RandomForestClassifier().fit(X_train_c, y_train_c)
+
+    return model_price, model_cuisine
 
 # Make sure we always have a slot for “who’s loaded”
 if "loaded_for" not in st.session_state:
@@ -369,6 +393,35 @@ elif selected == "Visited Restaurants":
             st.write(f"**{entry['name']}** ({entry['category']}) — {entry['rating']}⭐")
     else:
         st.info("No visits added yet.")
+
+# User input interface for ML prediction
+with st.sidebar:
+    selected = option_menu("Navigation", ["Restaurant Finder", "Visited Restaurants", "ML Recommender"], icons=["geo-alt-fill", "star-fill", "robot"], menu_icon="👨‍🍳")
+
+if selected == "ML Recommender":
+    st.title("🤖 Restaurant Preference Predictor")
+    st.write("Fill out the form below to get restaurant price and cuisine predictions based on your profile.")
+
+    # Inputs
+    drink_level = st.selectbox("Drink Level", ['abstemious', 'casual drinker', 'social drinker'])
+    dress_preference = st.selectbox("Dress Preference", ['casual', 'elegant', 'no preference'])
+    hijos = st.selectbox("Children", ['indifferent', 'doesn t have', 'has'])
+    birth_year = st.number_input("Birth Year", min_value=1940, max_value=2025, value=1999)
+    activity = st.selectbox("Activity Preference", ['active', 'no preference', 'lazy'])
+
+    # Predict
+    if st.button("Predict Preferences"):
+        df = load_ml_data()
+        model_price, model_cuisine = train_models(df)
+        input_df = pd.DataFrame([[drink_level, dress_preference, hijos, birth_year, activity]], columns=['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'])
+
+        predicted_price = model_price.predict(input_df)[0]
+        predicted_cuisine = model_cuisine.predict(input_df)[0]
+
+        st.success(f"Predicted Price Level: {predicted_price}")
+        st.success(f"Suggested Cuisine: {predicted_cuisine}")
+
+
 # Footer
 st.write("---")
 st.write("Restaurant Finder • by CS Geniuses 🍴 • Powered by Google Maps and OpenCage")

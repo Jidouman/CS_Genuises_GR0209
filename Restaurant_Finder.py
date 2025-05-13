@@ -9,6 +9,7 @@ from streamlit_option_menu import option_menu # For sidebar navigation
 import json
 import os 
 
+# test
 # Set page configuration (must be first) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
 

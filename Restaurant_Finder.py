@@ -52,14 +52,18 @@ def load_ml_data():
 @st.cache_resource
 def train_models(df):
     features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity']
-    X = df[features]
+    
+    # Encode categorical variables
+    df_encoded = pd.get_dummies(df[features])
 
+    # Price model
     y_price = df['price']
-    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(X, y_price, test_size=0.2, random_state=42)
+    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42)
     model_price = RandomForestClassifier().fit(X_train_p, y_train_p)
 
+    # Cuisine model
     y_cuisine = df['Rcuisine']
-    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(X, y_cuisine, test_size=0.2, random_state=42)
+    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(df_encoded, y_cuisine, test_size=0.2, random_state=42)
     model_cuisine = RandomForestClassifier().fit(X_train_c, y_train_c)
 
     return model_price, model_cuisine

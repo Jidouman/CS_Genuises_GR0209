@@ -17,6 +17,26 @@ st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retr
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
 
+# Persisted History Helpers
+def load_history(user):
+    """Load visited_<user>.json or return [] if missing."""
+    filename = f"visited_{user.lower().replace(' ', '_')}.json"
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            return json.load(f)
+    return []
+
+def save_history(user, history):
+    """Write out visited_<user>.json."""
+    filename = f"visited_{user.lower().replace(' ', '_')}.json"
+    with open(filename, "w") as f:
+        json.dump(history, f, indent=2)
+
+# Make sure we always have a slot for “who’s loaded”
+if "loaded_for" not in st.session_state:
+    st.session_state.loaded_for = None
+
+
 # Sidebar Navigation code retrieved from Youtube video: https://www.youtube.com/watch?v=flFy5o-2MvIE
 with st.sidebar:
     selected = option_menu(

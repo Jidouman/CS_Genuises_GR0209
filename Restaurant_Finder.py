@@ -412,7 +412,7 @@ if selected == "Restaurant Recommender":
     # Predict
     if st.button("Predict Preferences"):
         df = load_ml_data()
-        model_price, model_cuisine = train_models(df)
+        model_price, model_cuisine, model_columns = train_models(df)
         input_df = pd.DataFrame([[drink_level, dress_preference, hijos, birth_year, activity]], columns=['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'])
         input_encoded = pd.get_dummies(input_df)
         input_encoded = input_encoded.reindex(columns=model_columns, fill_value=0)

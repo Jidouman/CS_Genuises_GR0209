@@ -7,3 +7,4 @@ streamlit_chat
 streamlit_js_eval
 streamlit_geolocation
 streamlit-option-menu
+scikit-learn

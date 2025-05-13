@@ -1,10 +1,10 @@
 #%% import relevant datasets
 import pandas as pd
 
-df_places = pd.read_csv("/Users/charlescarneiro/Library/Mobile Documents/com~apple~CloudDocs/Exchange/Classes/programming for macro finance/Louis CS project/archive/geoplaces2.csv")
-df_user = pd.read_csv("/Users/charlescarneiro/Library/Mobile Documents/com~apple~CloudDocs/Exchange/Classes/programming for macro finance/Louis CS project/archive/userprofile.csv")
-df_cuisine = pd.read_csv("/Users/charlescarneiro/Library/Mobile Documents/com~apple~CloudDocs/Exchange/Classes/programming for macro finance/Louis CS project/archive/chefmozcuisine.csv")
-df_rating = pd.read_csv("/Users/charlescarneiro/Library/Mobile Documents/com~apple~CloudDocs/Exchange/Classes/programming for macro finance/Louis CS project/archive/rating_final.csv")
+df_places = pd.read_csv("/geoplaces2.csv")
+df_user = pd.read_csv("/userprofile.csv")
+df_cuisine = pd.read_csv("/chefmozcuisine.csv")
+df_rating = pd.read_csv("/rating_final.csv")
 
 
 #%% select only relevant columns

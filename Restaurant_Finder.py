@@ -6,7 +6,8 @@ import datetime # For displaying closing time and remaining time of restaurants
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 from streamlit_option_menu import option_menu # For sidebar navigation
-
+import json
+import os 
 
 # Set page configuration (must be first) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
@@ -24,6 +25,26 @@ with st.sidebar:
         menu_icon="👨‍🍳",
         default_index=0
     )
+
+# 📁 Load and save visited restaurants using JSON files per user
+# Source for this logic:
+# - https://discuss.streamlit.io/t/saving-user-data-to-file/12840/2
+# - https://realpython.com/python-json/
+# - https://github.com/streamlit/streamlit/issues/4716
+# User ID (for persistence)
+username = st.text_input("Enter your name or alias to load/save your visited history:")
+
+def load_history(user):
+    filename = f"visited_{user.lower().replace(' ', '_')}.json"
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            return json.load(f)
+    return []
+
+def save_history(user, history):
+    filename = f"visited_{user.lower().replace(' ', '_')}.json"
+    with open(filename, "w") as f:
+        json.dump(history, f, indent=2)
 
 # Cuisine map shared between both pages
 # Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
@@ -281,7 +302,15 @@ if selected == "Restaurant Finder":
 # - https://www.kanaries.net/blog/building-a-chat-app-with-streamlit#handling-user-messages-and-state
 elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
-
+# Load previous history if user is known
+if username:
+    if "history" not in st.session_state:
+        st.session_state.history = load_history(username)
+else:
+    st.warning("Enter your name to save/load history. Otherwise, history won't persist.")
+    
+    # Display the history
+    # If the user is not known, we can still use session state to keep track of the history during the session
     if "history" not in st.session_state:
         st.session_state.history = []
 
@@ -291,10 +320,18 @@ elif selected == "Visited Restaurants":
         rating = st.slider("Your Rating", 1, 5)
         submit = st.form_submit_button("Add to History")
         if submit and name:
-            # Check if the restaurant is already in history
-            # We're using "st.session_state" as Streamlit reruns the script on every interaction, a normal list would be reset every time
-            st.session_state.history.append({"name": name, "category": category, "rating": rating})
+            new_entry = {"name": name, "category": category, "rating": rating}
+            st.session_state.history.append(new_entry)
             st.success(f"Added {name} ({category}) with {rating}⭐")
+
+            # Save to JSON file if username is provided
+            if username:
+                save_history(username, st.session_state.history)
+
+            if username and st.button("Reset my history"):
+                st.session_state.history = []
+                save_history(username, [])
+                st.success("Your history has been cleared.")
     
     # Display Visited Restaurants
     st.subheader("Your Visited Restaurants")

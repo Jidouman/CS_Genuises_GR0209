@@ -34,6 +34,8 @@ with st.sidebar:
 # We inspired ourself from when2meet.com, which uses a similar approach to save user data.
 # User ID (for persistence)
 username = st.text_input("Enter your name or alias to load/save your visited history:")
+if username:
+    st.success(f"👋 Happy to see you (back), {username}!")
 
 def load_history(user):
     filename = f"visited_{user.lower().replace(' ', '_')}.json"
@@ -303,12 +305,12 @@ if selected == "Restaurant Finder":
 # - https://www.kanaries.net/blog/building-a-chat-app-with-streamlit#handling-user-messages-and-state
 elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
-# Load previous history if user is known
-if username:
-    if "history" not in st.session_state:
-        st.session_state.history = load_history(username)
-else:
-    st.warning("Enter your name to save/load history. Otherwise, history won't persist.")
+    # Load previous history if user is known
+    if username:
+        if "history" not in st.session_state:
+            st.session_state.history = load_history(username)
+    else:
+        st.warning("Enter your name to save/load history. Otherwise, history won't persist.")
     
     # Display the history
     # If the user is not known, we can still use session state to keep track of the history during the session

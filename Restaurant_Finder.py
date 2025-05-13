@@ -17,6 +17,13 @@ st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retr
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
 
+# Load and save visited restaurants using JSON files per user
+# Source for this logic:
+# - https://discuss.streamlit.io/t/saving-user-data-to-file/12840/2
+# - https://realpython.com/python-json/
+# - https://github.com/streamlit/streamlit/issues/4716
+# We inspired ourself from when2meet.com, where you just have a link and enter your name to then load up and modify for example your availabilities (no account or sign-up needed)
+# User ID (for persistence)
 # Persisted History Helpers
 def load_history(user):
     """Load visited_<user>.json or return [] if missing."""
@@ -47,13 +54,7 @@ with st.sidebar:
         default_index=0
     )
 
-# Load and save visited restaurants using JSON files per user
-# Source for this logic:
-# - https://discuss.streamlit.io/t/saving-user-data-to-file/12840/2
-# - https://realpython.com/python-json/
-# - https://github.com/streamlit/streamlit/issues/4716
-# We inspired ourself from when2meet.com, where you just have a link and enter your name to then load up and modify for example your availabilities (no account or sign-up needed)
-# User ID (for persistence)
+# User enter the name he wants to keep track of the visited restaurants (acts as a login account)
 username = st.text_input("Enter your name or alias to load/save your visited history:")
 if username:
     st.success(f"👋 Happy to see you (back), {username}!")
@@ -63,22 +64,9 @@ if username and st.session_state.loaded_for != username:
     st.session_state.history = load_history(username)
     st.session_state.loaded_for = username
 
-def load_history(user):
-    filename = f"visited_{user.lower().replace(' ', '_')}.json"
-    if os.path.exists(filename):
-        with open(filename, "r") as f:
-            return json.load(f)
-    return []
-
-#Persist per-username history
-# Remember which username we’ve already loaded, so we can reload if they switch names.
-if "loaded_for" not in st.session_state:
-    st.session_state.loaded_for = None
-
-def save_history(user, history):
-    filename = f"visited_{user.lower().replace(' ', '_')}.json"
-    with open(filename, "w") as f:
-        json.dump(history, f, indent=2)
+# (Optional) Initialize history list if it wasn’t loaded
+if "history" not in st.session_state:
+    st.session_state.history = []
 
 # Cuisine map shared between both pages
 # Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).

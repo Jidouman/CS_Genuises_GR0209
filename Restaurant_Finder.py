@@ -54,24 +54,6 @@ with st.sidebar:
         default_index=0
     )
 
-# User enter the name he wants to keep track of the visited restaurants (acts as a login account)
-username = st.text_input("Enter your name or alias to load/save your visited history:")
-if username:
-    st.success(f"👋 Happy to see you (back), {username}!")
-
-# Whenever the input username changes, pull in their saved JSON (or empty list)
-if username and st.session_state.loaded_for != username:
-    st.session_state.history = load_history(username)
-    st.session_state.loaded_for = username
-
-if not username: # In case we don't have username, it allows to wipe everything when they delete their name
-    st.session_state.loaded_for = None
-    st.session_state.history = []
-
-# (Optional) Initialize history list if it wasn’t loaded
-if "history" not in st.session_state:
-    st.session_state.history = []
-
 # Cuisine map shared between both pages
 # Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
 # That's why it is defined here — before the conditional blocks — to ensure
@@ -328,6 +310,23 @@ if selected == "Restaurant Finder":
 # - https://www.kanaries.net/blog/building-a-chat-app-with-streamlit#handling-user-messages-and-state
 elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
+    # User enter the name he wants to keep track of the visited restaurants (acts as a login account)
+    username = st.text_input("Enter your name or alias to load/save your visited history:")
+    if username:
+        st.success(f"👋 Happy to see you (back), {username}!")
+
+    # Whenever the input username changes, pull in their saved JSON (or empty list)
+    if username and st.session_state.loaded_for != username:
+        st.session_state.history = load_history(username)
+        st.session_state.loaded_for = username
+
+    if not username: # In case we don't have username, it allows to wipe everything when they delete their name
+        st.session_state.loaded_for = None
+        st.session_state.history = []
+
+    # (Optional) Initialize history list if it wasn’t loaded
+    if "history" not in st.session_state:
+        st.session_state.history = []
     if not username: # To ensure we can keep track of the visited reataurants ID, we invite the user to enter their name or username!
         st.warning("Enter your name to save/load history. Otherwise, history won't persist.")
 

@@ -32,11 +32,21 @@ with st.sidebar:
 # - https://discuss.streamlit.io/t/saving-user-data-to-file/12840/2
 # - https://realpython.com/python-json/
 # - https://github.com/streamlit/streamlit/issues/4716
-# We inspired ourself from when2meet.com, which uses a similar approach to save user data.
+# We inspired ourself from when2meet.com, where you just have a link and enter your name to then load up and modify for example your availabilities (no account or sign-up needed)
 # User ID (for persistence)
 username = st.text_input("Enter your name or alias to load/save your visited history:")
 if username:
     st.success(f"👋 Happy to see you (back), {username}!")
+
+#Persist per-username history
+# Remember which username we’ve already loaded, so we can reload if they switch names.
+if "loaded_for" not in st.session_state:
+    st.session_state.loaded_for = None
+
+# Whenever the input username changes, pull in their saved JSON (or empty list)
+if username and st.session_state.loaded_for != username:
+    st.session_state.history = load_history(username)
+    st.session_state.loaded_for = username
 
 def load_history(user):
     filename = f"visited_{user.lower().replace(' ', '_')}.json"
@@ -306,15 +316,10 @@ if selected == "Restaurant Finder":
 # - https://www.kanaries.net/blog/building-a-chat-app-with-streamlit#handling-user-messages-and-state
 elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
-    # Load previous history if user is known
-    if username:
-        if "history" not in st.session_state:
-            st.session_state.history = load_history(username)
-    else:
+    if not username: # To ensure we can keep track of the visited reataurants ID, we invite the user to enter their name or username!
         st.warning("Enter your name to save/load history. Otherwise, history won't persist.")
-    
-    # Display the history
-    # If the user is not known, we can still use session state to keep track of the history during the session
+
+    # Ensure there's at least a list to append to
     if "history" not in st.session_state:
         st.session_state.history = []
 

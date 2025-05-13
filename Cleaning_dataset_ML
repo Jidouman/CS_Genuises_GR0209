@@ -1,0 +1,43 @@
+#%% import relevant datasets
+import pandas as pd
+
+df_places = pd.read_csv("/Users/charlescarneiro/Library/Mobile Documents/com~apple~CloudDocs/Exchange/Classes/programming for macro finance/Louis CS project/archive/geoplaces2.csv")
+df_user = pd.read_csv("/Users/charlescarneiro/Library/Mobile Documents/com~apple~CloudDocs/Exchange/Classes/programming for macro finance/Louis CS project/archive/userprofile.csv")
+df_cuisine = pd.read_csv("/Users/charlescarneiro/Library/Mobile Documents/com~apple~CloudDocs/Exchange/Classes/programming for macro finance/Louis CS project/archive/chefmozcuisine.csv")
+df_rating = pd.read_csv("/Users/charlescarneiro/Library/Mobile Documents/com~apple~CloudDocs/Exchange/Classes/programming for macro finance/Louis CS project/archive/rating_final.csv")
+
+
+#%% select only relevant columns
+columns_to_drop = [
+    'latitude', 'smoker', 'longitude', 'transport', 'marital_status',
+    'interest', 'religion', 'color', 'budget', 'height', 'weight', 'ambience','personality'
+]
+
+df_user_new = df_user.drop(columns=columns_to_drop, errors='ignore')  # 'errors="ignore"' prevents errors if a column is missing
+
+# Columns to drop
+columns_to_drop2 = [
+    'latitude', 'longitude', 'the_geom_meter', 'name', 'address', 'city',
+    'state', 'country', 'fax', 'zip', 'alcohol', 'smoking_area', 'dress_code',
+    'accessibility', 'url', 'Rambience', 'franchise', 'area', 'other_services'
+]
+
+# Drop the columns
+df_places_new = df_places.drop(columns=columns_to_drop2, errors='ignore')
+
+# Columns to drop
+columns_to_drop3 = ['rating', 'food_rating', 'service_rating']
+
+# Drop the columns
+df_rating_new = df_rating.drop(columns=columns_to_drop3, errors='ignore')
+
+#%% Merging
+
+# Merge them on 'userID' and 'placeID'
+merged_df = df_places_new.merge(df_cuisine, on='placeID', how='inner') 
+
+merged_df1 = df_rating_new.merge(df_user_new,on='userID', how='inner')
+
+merged_df_final = merged_df.merge(merged_df1,on='placeID', how='inner')
+# %% save the file
+merged_df_final.to_csv('merged_output_ML.csv', index=False)

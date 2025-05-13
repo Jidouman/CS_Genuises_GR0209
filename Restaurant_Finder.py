@@ -38,11 +38,6 @@ username = st.text_input("Enter your name or alias to load/save your visited his
 if username:
     st.success(f"👋 Happy to see you (back), {username}!")
 
-#Persist per-username history
-# Remember which username we’ve already loaded, so we can reload if they switch names.
-if "loaded_for" not in st.session_state:
-    st.session_state.loaded_for = None
-
 # Whenever the input username changes, pull in their saved JSON (or empty list)
 if username and st.session_state.loaded_for != username:
     st.session_state.history = load_history(username)
@@ -54,6 +49,11 @@ def load_history(user):
         with open(filename, "r") as f:
             return json.load(f)
     return []
+
+#Persist per-username history
+# Remember which username we’ve already loaded, so we can reload if they switch names.
+if "loaded_for" not in st.session_state:
+    st.session_state.loaded_for = None
 
 def save_history(user, history):
     filename = f"visited_{user.lower().replace(' ', '_')}.json"

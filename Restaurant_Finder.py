@@ -331,10 +331,11 @@ elif selected == "Visited Restaurants":
             if username:
                 save_history(username, st.session_state.history)
 
-            if username and st.button("Reset my history"):
-                st.session_state.history = []
-                save_history(username, [])
-                st.success("Your history has been cleared.")
+    # Button to clear history
+    if username and st.button("Reset my history"):
+        st.session_state.history = []
+        save_history(username, [])
+        st.success("Your history has been cleared.")
     
     # Display Visited Restaurants
     st.subheader("Your Visited Restaurants")

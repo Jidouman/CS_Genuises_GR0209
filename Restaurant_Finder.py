@@ -14,8 +14,8 @@ import os
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
 
 # Load API keys from Streamlit secrets management
-GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY")
-OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY")
+GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
+OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
 
 # Sidebar Navigation code retrieved from Youtube video: https://www.youtube.com/watch?v=flFy5o-2MvIE
 with st.sidebar:

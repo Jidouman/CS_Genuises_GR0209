@@ -44,13 +44,6 @@ def save_history(user, history):
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
 
-# ML Cuisine Recommender
-liked = [e["category"] for e in st.session_state.history if e["rating"] >= 4]
-if liked:
-    most_common = Counter(liked).most_common(1)[0][0]
-    st.subheader("🥢 Cuisine Recommendation")
-    st.info(f"Based on your preferences, you might enjoy more **{most_common}** cuisine!")
-
 # Sidebar Navigation code retrieved from Youtube video: https://www.youtube.com/watch?v=flFy5o-2MvIE
 with st.sidebar:
     selected = option_menu(
@@ -338,6 +331,13 @@ elif selected == "Visited Restaurants":
     if not username: # To ensure we can keep track of the visited reataurants ID, we invite the user to enter their name or username!
         st.warning("Enter your name to save/load history. Otherwise, history won't persist.")
 
+    # ML Cuisine Recommender
+    liked = [e["category"] for e in st.session_state.history if e["rating"] >= 4]
+    if liked:
+        most_common = Counter(liked).most_common(1)[0][0]
+        st.subheader("🥢 Cuisine Recommendation")
+        st.info(f"Based on your preferences, you might enjoy more **{most_common}** cuisine!")
+    
     # Ensure there's at least a list to append to
     if "history" not in st.session_state:
         st.session_state.history = []

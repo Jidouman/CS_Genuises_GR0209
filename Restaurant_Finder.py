@@ -26,11 +26,12 @@ with st.sidebar:
         default_index=0
     )
 
-# 📁 Load and save visited restaurants using JSON files per user
+# Load and save visited restaurants using JSON files per user
 # Source for this logic:
 # - https://discuss.streamlit.io/t/saving-user-data-to-file/12840/2
 # - https://realpython.com/python-json/
 # - https://github.com/streamlit/streamlit/issues/4716
+# We inspired ourself from when2meet.com, which uses a similar approach to save user data.
 # User ID (for persistence)
 username = st.text_input("Enter your name or alias to load/save your visited history:")
 

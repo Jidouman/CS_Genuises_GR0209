@@ -1,0 +1,1044 @@
+placeID,price,Rcuisine,userID,drink_level,dress_preference,hijos,birth_year,activity
+134999,medium,Japanese,U1093,casual drinker,no preference,independent,1990,student
+134999,medium,Japanese,U1066,abstemious,informal,?,1986,student
+134999,medium,Japanese,U1040,abstemious,no preference,independent,1994,student
+134999,medium,Japanese,U1110,abstemious,no preference,independent,1993,student
+134999,medium,Japanese,U1121,social drinker,no preference,independent,1987,working-class
+132825,low,Mexican,U1077,social drinker,elegant,kids,1987,student
+132825,low,Mexican,U1055,abstemious,no preference,dependent,1952,professional
+132825,low,Mexican,U1053,casual drinker,informal,independent,1990,student
+132825,low,Mexican,U1081,casual drinker,informal,independent,1991,student
+132825,low,Mexican,U1001,abstemious,informal,independent,1989,student
+132825,low,Mexican,U1056,social drinker,informal,independent,1930,student
+132825,low,Mexican,U1134,casual drinker,no preference,independent,1991,student
+132825,low,Mexican,U1116,social drinker,formal,kids,1987,student
+132825,low,Mexican,U1024,abstemious,?,?,1930,?
+132825,low,Mexican,U1132,casual drinker,informal,?,1991,student
+132825,low,Mexican,U1036,social drinker,informal,independent,1991,student
+132825,low,Mexican,U1071,abstemious,formal,independent,1930,student
+132825,low,Mexican,U1049,casual drinker,informal,?,1991,student
+132825,low,Mexican,U1104,social drinker,no preference,independent,1991,student
+132825,low,Mexican,U1045,casual drinker,elegant,independent,1991,student
+132825,low,Mexican,U1009,abstemious,formal,kids,1991,student
+132825,low,Mexican,U1135,casual drinker,informal,kids,1988,student
+132825,low,Mexican,U1062,casual drinker,informal,independent,1985,student
+132825,low,Mexican,U1109,abstemious,formal,independent,1989,student
+132825,low,Mexican,U1085,abstemious,no preference,independent,1988,student
+132825,low,Mexican,U1098,social drinker,formal,independent,1991,student
+132825,low,Mexican,U1003,social drinker,formal,independent,1989,student
+132825,low,Mexican,U1091,casual drinker,no preference,independent,1989,student
+132825,low,Mexican,U1029,casual drinker,formal,independent,1990,student
+132825,low,Mexican,U1137,social drinker,formal,independent,1989,student
+132825,low,Mexican,U1114,abstemious,no preference,independent,1991,student
+132825,low,Mexican,U1061,social drinker,no preference,independent,1990,professional
+132825,low,Mexican,U1057,casual drinker,formal,independent,1989,student
+132825,low,Mexican,U1025,social drinker,no preference,?,1990,student
+132825,low,Mexican,U1059,abstemious,formal,independent,1987,student
+132825,low,Mexican,U1006,social drinker,no preference,independent,1989,student
+132825,low,Mexican,U1002,abstemious,informal,independent,1990,student
+135106,medium,Mexican,U1055,abstemious,no preference,dependent,1952,professional
+135106,medium,Mexican,U1126,casual drinker,formal,independent,1990,student
+135106,medium,Mexican,U1024,abstemious,?,?,1930,?
+135106,medium,Mexican,U1004,abstemious,informal,independent,1940,professional
+135106,medium,Mexican,U1106,casual drinker,informal,independent,1930,professional
+135106,medium,Mexican,U1016,casual drinker,informal,independent,1991,student
+135106,medium,Mexican,U1101,casual drinker,no preference,independent,1988,student
+135106,medium,Mexican,U1135,casual drinker,informal,kids,1988,student
+135106,medium,Mexican,U1078,social drinker,informal,independent,1983,professional
+135106,medium,Mexican,U1002,abstemious,informal,independent,1990,student
+132667,low,Armenian,U1103,abstemious,formal,independent,1989,professional
+132667,low,Armenian,U1123,abstemious,informal,independent,1987,student
+132667,low,Armenian,U1063,casual drinker,formal,independent,1988,student
+132667,low,Armenian,U1087,abstemious,no preference,independent,1989,student
+132613,medium,Mexican,U1103,abstemious,formal,independent,1989,professional
+132613,medium,Mexican,U1070,casual drinker,informal,independent,1991,student
+132613,medium,Mexican,U1082,abstemious,informal,?,1989,student
+132613,medium,Mexican,U1123,abstemious,informal,independent,1987,student
+132613,medium,Mexican,U1028,abstemious,no preference,independent,1989,student
+132613,medium,Mexican,U1043,abstemious,no preference,independent,1989,student
+132732,low,Mexican,U1068,casual drinker,informal,independent,1988,student
+132732,low,Mexican,U1067,abstemious,no preference,independent,1987,student
+132732,low,Mexican,U1103,abstemious,formal,independent,1989,professional
+132732,low,Mexican,U1082,abstemious,informal,?,1989,student
+132732,low,Mexican,U1028,abstemious,no preference,independent,1989,student
+132732,low,Mexican,U1050,social drinker,no preference,independent,1989,student
+132732,low,Mexican,U1087,abstemious,no preference,independent,1989,student
+132732,low,Mexican,U1043,abstemious,no preference,independent,1989,student
+132875,high,Japanese,U1047,abstemious,no preference,independent,1992,student
+132875,high,Japanese,U1013,abstemious,no preference,independent,1982,professional
+132875,high,Japanese,U1089,casual drinker,informal,independent,1990,student
+132875,high,Japanese,U1091,casual drinker,no preference,independent,1989,student
+132875,high,Japanese,U1027,social drinker,no preference,independent,1989,student
+132875,high,Japanese,U1128,casual drinker,no preference,independent,1986,student
+132875,high,Japanese,U1006,social drinker,no preference,independent,1989,student
+132875,high,Japanese,U1096,abstemious,formal,independent,1990,student
+132609,low,Fast_Food,U1070,casual drinker,informal,independent,1991,student
+132609,low,Fast_Food,U1082,abstemious,informal,?,1989,student
+132609,low,Fast_Food,U1063,casual drinker,formal,independent,1988,student
+132609,low,Fast_Food,U1050,social drinker,no preference,independent,1989,student
+132609,low,Fast_Food,U1043,abstemious,no preference,independent,1989,student
+135069,low,Bar,U1081,casual drinker,informal,independent,1991,student
+135069,low,Bar,U1064,casual drinker,formal,independent,1991,student
+135069,low,Bar,U1014,abstemious,?,independent,1990,student
+135069,low,Bar,U1088,social drinker,informal,independent,1991,student
+135069,low,Bar,U1126,casual drinker,formal,independent,1990,student
+135069,low,Bar,U1124,casual drinker,informal,independent,1991,student
+135069,low,Bar,U1018,casual drinker,formal,independent,1989,student
+135069,low,Bar,U1094,abstemious,informal,independent,1991,student
+135069,low,Bar,U1105,social drinker,formal,independent,1991,student
+135069,low,Bar,U1115,social drinker,elegant,independent,1990,student
+135069,low,Bar,U1069,social drinker,no preference,independent,1983,professional
+135069,low,Bar,U1008,social drinker,formal,independent,1989,student
+135086,medium,Burgers,U1108,abstemious,informal,independent,1983,student
+135086,medium,Burgers,U1034,casual drinker,informal,independent,1990,student
+135086,medium,Burgers,U1095,abstemious,formal,independent,1986,student
+135086,medium,Burgers,U1007,casual drinker,informal,independent,1989,student
+135086,medium,Burgers,U1091,casual drinker,no preference,independent,1989,student
+135086,medium,Burgers,U1019,casual drinker,no preference,independent,1989,student
+135086,medium,Burgers,U1061,social drinker,no preference,independent,1990,professional
+135086,medium,Burgers,U1112,casual drinker,formal,independent,1991,student
+135086,medium,Burgers,U1096,abstemious,formal,independent,1990,student
+135086,medium,Burgers,U1097,abstemious,formal,independent,1990,student
+135086,medium,Fast_Food,U1108,abstemious,informal,independent,1983,student
+135086,medium,Fast_Food,U1034,casual drinker,informal,independent,1990,student
+135086,medium,Fast_Food,U1095,abstemious,formal,independent,1986,student
+135086,medium,Fast_Food,U1007,casual drinker,informal,independent,1989,student
+135086,medium,Fast_Food,U1091,casual drinker,no preference,independent,1989,student
+135086,medium,Fast_Food,U1019,casual drinker,no preference,independent,1989,student
+135086,medium,Fast_Food,U1061,social drinker,no preference,independent,1990,professional
+135086,medium,Fast_Food,U1112,casual drinker,formal,independent,1991,student
+135086,medium,Fast_Food,U1096,abstemious,formal,independent,1990,student
+135086,medium,Fast_Food,U1097,abstemious,formal,independent,1990,student
+132870,low,Burgers,U1052,social drinker,no preference,independent,1990,student
+132870,low,Burgers,U1111,casual drinker,formal,independent,1991,student
+132870,low,Burgers,U1015,social drinker,informal,independent,1989,student
+132870,low,Burgers,U1131,social drinker,no preference,kids,1990,student
+132870,low,Burgers,U1102,social drinker,no preference,independent,1989,student
+132854,medium,International,U1038,social drinker,no preference,independent,1930,student
+132854,medium,International,U1113,casual drinker,formal,independent,1990,student
+132854,medium,International,U1008,social drinker,formal,independent,1989,student
+132854,medium,International,U1111,casual drinker,formal,independent,1991,student
+132854,medium,International,U1037,social drinker,no preference,independent,1990,student
+132854,medium,International,U1102,social drinker,no preference,independent,1989,student
+132937,low,Bar,U1003,social drinker,formal,independent,1989,student
+132937,low,Bar,U1027,social drinker,no preference,independent,1989,student
+132937,low,Bar,U1029,casual drinker,formal,independent,1990,student
+132937,low,Bar,U1086,social drinker,no preference,independent,1991,student
+132856,low,Italian,U1038,social drinker,no preference,independent,1930,student
+132856,low,Italian,U1071,abstemious,formal,independent,1930,student
+132856,low,Italian,U1019,casual drinker,no preference,independent,1989,student
+132856,low,Italian,U1113,casual drinker,formal,independent,1990,student
+132856,low,Italian,U1106,casual drinker,informal,independent,1930,professional
+132856,low,Italian,U1045,casual drinker,elegant,independent,1991,student
+132856,low,Italian,U1016,casual drinker,informal,independent,1991,student
+132856,low,Italian,U1099,social drinker,informal,independent,1989,student
+132856,low,Italian,U1054,social drinker,formal,independent,1992,student
+132856,low,Italian,U1101,casual drinker,no preference,independent,1988,student
+132856,low,Italian,U1032,abstemious,formal,independent,1989,student
+132856,low,Italian,U1135,casual drinker,informal,kids,1988,student
+132856,low,Italian,U1109,abstemious,formal,independent,1989,student
+132856,low,Italian,U1098,social drinker,formal,independent,1991,student
+132668,low,Mexican,U1031,abstemious,informal,kids,1992,unemployed
+132668,low,Mexican,U1021,social drinker,no preference,dependent,1984,student
+132668,low,Mexican,U1080,social drinker,formal,independent,1987,student
+132862,high,International,U1038,social drinker,no preference,independent,1930,student
+132862,high,International,U1071,abstemious,formal,independent,1930,student
+132862,high,International,U1084,casual drinker,formal,independent,1991,student
+132862,high,International,U1106,casual drinker,informal,independent,1930,professional
+132862,high,International,U1009,abstemious,formal,kids,1991,student
+132862,high,International,U1016,casual drinker,informal,independent,1991,student
+132862,high,International,U1098,social drinker,formal,independent,1991,student
+132862,high,International,U1003,social drinker,formal,independent,1989,student
+132862,high,International,U1029,casual drinker,formal,independent,1990,student
+132862,high,International,U1137,social drinker,formal,independent,1989,student
+132862,high,International,U1090,social drinker,no preference,independent,1988,student
+132862,high,International,U1112,casual drinker,formal,independent,1991,student
+132862,high,International,U1057,casual drinker,formal,independent,1989,student
+132862,high,International,U1059,abstemious,formal,independent,1987,student
+132862,high,International,U1073,abstemious,informal,kids,1989,unemployed
+132862,high,International,U1049,casual drinker,informal,?,1991,student
+132862,high,International,U1002,abstemious,informal,independent,1990,student
+132862,high,International,U1136,social drinker,no preference,independent,1990,student
+134983,high,Bar,U1012,casual drinker,formal,independent,1988,student
+134983,high,Bar,U1017,casual drinker,formal,?,1991,professional
+134983,high,Bar,U1133,abstemious,no preference,independent,1991,student
+134983,high,Bar,U1118,casual drinker,informal,independent,1987,student
+134983,high,Bar,U1041,abstemious,no preference,independent,1985,professional
+134983,high,Bar_Pub_Brewery,U1012,casual drinker,formal,independent,1988,student
+134983,high,Bar_Pub_Brewery,U1017,casual drinker,formal,?,1991,professional
+134983,high,Bar_Pub_Brewery,U1133,abstemious,no preference,independent,1991,student
+134983,high,Bar_Pub_Brewery,U1118,casual drinker,informal,independent,1987,student
+134983,high,Bar_Pub_Brewery,U1041,abstemious,no preference,independent,1985,professional
+132851,low,American,U1052,social drinker,no preference,independent,1990,student
+132851,low,American,U1069,social drinker,no preference,independent,1983,professional
+132851,low,American,U1008,social drinker,formal,independent,1989,student
+132851,low,American,U1111,casual drinker,formal,independent,1991,student
+132851,low,American,U1037,social drinker,no preference,independent,1990,student
+132851,low,American,U1015,social drinker,informal,independent,1989,student
+132851,low,American,U1131,social drinker,no preference,kids,1990,student
+132851,low,Game,U1052,social drinker,no preference,independent,1990,student
+132851,low,Game,U1069,social drinker,no preference,independent,1983,professional
+132851,low,Game,U1008,social drinker,formal,independent,1989,student
+132851,low,Game,U1111,casual drinker,formal,independent,1991,student
+132851,low,Game,U1037,social drinker,no preference,independent,1990,student
+132851,low,Game,U1015,social drinker,informal,independent,1989,student
+132851,low,Game,U1131,social drinker,no preference,kids,1990,student
+135042,medium,Chinese,U1053,casual drinker,informal,independent,1990,student
+135042,medium,Chinese,U1064,casual drinker,formal,independent,1991,student
+135042,medium,Chinese,U1014,abstemious,?,independent,1990,student
+135042,medium,Chinese,U1125,casual drinker,formal,independent,1990,student
+135042,medium,Chinese,U1076,social drinker,elegant,kids,1987,student
+135042,medium,Chinese,U1024,abstemious,?,?,1930,?
+135042,medium,Chinese,U1005,abstemious,no preference,independent,1992,student
+135042,medium,Chinese,U1036,social drinker,informal,independent,1991,student
+135042,medium,Chinese,U1071,abstemious,formal,independent,1930,student
+135042,medium,Chinese,U1106,casual drinker,informal,independent,1930,professional
+135042,medium,Chinese,U1016,casual drinker,informal,independent,1991,student
+135042,medium,Chinese,U1099,social drinker,informal,independent,1989,student
+135042,medium,Chinese,U1032,abstemious,formal,independent,1989,student
+135042,medium,Chinese,U1135,casual drinker,informal,kids,1988,student
+135042,medium,Chinese,U1085,abstemious,no preference,independent,1988,student
+135042,medium,Chinese,U1109,abstemious,formal,independent,1989,student
+135042,medium,Chinese,U1027,social drinker,no preference,independent,1989,student
+135042,medium,Chinese,U1137,social drinker,formal,independent,1989,student
+135042,medium,Chinese,U1049,casual drinker,informal,?,1991,student
+135042,medium,Chinese,U1010,social drinker,no preference,kids,1987,student
+132768,medium,Family,U1017,casual drinker,formal,?,1991,professional
+132768,medium,Family,U1100,casual drinker,formal,independent,1990,student
+132768,medium,Family,U1118,casual drinker,informal,independent,1987,student
+132768,medium,Family,U1020,abstemious,no preference,independent,1982,professional
+132768,medium,Family,U1051,casual drinker,no preference,independent,1979,professional
+132768,medium,Family,U1044,social drinker,informal,kids,1969,professional
+132768,medium,Family,U1119,abstemious,formal,independent,1992,student
+132768,medium,Family,U1079,abstemious,formal,independent,1992,?
+132768,medium,Family,U1042,abstemious,no preference,independent,1943,student
+132768,medium,Family,U1041,abstemious,no preference,independent,1985,professional
+135054,high,Seafood,U1088,social drinker,informal,independent,1991,student
+135054,high,Seafood,U1126,casual drinker,formal,independent,1990,student
+135054,high,Seafood,U1124,casual drinker,informal,independent,1991,student
+135054,high,Seafood,U1094,abstemious,informal,independent,1991,student
+135054,high,Seafood,U1105,social drinker,formal,independent,1991,student
+135054,high,Seafood,U1115,social drinker,elegant,independent,1990,student
+135054,high,Seafood,U1037,social drinker,no preference,independent,1990,student
+135054,high,Seafood,U1008,social drinker,formal,independent,1989,student
+135054,high,Seafood,U1015,social drinker,informal,independent,1989,student
+135054,high,Seafood,U1131,social drinker,no preference,kids,1990,student
+135053,high,Cafeteria,U1053,casual drinker,informal,independent,1990,student
+135053,high,Cafeteria,U1114,abstemious,no preference,independent,1991,student
+135053,high,Cafeteria,U1062,casual drinker,informal,independent,1985,student
+135053,high,Cafeteria,U1122,abstemious,?,?,1930,?
+135053,high,Cafeteria,U1128,casual drinker,no preference,independent,1986,student
+135053,high,Cafeteria,U1058,abstemious,formal,independent,1991,student
+135053,high,Cafeteria,U1097,abstemious,formal,independent,1990,student
+135053,high,Cafeteria,U1010,social drinker,no preference,kids,1987,student
+135053,high,Fast_Food,U1053,casual drinker,informal,independent,1990,student
+135053,high,Fast_Food,U1114,abstemious,no preference,independent,1991,student
+135053,high,Fast_Food,U1062,casual drinker,informal,independent,1985,student
+135053,high,Fast_Food,U1122,abstemious,?,?,1930,?
+135053,high,Fast_Food,U1128,casual drinker,no preference,independent,1986,student
+135053,high,Fast_Food,U1058,abstemious,formal,independent,1991,student
+135053,high,Fast_Food,U1097,abstemious,formal,independent,1990,student
+135053,high,Fast_Food,U1010,social drinker,no preference,kids,1987,student
+135053,high,Pizzeria,U1053,casual drinker,informal,independent,1990,student
+135053,high,Pizzeria,U1114,abstemious,no preference,independent,1991,student
+135053,high,Pizzeria,U1062,casual drinker,informal,independent,1985,student
+135053,high,Pizzeria,U1122,abstemious,?,?,1930,?
+135053,high,Pizzeria,U1128,casual drinker,no preference,independent,1986,student
+135053,high,Pizzeria,U1058,abstemious,formal,independent,1991,student
+135053,high,Pizzeria,U1097,abstemious,formal,independent,1990,student
+135053,high,Pizzeria,U1010,social drinker,no preference,kids,1987,student
+135025,medium,Mexican,U1055,abstemious,no preference,dependent,1952,professional
+135025,medium,Mexican,U1053,casual drinker,informal,independent,1990,student
+135025,medium,Mexican,U1018,casual drinker,formal,independent,1989,student
+135025,medium,Mexican,U1022,casual drinker,formal,independent,1990,student
+135025,medium,Mexican,U1116,social drinker,formal,kids,1987,student
+135025,medium,Mexican,U1132,casual drinker,informal,?,1991,student
+135025,medium,Mexican,U1036,social drinker,informal,independent,1991,student
+135025,medium,Mexican,U1071,abstemious,formal,independent,1930,student
+135025,medium,Mexican,U1104,social drinker,no preference,independent,1991,student
+135025,medium,Mexican,U1007,casual drinker,informal,independent,1989,student
+135025,medium,Mexican,U1054,social drinker,formal,independent,1992,student
+135025,medium,Mexican,U1001,abstemious,informal,independent,1989,student
+135025,medium,Mexican,U1092,abstemious,formal,dependent,1990,?
+135025,medium,Mexican,U1090,social drinker,no preference,independent,1988,student
+135025,medium,Mexican,U1096,abstemious,formal,independent,1990,student
+135030,medium,Cafe-Coffee_Shop,U1081,casual drinker,informal,independent,1991,student
+135030,medium,Cafe-Coffee_Shop,U1116,social drinker,formal,kids,1987,student
+135030,medium,Cafe-Coffee_Shop,U1024,abstemious,?,?,1930,?
+135030,medium,Cafe-Coffee_Shop,U1071,abstemious,formal,independent,1930,student
+135030,medium,Cafe-Coffee_Shop,U1084,casual drinker,formal,independent,1991,student
+135030,medium,Cafe-Coffee_Shop,U1104,social drinker,no preference,independent,1991,student
+135030,medium,Cafe-Coffee_Shop,U1106,casual drinker,informal,independent,1930,professional
+135030,medium,Cafe-Coffee_Shop,U1122,abstemious,?,?,1930,?
+135030,medium,Cafe-Coffee_Shop,U1033,social drinker,no preference,?,1991,student
+135030,medium,Cafe-Coffee_Shop,U1057,casual drinker,formal,independent,1989,student
+135030,medium,Cafe-Coffee_Shop,U1059,abstemious,formal,independent,1987,student
+135030,medium,Cafe-Coffee_Shop,U1006,social drinker,no preference,independent,1989,student
+135030,medium,Cafeteria,U1081,casual drinker,informal,independent,1991,student
+135030,medium,Cafeteria,U1116,social drinker,formal,kids,1987,student
+135030,medium,Cafeteria,U1024,abstemious,?,?,1930,?
+135030,medium,Cafeteria,U1071,abstemious,formal,independent,1930,student
+135030,medium,Cafeteria,U1084,casual drinker,formal,independent,1991,student
+135030,medium,Cafeteria,U1104,social drinker,no preference,independent,1991,student
+135030,medium,Cafeteria,U1106,casual drinker,informal,independent,1930,professional
+135030,medium,Cafeteria,U1122,abstemious,?,?,1930,?
+135030,medium,Cafeteria,U1033,social drinker,no preference,?,1991,student
+135030,medium,Cafeteria,U1057,casual drinker,formal,independent,1989,student
+135030,medium,Cafeteria,U1059,abstemious,formal,independent,1987,student
+135030,medium,Cafeteria,U1006,social drinker,no preference,independent,1989,student
+135057,medium,Bar,U1064,casual drinker,formal,independent,1991,student
+135057,medium,Bar,U1088,social drinker,informal,independent,1991,student
+135057,medium,Bar,U1014,abstemious,?,independent,1990,student
+135057,medium,Bar,U1126,casual drinker,formal,independent,1990,student
+135057,medium,Bar,U1124,casual drinker,informal,independent,1991,student
+135057,medium,Bar,U1018,casual drinker,formal,independent,1989,student
+135057,medium,Bar,U1022,casual drinker,formal,independent,1990,student
+135057,medium,Bar,U1094,abstemious,informal,independent,1991,student
+135057,medium,Bar,U1105,social drinker,formal,independent,1991,student
+135057,medium,Bar,U1007,casual drinker,informal,independent,1989,student
+135057,medium,Bar,U1075,casual drinker,informal,independent,1991,student
+135057,medium,Bar,U1115,social drinker,elegant,independent,1990,student
+135057,medium,Bar,U1005,abstemious,no preference,independent,1992,student
+135057,medium,Bar,U1120,abstemious,informal,independent,1930,student
+135057,medium,Bar,U1113,casual drinker,formal,independent,1990,student
+135079,high,Chinese,U1134,casual drinker,no preference,independent,1991,student
+135079,high,Chinese,U1036,social drinker,informal,independent,1991,student
+135079,high,Chinese,U1113,casual drinker,formal,independent,1990,student
+135079,high,Chinese,U1106,casual drinker,informal,independent,1930,professional
+135079,high,Chinese,U1009,abstemious,formal,kids,1991,student
+135079,high,Chinese,U1013,abstemious,no preference,independent,1982,professional
+135079,high,Chinese,U1032,abstemious,formal,independent,1989,student
+135079,high,Chinese,U1019,casual drinker,no preference,independent,1989,student
+135079,high,Chinese,U1122,abstemious,?,?,1930,?
+135079,high,Chinese,U1098,social drinker,formal,independent,1991,student
+135079,high,Chinese,U1089,casual drinker,informal,independent,1990,student
+135079,high,Chinese,U1003,social drinker,formal,independent,1989,student
+135079,high,Chinese,U1112,casual drinker,formal,independent,1991,student
+135079,high,Chinese,U1097,abstemious,formal,independent,1990,student
+135079,high,Chinese,U1128,casual drinker,no preference,independent,1986,student
+135079,high,Chinese,U1006,social drinker,no preference,independent,1989,student
+135079,high,Chinese,U1010,social drinker,no preference,kids,1987,student
+132954,medium,Breakfast-Brunch,U1004,abstemious,informal,independent,1940,professional
+132954,medium,Breakfast-Brunch,U1112,casual drinker,formal,independent,1991,student
+132954,medium,Breakfast-Brunch,U1090,social drinker,no preference,independent,1988,student
+132954,medium,Breakfast-Brunch,U1057,casual drinker,formal,independent,1989,student
+132954,medium,Breakfast-Brunch,U1061,social drinker,no preference,independent,1990,professional
+132954,medium,Breakfast-Brunch,U1097,abstemious,formal,independent,1990,student
+132954,medium,Breakfast-Brunch,U1128,casual drinker,no preference,independent,1986,student
+132954,medium,Breakfast-Brunch,U1006,social drinker,no preference,independent,1989,student
+132954,medium,Breakfast-Brunch,U1073,abstemious,informal,kids,1989,unemployed
+135041,medium,Bar,U1088,social drinker,informal,independent,1991,student
+135041,medium,Bar,U1106,casual drinker,informal,independent,1930,professional
+135041,medium,Bar,U1126,casual drinker,formal,independent,1990,student
+135041,medium,Bar,U1075,casual drinker,informal,independent,1991,student
+135041,medium,Bar,U1024,abstemious,?,?,1930,?
+135041,medium,Bar,U1005,abstemious,no preference,independent,1992,student
+135041,medium,Bar,U1049,casual drinker,informal,?,1991,student
+135041,medium,Bar,U1104,social drinker,no preference,independent,1991,student
+135041,medium,Bar,U1045,casual drinker,elegant,independent,1991,student
+135041,medium,Bar,U1054,social drinker,formal,independent,1992,student
+135041,medium,Bar,U1101,casual drinker,no preference,independent,1988,student
+135041,medium,Bar,U1135,casual drinker,informal,kids,1988,student
+135041,medium,Bar,U1078,social drinker,informal,independent,1983,professional
+135041,medium,Bar,U1003,social drinker,formal,independent,1989,student
+135041,medium,Bar,U1086,social drinker,no preference,independent,1991,student
+135041,medium,Bar,U1061,social drinker,no preference,independent,1990,professional
+135041,medium,Bar,U1002,abstemious,informal,independent,1990,student
+135041,medium,Cafeteria,U1088,social drinker,informal,independent,1991,student
+135041,medium,Cafeteria,U1106,casual drinker,informal,independent,1930,professional
+135041,medium,Cafeteria,U1126,casual drinker,formal,independent,1990,student
+135041,medium,Cafeteria,U1075,casual drinker,informal,independent,1991,student
+135041,medium,Cafeteria,U1024,abstemious,?,?,1930,?
+135041,medium,Cafeteria,U1005,abstemious,no preference,independent,1992,student
+135041,medium,Cafeteria,U1049,casual drinker,informal,?,1991,student
+135041,medium,Cafeteria,U1104,social drinker,no preference,independent,1991,student
+135041,medium,Cafeteria,U1045,casual drinker,elegant,independent,1991,student
+135041,medium,Cafeteria,U1054,social drinker,formal,independent,1992,student
+135041,medium,Cafeteria,U1101,casual drinker,no preference,independent,1988,student
+135041,medium,Cafeteria,U1135,casual drinker,informal,kids,1988,student
+135041,medium,Cafeteria,U1078,social drinker,informal,independent,1983,professional
+135041,medium,Cafeteria,U1003,social drinker,formal,independent,1989,student
+135041,medium,Cafeteria,U1086,social drinker,no preference,independent,1991,student
+135041,medium,Cafeteria,U1061,social drinker,no preference,independent,1990,professional
+135041,medium,Cafeteria,U1002,abstemious,informal,independent,1990,student
+132608,low,Mexican,U1070,casual drinker,informal,independent,1991,student
+132608,low,Mexican,U1082,abstemious,informal,?,1989,student
+132608,low,Mexican,U1123,abstemious,informal,independent,1987,student
+132608,low,Mexican,U1080,social drinker,formal,independent,1987,student
+132608,low,Mexican,U1050,social drinker,no preference,independent,1989,student
+132608,low,Mexican,U1043,abstemious,no preference,independent,1989,student
+135046,medium,Fast_Food,U1083,abstemious,?,?,1981,?
+135046,medium,Fast_Food,U1108,abstemious,informal,independent,1983,student
+135046,medium,Fast_Food,U1134,casual drinker,no preference,independent,1991,student
+135046,medium,Fast_Food,U1113,casual drinker,formal,independent,1990,student
+135046,medium,Fast_Food,U1092,abstemious,formal,dependent,1990,?
+135046,medium,Fast_Food,U1098,social drinker,formal,independent,1991,student
+135046,medium,Fast_Food,U1033,social drinker,no preference,?,1991,student
+135046,medium,Fast_Food,U1061,social drinker,no preference,independent,1990,professional
+135046,medium,Fast_Food,U1112,casual drinker,formal,independent,1991,student
+135046,medium,Fast_Food,U1057,casual drinker,formal,independent,1989,student
+135046,medium,Fast_Food,U1136,social drinker,no preference,independent,1990,student
+132869,medium,Pizzeria,U1052,social drinker,no preference,independent,1990,student
+132869,medium,Pizzeria,U1008,social drinker,formal,independent,1989,student
+132869,medium,Pizzeria,U1111,casual drinker,formal,independent,1991,student
+132869,medium,Pizzeria,U1037,social drinker,no preference,independent,1990,student
+132869,medium,Pizzeria,U1015,social drinker,informal,independent,1989,student
+132869,medium,Pizzeria,U1131,social drinker,no preference,kids,1990,student
+132925,medium,Mexican,U1138,social drinker,formal,independent,1991,student
+132925,medium,Mexican,U1027,social drinker,no preference,independent,1989,student
+132925,medium,Mexican,U1090,social drinker,no preference,independent,1988,student
+132925,medium,Mexican,U1128,casual drinker,no preference,independent,1986,student
+132925,medium,Mexican,U1002,abstemious,informal,independent,1990,student
+132955,low,Bar_Pub_Brewery,U1004,abstemious,informal,independent,1940,professional
+132955,low,Bar_Pub_Brewery,U1061,social drinker,no preference,independent,1990,professional
+132955,low,Bar_Pub_Brewery,U1059,abstemious,formal,independent,1987,student
+132955,low,Bar_Pub_Brewery,U1097,abstemious,formal,independent,1990,student
+132955,low,Bar_Pub_Brewery,U1096,abstemious,formal,independent,1990,student
+135059,medium,Bar,U1134,casual drinker,no preference,independent,1991,student
+135059,medium,Bar,U1116,social drinker,formal,kids,1987,student
+135059,medium,Bar,U1036,social drinker,informal,independent,1991,student
+135059,medium,Bar,U1009,abstemious,formal,kids,1991,student
+135059,medium,Bar,U1085,abstemious,no preference,independent,1988,student
+135059,medium,Bar,U1029,casual drinker,formal,independent,1990,student
+135059,medium,Bar,U1137,social drinker,formal,independent,1989,student
+135059,medium,Bar,U1002,abstemious,informal,independent,1990,student
+135059,medium,Bar,U1003,social drinker,formal,independent,1989,student
+135034,medium,Japanese,U1083,abstemious,?,?,1981,?
+135034,medium,Japanese,U1095,abstemious,formal,independent,1986,student
+135034,medium,Japanese,U1048,casual drinker,no preference,independent,1988,student
+135034,medium,Japanese,U1061,social drinker,no preference,independent,1990,professional
+135034,medium,Japanese,U1097,abstemious,formal,independent,1990,student
+135060,medium,Seafood,U1077,social drinker,elegant,kids,1987,student
+135060,medium,Seafood,U1053,casual drinker,informal,independent,1990,student
+135060,medium,Seafood,U1064,casual drinker,formal,independent,1991,student
+135060,medium,Seafood,U1125,casual drinker,formal,independent,1990,student
+135060,medium,Seafood,U1022,casual drinker,formal,independent,1990,student
+135060,medium,Seafood,U1116,social drinker,formal,kids,1987,student
+135060,medium,Seafood,U1024,abstemious,?,?,1930,?
+135060,medium,Seafood,U1004,abstemious,informal,independent,1940,professional
+135060,medium,Seafood,U1071,abstemious,formal,independent,1930,student
+135060,medium,Seafood,U1045,casual drinker,elegant,independent,1991,student
+135060,medium,Seafood,U1009,abstemious,formal,kids,1991,student
+135060,medium,Seafood,U1016,casual drinker,informal,independent,1991,student
+135060,medium,Seafood,U1099,social drinker,informal,independent,1989,student
+135060,medium,Seafood,U1054,social drinker,formal,independent,1992,student
+135060,medium,Seafood,U1032,abstemious,formal,independent,1989,student
+135060,medium,Seafood,U1135,casual drinker,informal,kids,1988,student
+135060,medium,Seafood,U1078,social drinker,informal,independent,1983,professional
+135060,medium,Seafood,U1098,social drinker,formal,independent,1991,student
+135060,medium,Seafood,U1086,social drinker,no preference,independent,1991,student
+135060,medium,Seafood,U1128,casual drinker,no preference,independent,1986,student
+135060,medium,Seafood,U1073,abstemious,informal,kids,1989,unemployed
+135060,medium,Seafood,U1013,abstemious,no preference,independent,1982,professional
+135055,high,Mexican,U1134,casual drinker,no preference,independent,1991,student
+135055,high,Mexican,U1095,abstemious,formal,independent,1986,student
+135055,high,Mexican,U1085,abstemious,no preference,independent,1988,student
+135055,high,Mexican,U1034,casual drinker,informal,independent,1990,student
+135055,high,Mexican,U1096,abstemious,formal,independent,1990,student
+135055,high,Mexican,U1136,social drinker,no preference,independent,1990,student
+135055,high,Mexican,U1058,abstemious,formal,independent,1991,student
+135074,high,Contemporary,U1108,abstemious,informal,independent,1983,student
+135074,high,Contemporary,U1083,abstemious,?,?,1981,?
+135074,high,Contemporary,U1134,casual drinker,no preference,independent,1991,student
+135074,high,Contemporary,U1136,social drinker,no preference,independent,1990,student
+135018,medium,Mexican,U1030,casual drinker,formal,independent,1991,student
+135018,medium,Mexican,U1012,casual drinker,formal,independent,1988,student
+135018,medium,Mexican,U1117,abstemious,no preference,independent,1982,professional
+135018,medium,Mexican,U1035,casual drinker,no preference,independent,1985,student
+132723,medium,Mexican,U1083,abstemious,?,?,1981,?
+132723,medium,Mexican,U1108,abstemious,informal,independent,1983,student
+132723,medium,Mexican,U1084,casual drinker,formal,independent,1991,student
+132723,medium,Mexican,U1034,casual drinker,informal,independent,1990,student
+132723,medium,Mexican,U1095,abstemious,formal,independent,1986,student
+132723,medium,Mexican,U1048,casual drinker,no preference,independent,1988,student
+132723,medium,Mexican,U1092,abstemious,formal,dependent,1990,?
+132723,medium,Mexican,U1003,social drinker,formal,independent,1989,student
+132723,medium,Mexican,U1137,social drinker,formal,independent,1989,student
+132723,medium,Mexican,U1114,abstemious,no preference,independent,1991,student
+132723,medium,Mexican,U1061,social drinker,no preference,independent,1990,professional
+132723,medium,Mexican,U1096,abstemious,formal,independent,1990,student
+135021,low,Fast_Food,U1127,abstemious,no preference,independent,1992,student
+135021,low,Fast_Food,U1100,casual drinker,formal,independent,1990,student
+135021,low,Fast_Food,U1133,abstemious,no preference,independent,1991,student
+135021,low,Fast_Food,U1118,casual drinker,informal,independent,1987,student
+135021,low,Fast_Food,U1119,abstemious,formal,independent,1992,student
+135021,low,Fast_Food,U1121,social drinker,no preference,independent,1987,working-class
+135021,low,Fast_Food,U1110,abstemious,no preference,independent,1993,student
+135021,low,Fast_Food,U1042,abstemious,no preference,independent,1943,student
+135021,low,Fast_Food,U1041,abstemious,no preference,independent,1985,professional
+135052,high,Bar,U1064,casual drinker,formal,independent,1991,student
+135052,high,Bar,U1081,casual drinker,informal,independent,1991,student
+135052,high,Bar,U1056,social drinker,informal,independent,1930,student
+135052,high,Bar,U1126,casual drinker,formal,independent,1990,student
+135052,high,Bar,U1022,casual drinker,formal,independent,1990,student
+135052,high,Bar,U1116,social drinker,formal,kids,1987,student
+135052,high,Bar,U1105,social drinker,formal,independent,1991,student
+135052,high,Bar,U1132,casual drinker,informal,?,1991,student
+135052,high,Bar,U1036,social drinker,informal,independent,1991,student
+135052,high,Bar,U1071,abstemious,formal,independent,1930,student
+135052,high,Bar,U1106,casual drinker,informal,independent,1930,professional
+135052,high,Bar,U1104,social drinker,no preference,independent,1991,student
+135052,high,Bar,U1045,casual drinker,elegant,independent,1991,student
+135052,high,Bar,U1009,abstemious,formal,kids,1991,student
+135052,high,Bar,U1016,casual drinker,informal,independent,1991,student
+135052,high,Bar,U1054,social drinker,formal,independent,1992,student
+135052,high,Bar,U1101,casual drinker,no preference,independent,1988,student
+135052,high,Bar,U1135,casual drinker,informal,kids,1988,student
+135052,high,Bar,U1062,casual drinker,informal,independent,1985,student
+135052,high,Bar,U1078,social drinker,informal,independent,1983,professional
+135052,high,Bar,U1027,social drinker,no preference,independent,1989,student
+135052,high,Bar,U1090,social drinker,no preference,independent,1988,student
+135052,high,Bar,U1073,abstemious,informal,kids,1989,unemployed
+135052,high,Bar,U1049,casual drinker,informal,?,1991,student
+135052,high,Bar,U1002,abstemious,informal,independent,1990,student
+135052,high,Bar_Pub_Brewery,U1064,casual drinker,formal,independent,1991,student
+135052,high,Bar_Pub_Brewery,U1081,casual drinker,informal,independent,1991,student
+135052,high,Bar_Pub_Brewery,U1056,social drinker,informal,independent,1930,student
+135052,high,Bar_Pub_Brewery,U1126,casual drinker,formal,independent,1990,student
+135052,high,Bar_Pub_Brewery,U1022,casual drinker,formal,independent,1990,student
+135052,high,Bar_Pub_Brewery,U1116,social drinker,formal,kids,1987,student
+135052,high,Bar_Pub_Brewery,U1105,social drinker,formal,independent,1991,student
+135052,high,Bar_Pub_Brewery,U1132,casual drinker,informal,?,1991,student
+135052,high,Bar_Pub_Brewery,U1036,social drinker,informal,independent,1991,student
+135052,high,Bar_Pub_Brewery,U1071,abstemious,formal,independent,1930,student
+135052,high,Bar_Pub_Brewery,U1106,casual drinker,informal,independent,1930,professional
+135052,high,Bar_Pub_Brewery,U1104,social drinker,no preference,independent,1991,student
+135052,high,Bar_Pub_Brewery,U1045,casual drinker,elegant,independent,1991,student
+135052,high,Bar_Pub_Brewery,U1009,abstemious,formal,kids,1991,student
+135052,high,Bar_Pub_Brewery,U1016,casual drinker,informal,independent,1991,student
+135052,high,Bar_Pub_Brewery,U1054,social drinker,formal,independent,1992,student
+135052,high,Bar_Pub_Brewery,U1101,casual drinker,no preference,independent,1988,student
+135052,high,Bar_Pub_Brewery,U1135,casual drinker,informal,kids,1988,student
+135052,high,Bar_Pub_Brewery,U1062,casual drinker,informal,independent,1985,student
+135052,high,Bar_Pub_Brewery,U1078,social drinker,informal,independent,1983,professional
+135052,high,Bar_Pub_Brewery,U1027,social drinker,no preference,independent,1989,student
+135052,high,Bar_Pub_Brewery,U1090,social drinker,no preference,independent,1988,student
+135052,high,Bar_Pub_Brewery,U1073,abstemious,informal,kids,1989,unemployed
+135052,high,Bar_Pub_Brewery,U1049,casual drinker,informal,?,1991,student
+135052,high,Bar_Pub_Brewery,U1002,abstemious,informal,independent,1990,student
+132845,medium,Mexican,U1120,abstemious,informal,independent,1930,student
+132845,medium,Mexican,U1037,social drinker,no preference,independent,1990,student
+132845,medium,Mexican,U1069,social drinker,no preference,independent,1983,professional
+132845,medium,Mexican,U1111,casual drinker,formal,independent,1991,student
+132845,medium,Mexican,U1015,social drinker,informal,independent,1989,student
+132858,low,Burgers,U1038,social drinker,no preference,independent,1930,student
+132858,low,Burgers,U1069,social drinker,no preference,independent,1983,professional
+132858,low,Burgers,U1008,social drinker,formal,independent,1989,student
+132858,low,Burgers,U1111,casual drinker,formal,independent,1991,student
+132858,low,Burgers,U1102,social drinker,no preference,independent,1989,student
+135026,high,Bar,U1134,casual drinker,no preference,independent,1991,student
+135026,high,Bar,U1120,abstemious,informal,independent,1930,student
+135026,high,Bar,U1084,casual drinker,formal,independent,1991,student
+135026,high,Bar,U1048,casual drinker,no preference,independent,1988,student
+135026,high,Bar,U1046,social drinker,no preference,independent,1990,student
+135026,high,Bar,U1089,casual drinker,informal,independent,1990,student
+135026,high,Bar,U1061,social drinker,no preference,independent,1990,professional
+135026,high,Bar,U1112,casual drinker,formal,independent,1991,student
+135026,high,Bar,U1097,abstemious,formal,independent,1990,student
+135026,high,Bar,U1006,social drinker,no preference,independent,1989,student
+135026,high,Bar,U1096,abstemious,formal,independent,1990,student
+135026,high,Bar_Pub_Brewery,U1134,casual drinker,no preference,independent,1991,student
+135026,high,Bar_Pub_Brewery,U1120,abstemious,informal,independent,1930,student
+135026,high,Bar_Pub_Brewery,U1084,casual drinker,formal,independent,1991,student
+135026,high,Bar_Pub_Brewery,U1048,casual drinker,no preference,independent,1988,student
+135026,high,Bar_Pub_Brewery,U1046,social drinker,no preference,independent,1990,student
+135026,high,Bar_Pub_Brewery,U1089,casual drinker,informal,independent,1990,student
+135026,high,Bar_Pub_Brewery,U1061,social drinker,no preference,independent,1990,professional
+135026,high,Bar_Pub_Brewery,U1112,casual drinker,formal,independent,1991,student
+135026,high,Bar_Pub_Brewery,U1097,abstemious,formal,independent,1990,student
+135026,high,Bar_Pub_Brewery,U1006,social drinker,no preference,independent,1989,student
+135026,high,Bar_Pub_Brewery,U1096,abstemious,formal,independent,1990,student
+135104,medium,Mexican,U1068,casual drinker,informal,independent,1988,student
+135104,medium,Mexican,U1067,abstemious,no preference,independent,1987,student
+135104,medium,Mexican,U1103,abstemious,formal,independent,1989,professional
+135104,medium,Mexican,U1123,abstemious,informal,independent,1987,student
+135104,medium,Mexican,U1063,casual drinker,formal,independent,1988,student
+135104,medium,Mexican,U1028,abstemious,no preference,independent,1989,student
+135104,medium,Mexican,U1087,abstemious,no preference,independent,1989,student
+132630,low,Mexican,U1068,casual drinker,informal,independent,1988,student
+132630,low,Mexican,U1067,abstemious,no preference,independent,1987,student
+132630,low,Mexican,U1103,abstemious,formal,independent,1989,professional
+132630,low,Mexican,U1082,abstemious,informal,?,1989,student
+132630,low,Mexican,U1028,abstemious,no preference,independent,1989,student
+132630,low,Mexican,U1043,abstemious,no preference,independent,1989,student
+132951,low,American,U1033,social drinker,no preference,?,1991,student
+132951,low,American,U1089,casual drinker,informal,independent,1990,student
+132951,low,American,U1027,social drinker,no preference,independent,1989,student
+132951,low,American,U1086,social drinker,no preference,independent,1991,student
+132951,low,American,U1137,social drinker,formal,independent,1989,student
+132951,low,American,U1114,abstemious,no preference,independent,1991,student
+132951,low,American,U1046,social drinker,no preference,independent,1990,student
+132951,low,American,U1128,casual drinker,no preference,independent,1986,student
+132951,low,American,U1073,abstemious,informal,kids,1989,unemployed
+132951,low,American,U1013,abstemious,no preference,independent,1982,professional
+132665,low,Mexican,U1031,abstemious,informal,kids,1992,unemployed
+132665,low,Mexican,U1026,abstemious,formal,independent,1989,student
+132665,low,Mexican,U1065,abstemious,formal,independent,1989,student
+132665,low,Mexican,U1129,casual drinker,no preference,independent,1989,student
+132665,low,Mexican,U1039,social drinker,no preference,independent,1989,student
+135044,medium,Chinese,U1083,abstemious,?,?,1981,?
+135044,medium,Chinese,U1134,casual drinker,no preference,independent,1991,student
+135044,medium,Chinese,U1046,social drinker,no preference,independent,1990,student
+135044,medium,Chinese,U1059,abstemious,formal,independent,1987,student
+135035,high,Italian,U1084,casual drinker,formal,independent,1991,student
+135035,high,Italian,U1095,abstemious,formal,independent,1986,student
+135035,high,Italian,U1034,casual drinker,informal,independent,1990,student
+135035,high,Italian,U1091,casual drinker,no preference,independent,1989,student
+135071,medium,Bar,U1015,social drinker,informal,independent,1989,student
+135071,medium,Bar,U1088,social drinker,informal,independent,1991,student
+135071,medium,Bar,U1124,casual drinker,informal,independent,1991,student
+135071,medium,Bar,U1094,abstemious,informal,independent,1991,student
+135071,medium,Bar,U1115,social drinker,elegant,independent,1990,student
+135071,medium,Bar,U1111,casual drinker,formal,independent,1991,student
+135071,medium,Bar,U1037,social drinker,no preference,independent,1990,student
+135071,medium,Bar,U1092,abstemious,formal,dependent,1990,?
+135071,medium,Bar,U1025,social drinker,no preference,?,1990,student
+135071,medium,Bar_Pub_Brewery,U1015,social drinker,informal,independent,1989,student
+135071,medium,Bar_Pub_Brewery,U1088,social drinker,informal,independent,1991,student
+135071,medium,Bar_Pub_Brewery,U1124,casual drinker,informal,independent,1991,student
+135071,medium,Bar_Pub_Brewery,U1094,abstemious,informal,independent,1991,student
+135071,medium,Bar_Pub_Brewery,U1115,social drinker,elegant,independent,1990,student
+135071,medium,Bar_Pub_Brewery,U1111,casual drinker,formal,independent,1991,student
+135071,medium,Bar_Pub_Brewery,U1037,social drinker,no preference,independent,1990,student
+135071,medium,Bar_Pub_Brewery,U1092,abstemious,formal,dependent,1990,?
+135071,medium,Bar_Pub_Brewery,U1025,social drinker,no preference,?,1990,student
+132834,low,Mexican,U1116,social drinker,formal,kids,1987,student
+132834,low,Mexican,U1075,casual drinker,informal,independent,1991,student
+132834,low,Mexican,U1024,abstemious,?,?,1930,?
+132834,low,Mexican,U1036,social drinker,informal,independent,1991,student
+132834,low,Mexican,U1071,abstemious,formal,independent,1930,student
+132834,low,Mexican,U1104,social drinker,no preference,independent,1991,student
+132834,low,Mexican,U1106,casual drinker,informal,independent,1930,professional
+132834,low,Mexican,U1045,casual drinker,elegant,independent,1991,student
+132834,low,Mexican,U1009,abstemious,formal,kids,1991,student
+132834,low,Mexican,U1016,casual drinker,informal,independent,1991,student
+132834,low,Mexican,U1099,social drinker,informal,independent,1989,student
+132834,low,Mexican,U1135,casual drinker,informal,kids,1988,student
+132834,low,Mexican,U1032,abstemious,formal,independent,1989,student
+132834,low,Mexican,U1062,casual drinker,informal,independent,1985,student
+132834,low,Mexican,U1078,social drinker,informal,independent,1983,professional
+132834,low,Mexican,U1122,abstemious,?,?,1930,?
+132834,low,Mexican,U1089,casual drinker,informal,independent,1990,student
+132834,low,Mexican,U1029,casual drinker,formal,independent,1990,student
+132834,low,Mexican,U1019,casual drinker,no preference,independent,1989,student
+132834,low,Mexican,U1137,social drinker,formal,independent,1989,student
+132834,low,Mexican,U1114,abstemious,no preference,independent,1991,student
+132834,low,Mexican,U1061,social drinker,no preference,independent,1990,professional
+132834,low,Mexican,U1112,casual drinker,formal,independent,1991,student
+132834,low,Mexican,U1057,casual drinker,formal,independent,1989,student
+132834,low,Mexican,U1073,abstemious,informal,kids,1989,unemployed
+132846,low,International,U1120,abstemious,informal,independent,1930,student
+132846,low,International,U1069,social drinker,no preference,independent,1983,professional
+132846,low,International,U1008,social drinker,formal,independent,1989,student
+132846,low,International,U1102,social drinker,no preference,independent,1989,student
+132846,low,International,U1025,social drinker,no preference,?,1990,student
+135048,high,Bar,U1055,abstemious,no preference,dependent,1952,professional
+135048,high,Bar,U1048,casual drinker,no preference,independent,1988,student
+135048,high,Bar,U1061,social drinker,no preference,independent,1990,professional
+135048,high,Bar,U1112,casual drinker,formal,independent,1991,student
+135048,high,Bar,U1006,social drinker,no preference,independent,1989,student
+135048,high,Bar,U1136,social drinker,no preference,independent,1990,student
+132717,medium,Fast_Food,U1023,casual drinker,informal,independent,1988,student
+132717,medium,Fast_Food,U1060,casual drinker,formal,independent,1991,student
+132717,medium,Fast_Food,U1011,abstemious,no preference,independent,1989,student
+132861,medium,Burgers,U1038,social drinker,no preference,independent,1930,student
+132861,medium,Burgers,U1084,casual drinker,formal,independent,1991,student
+132861,medium,Burgers,U1095,abstemious,formal,independent,1986,student
+132861,medium,Burgers,U1098,social drinker,formal,independent,1991,student
+132861,medium,Burgers,U1091,casual drinker,no preference,independent,1989,student
+132861,medium,Burgers,U1046,social drinker,no preference,independent,1990,student
+132861,medium,Burgers,U1097,abstemious,formal,independent,1990,student
+132885,low,Cafeteria,U1078,social drinker,informal,independent,1983,professional
+132885,low,Cafeteria,U1099,social drinker,informal,independent,1989,student
+132885,low,Cafeteria,U1085,abstemious,no preference,independent,1988,student
+132885,low,Cafeteria,U1098,social drinker,formal,independent,1991,student
+132885,low,Cafeteria,U1058,abstemious,formal,independent,1991,student
+132740,low,Mexican,U1068,casual drinker,informal,independent,1988,student
+132740,low,Mexican,U1060,casual drinker,formal,independent,1991,student
+132740,low,Mexican,U1123,abstemious,informal,independent,1987,student
+132740,low,Mexican,U1021,social drinker,no preference,dependent,1984,student
+132740,low,Mexican,U1023,casual drinker,informal,independent,1988,student
+132740,low,Mexican,U1050,social drinker,no preference,independent,1989,student
+132740,low,Mexican,U1028,abstemious,no preference,independent,1989,student
+132740,low,Mexican,U1087,abstemious,no preference,independent,1989,student
+132773,low,Family,U1072,casual drinker,no preference,independent,1984,student
+132773,low,Family,U1117,abstemious,no preference,independent,1982,professional
+132773,low,Family,U1035,casual drinker,no preference,independent,1985,student
+132773,low,Family,U1040,abstemious,no preference,independent,1994,student
+132773,low,Mexican,U1072,casual drinker,no preference,independent,1984,student
+132773,low,Mexican,U1117,abstemious,no preference,independent,1982,professional
+132773,low,Mexican,U1035,casual drinker,no preference,independent,1985,student
+132773,low,Mexican,U1040,abstemious,no preference,independent,1994,student
+132706,medium,Mexican,U1026,abstemious,formal,independent,1989,student
+132706,medium,Mexican,U1129,casual drinker,no preference,independent,1989,student
+132706,medium,Mexican,U1065,abstemious,formal,independent,1989,student
+132706,medium,Mexican,U1130,abstemious,?,?,1989,?
+132872,medium,American,U1095,abstemious,formal,independent,1986,student
+132872,medium,American,U1099,social drinker,informal,independent,1989,student
+132872,medium,American,U1128,casual drinker,no preference,independent,1986,student
+132872,medium,American,U1062,casual drinker,informal,independent,1985,student
+132872,medium,American,U1032,abstemious,formal,independent,1989,student
+132872,medium,American,U1085,abstemious,no preference,independent,1988,student
+132872,medium,American,U1109,abstemious,formal,independent,1989,student
+132872,medium,American,U1122,abstemious,?,?,1930,?
+132872,medium,American,U1089,casual drinker,informal,independent,1990,student
+132872,medium,American,U1027,social drinker,no preference,independent,1989,student
+132872,medium,American,U1114,abstemious,no preference,independent,1991,student
+132872,medium,American,U1058,abstemious,formal,independent,1991,student
+132572,low,Cafeteria,U1108,abstemious,informal,independent,1983,student
+132572,low,Cafeteria,U1055,abstemious,no preference,dependent,1952,professional
+132572,low,Cafeteria,U1083,abstemious,?,?,1981,?
+132572,low,Cafeteria,U1134,casual drinker,no preference,independent,1991,student
+132572,low,Cafeteria,U1007,casual drinker,informal,independent,1989,student
+132572,low,Cafeteria,U1092,abstemious,formal,dependent,1990,?
+132572,low,Cafeteria,U1033,social drinker,no preference,?,1991,student
+132572,low,Cafeteria,U1091,casual drinker,no preference,independent,1989,student
+132572,low,Cafeteria,U1090,social drinker,no preference,independent,1988,student
+132572,low,Cafeteria,U1013,abstemious,no preference,independent,1982,professional
+132572,low,Cafeteria,U1061,social drinker,no preference,independent,1990,professional
+132572,low,Cafeteria,U1046,social drinker,no preference,independent,1990,student
+132572,low,Cafeteria,U1112,casual drinker,formal,independent,1991,student
+132572,low,Cafeteria,U1006,social drinker,no preference,independent,1989,student
+132572,low,Cafeteria,U1073,abstemious,informal,kids,1989,unemployed
+132958,low,American,U1004,abstemious,informal,independent,1940,professional
+132958,low,American,U1061,social drinker,no preference,independent,1990,professional
+132958,low,American,U1025,social drinker,no preference,?,1990,student
+132958,low,American,U1097,abstemious,formal,independent,1990,student
+132958,low,American,U1096,abstemious,formal,independent,1990,student
+132958,low,American,U1136,social drinker,no preference,independent,1990,student
+132733,medium,Pizzeria,U1067,abstemious,no preference,independent,1987,student
+132733,medium,Pizzeria,U1103,abstemious,formal,independent,1989,professional
+132733,medium,Pizzeria,U1107,abstemious,no preference,independent,1989,?
+132733,medium,Pizzeria,U1060,casual drinker,formal,independent,1991,student
+132733,medium,Pizzeria,U1123,abstemious,informal,independent,1987,student
+132733,medium,Pizzeria,U1023,casual drinker,informal,independent,1988,student
+132733,medium,Pizzeria,U1080,social drinker,formal,independent,1987,student
+132733,medium,Pizzeria,U1082,abstemious,informal,?,1989,student
+132733,medium,Pizzeria,U1028,abstemious,no preference,independent,1989,student
+132733,medium,Pizzeria,U1068,casual drinker,informal,independent,1988,student
+132922,medium,Cafeteria,U1138,social drinker,formal,independent,1991,student
+132922,medium,Cafeteria,U1003,social drinker,formal,independent,1989,student
+132922,medium,Cafeteria,U1029,casual drinker,formal,independent,1990,student
+132922,medium,Cafeteria,U1086,social drinker,no preference,independent,1991,student
+132922,medium,Cafeteria,U1090,social drinker,no preference,independent,1988,student
+132922,medium,Cafeteria,U1006,social drinker,no preference,independent,1989,student
+132715,low,Mexican,U1023,casual drinker,informal,independent,1988,student
+132715,low,Mexican,U1021,social drinker,no preference,dependent,1984,student
+132715,low,Mexican,U1080,social drinker,formal,independent,1987,student
+132715,low,Mexican,U1011,abstemious,no preference,independent,1989,student
+135027,medium,Mexican,U1081,casual drinker,informal,independent,1991,student
+135027,medium,Mexican,U1056,social drinker,informal,independent,1930,student
+135027,medium,Mexican,U1076,social drinker,elegant,kids,1987,student
+135027,medium,Mexican,U1116,social drinker,formal,kids,1987,student
+135027,medium,Mexican,U1024,abstemious,?,?,1930,?
+135027,medium,Mexican,U1132,casual drinker,informal,?,1991,student
+135027,medium,Mexican,U1077,social drinker,elegant,kids,1987,student
+135027,medium,Mexican,U1101,casual drinker,no preference,independent,1988,student
+132767,medium,Vietnamese,U1093,casual drinker,no preference,independent,1990,student
+132767,medium,Vietnamese,U1030,casual drinker,formal,independent,1991,student
+132767,medium,Vietnamese,U1066,abstemious,informal,?,1986,student
+132767,medium,Vietnamese,U1133,abstemious,no preference,independent,1991,student
+132767,medium,Vietnamese,U1110,abstemious,no preference,independent,1993,student
+132767,medium,Vietnamese,U1121,social drinker,no preference,independent,1987,working-class
+135039,low,Seafood,U1081,casual drinker,informal,independent,1991,student
+135039,low,Seafood,U1124,casual drinker,informal,independent,1991,student
+135039,low,Seafood,U1076,social drinker,elegant,kids,1987,student
+135039,low,Seafood,U1105,social drinker,formal,independent,1991,student
+135039,low,Seafood,U1075,casual drinker,informal,independent,1991,student
+135039,low,Seafood,U1024,abstemious,?,?,1930,?
+135039,low,Seafood,U1071,abstemious,formal,independent,1930,student
+135039,low,Seafood,U1104,social drinker,no preference,independent,1991,student
+135039,low,Seafood,U1106,casual drinker,informal,independent,1930,professional
+135039,low,Seafood,U1054,social drinker,formal,independent,1992,student
+135039,low,Seafood,U1101,casual drinker,no preference,independent,1988,student
+135039,low,Seafood,U1001,abstemious,informal,independent,1989,student
+132755,medium,Mexican,U1083,abstemious,?,?,1981,?
+132755,medium,Mexican,U1048,casual drinker,no preference,independent,1988,student
+132755,medium,Mexican,U1003,social drinker,formal,independent,1989,student
+132755,medium,Mexican,U1137,social drinker,formal,independent,1989,student
+132755,medium,Mexican,U1114,abstemious,no preference,independent,1991,student
+135043,medium,Fast_Food,U1081,casual drinker,informal,independent,1991,student
+135043,medium,Fast_Food,U1014,abstemious,?,independent,1990,student
+135043,medium,Fast_Food,U1018,casual drinker,formal,independent,1989,student
+135043,medium,Fast_Food,U1125,casual drinker,formal,independent,1990,student
+135043,medium,Fast_Food,U1005,abstemious,no preference,independent,1992,student
+135043,medium,Fast_Food,U1099,social drinker,informal,independent,1989,student
+135043,medium,Fast_Food,U1085,abstemious,no preference,independent,1988,student
+135043,medium,Fast_Food,U1057,casual drinker,formal,independent,1989,student
+135043,medium,Fast_Food,U1058,abstemious,formal,independent,1991,student
+135043,medium,Pizzeria,U1081,casual drinker,informal,independent,1991,student
+135043,medium,Pizzeria,U1014,abstemious,?,independent,1990,student
+135043,medium,Pizzeria,U1018,casual drinker,formal,independent,1989,student
+135043,medium,Pizzeria,U1125,casual drinker,formal,independent,1990,student
+135043,medium,Pizzeria,U1005,abstemious,no preference,independent,1992,student
+135043,medium,Pizzeria,U1099,social drinker,informal,independent,1989,student
+135043,medium,Pizzeria,U1085,abstemious,no preference,independent,1988,student
+135043,medium,Pizzeria,U1057,casual drinker,formal,independent,1989,student
+135043,medium,Pizzeria,U1058,abstemious,formal,independent,1991,student
+135049,medium,Seafood,U1083,abstemious,?,?,1981,?
+135049,medium,Seafood,U1034,casual drinker,informal,independent,1990,student
+135049,medium,Seafood,U1048,casual drinker,no preference,independent,1988,student
+135049,medium,Seafood,U1137,social drinker,formal,independent,1989,student
+135049,medium,Seafood,U1097,abstemious,formal,independent,1990,student
+135073,high,Bar,U1076,social drinker,elegant,kids,1987,student
+135073,high,Bar,U1022,casual drinker,formal,independent,1990,student
+135073,high,Bar,U1024,abstemious,?,?,1930,?
+135073,high,Bar,U1101,casual drinker,no preference,independent,1988,student
+135073,high,Bar_Pub_Brewery,U1076,social drinker,elegant,kids,1987,student
+135073,high,Bar_Pub_Brewery,U1022,casual drinker,formal,independent,1990,student
+135073,high,Bar_Pub_Brewery,U1024,abstemious,?,?,1930,?
+135073,high,Bar_Pub_Brewery,U1101,casual drinker,no preference,independent,1988,student
+132560,low,Regional,U1067,abstemious,no preference,independent,1987,student
+132560,low,Regional,U1082,abstemious,informal,?,1989,student
+132560,low,Regional,U1050,social drinker,no preference,independent,1989,student
+132560,low,Regional,U1087,abstemious,no preference,independent,1989,student
+134976,low,Mexican,U1093,casual drinker,no preference,independent,1990,student
+134976,low,Mexican,U1100,casual drinker,formal,independent,1990,student
+134976,low,Mexican,U1074,casual drinker,no preference,kids,1967,professional
+134976,low,Mexican,U1079,abstemious,formal,independent,1992,?
+134976,low,Mediterranean,U1093,casual drinker,no preference,independent,1990,student
+134976,low,Mediterranean,U1100,casual drinker,formal,independent,1990,student
+134976,low,Mediterranean,U1074,casual drinker,no preference,kids,1967,professional
+134976,low,Mediterranean,U1079,abstemious,formal,independent,1992,?
+134976,low,Burgers,U1093,casual drinker,no preference,independent,1990,student
+134976,low,Burgers,U1100,casual drinker,formal,independent,1990,student
+134976,low,Burgers,U1074,casual drinker,no preference,kids,1967,professional
+134976,low,Burgers,U1079,abstemious,formal,independent,1992,?
+135075,medium,Seafood,U1108,abstemious,informal,independent,1983,student
+135075,medium,Seafood,U1055,abstemious,no preference,dependent,1952,professional
+135075,medium,Seafood,U1134,casual drinker,no preference,independent,1991,student
+135075,medium,Seafood,U1033,social drinker,no preference,?,1991,student
+135075,medium,Seafood,U1003,social drinker,formal,independent,1989,student
+135075,medium,Seafood,U1091,casual drinker,no preference,independent,1989,student
+135075,medium,Seafood,U1137,social drinker,formal,independent,1989,student
+135075,medium,Seafood,U1061,social drinker,no preference,independent,1990,professional
+135075,medium,Seafood,U1013,abstemious,no preference,independent,1982,professional
+135075,medium,Seafood,U1059,abstemious,formal,independent,1987,student
+135075,medium,Seafood,U1057,casual drinker,formal,independent,1989,student
+135075,medium,Seafood,U1006,social drinker,no preference,independent,1989,student
+135075,medium,Seafood,U1096,abstemious,formal,independent,1990,student
+132921,low,Bar,U1138,social drinker,formal,independent,1991,student
+132921,low,Bar,U1013,abstemious,no preference,independent,1982,professional
+132921,low,Bar,U1098,social drinker,formal,independent,1991,student
+132921,low,Bar,U1033,social drinker,no preference,?,1991,student
+132921,low,Bar,U1089,casual drinker,informal,independent,1990,student
+132921,low,Bar,U1027,social drinker,no preference,independent,1989,student
+132921,low,Bar,U1029,casual drinker,formal,independent,1990,student
+132921,low,Bar,U1086,social drinker,no preference,independent,1991,student
+132921,low,Bar,U1019,casual drinker,no preference,independent,1989,student
+132921,low,Bar,U1061,social drinker,no preference,independent,1990,professional
+132921,low,Bar,U1046,social drinker,no preference,independent,1990,student
+132921,low,Bar,U1112,casual drinker,formal,independent,1991,student
+132921,low,Bar,U1128,casual drinker,no preference,independent,1986,student
+132921,low,Bar,U1097,abstemious,formal,independent,1990,student
+132921,low,Bar,U1049,casual drinker,informal,?,1991,student
+132921,low,Bar,U1002,abstemious,informal,independent,1990,student
+132921,low,Bar,U1136,social drinker,no preference,independent,1990,student
+132594,low,Mexican,U1082,abstemious,informal,?,1989,student
+132594,low,Mexican,U1123,abstemious,informal,independent,1987,student
+132594,low,Mexican,U1050,social drinker,no preference,independent,1989,student
+132594,low,Mexican,U1087,abstemious,no preference,independent,1989,student
+132594,low,Mexican,U1068,casual drinker,informal,independent,1988,student
+134986,high,International,U1030,casual drinker,formal,independent,1991,student
+134986,high,International,U1012,casual drinker,formal,independent,1988,student
+134986,high,International,U1133,abstemious,no preference,independent,1991,student
+134986,high,International,U1044,social drinker,informal,kids,1969,professional
+134986,high,International,U1119,abstemious,formal,independent,1992,student
+134986,high,International,U1035,casual drinker,no preference,independent,1985,student
+134986,high,International,U1079,abstemious,formal,independent,1992,?
+134986,high,International,U1042,abstemious,no preference,independent,1943,student
+132766,medium,Japanese,U1133,abstemious,no preference,independent,1991,student
+132766,medium,Japanese,U1117,abstemious,no preference,independent,1982,professional
+132766,medium,Japanese,U1079,abstemious,formal,independent,1992,?
+135088,low,Cafeteria,U1044,social drinker,informal,kids,1969,professional
+135088,low,Cafeteria,U1030,casual drinker,formal,independent,1991,student
+135088,low,Cafeteria,U1072,casual drinker,no preference,independent,1984,student
+135088,low,Cafeteria,U1117,abstemious,no preference,independent,1982,professional
+135088,low,Cafeteria,U1020,abstemious,no preference,independent,1982,professional
+135088,low,Cafeteria,U1051,casual drinker,no preference,independent,1979,professional
+135058,medium,Pizzeria,U1108,abstemious,informal,independent,1983,student
+135058,medium,Pizzeria,U1084,casual drinker,formal,independent,1991,student
+135058,medium,Pizzeria,U1009,abstemious,formal,kids,1991,student
+135058,medium,Pizzeria,U1095,abstemious,formal,independent,1986,student
+135058,medium,Pizzeria,U1007,casual drinker,informal,independent,1989,student
+135058,medium,Pizzeria,U1032,abstemious,formal,independent,1989,student
+135058,medium,Pizzeria,U1135,casual drinker,informal,kids,1988,student
+135058,medium,Pizzeria,U1109,abstemious,formal,independent,1989,student
+135058,medium,Pizzeria,U1122,abstemious,?,?,1930,?
+135058,medium,Pizzeria,U1089,casual drinker,informal,independent,1990,student
+135058,medium,Pizzeria,U1137,social drinker,formal,independent,1989,student
+135058,medium,Pizzeria,U1114,abstemious,no preference,independent,1991,student
+135058,medium,Pizzeria,U1061,social drinker,no preference,independent,1990,professional
+135058,medium,Pizzeria,U1046,social drinker,no preference,independent,1990,student
+135058,medium,Pizzeria,U1097,abstemious,formal,independent,1990,student
+135058,medium,Pizzeria,U1128,casual drinker,no preference,independent,1986,student
+135058,medium,Pizzeria,U1058,abstemious,formal,independent,1991,student
+135058,medium,Pizzeria,U1010,social drinker,no preference,kids,1987,student
+132754,medium,Mexican,U1055,abstemious,no preference,dependent,1952,professional
+132754,medium,Mexican,U1053,casual drinker,informal,independent,1990,student
+132754,medium,Mexican,U1134,casual drinker,no preference,independent,1991,student
+132754,medium,Mexican,U1036,social drinker,informal,independent,1991,student
+132754,medium,Mexican,U1106,casual drinker,informal,independent,1930,professional
+132754,medium,Mexican,U1009,abstemious,formal,kids,1991,student
+132754,medium,Mexican,U1122,abstemious,?,?,1930,?
+132754,medium,Mexican,U1089,casual drinker,informal,independent,1990,student
+132754,medium,Mexican,U1029,casual drinker,formal,independent,1990,student
+132754,medium,Mexican,U1114,abstemious,no preference,independent,1991,student
+132754,medium,Mexican,U1003,social drinker,formal,independent,1989,student
+132754,medium,Mexican,U1061,social drinker,no preference,independent,1990,professional
+132754,medium,Mexican,U1059,abstemious,formal,independent,1987,student
+132584,medium,Mexican,U1067,abstemious,no preference,independent,1987,student
+132584,medium,Mexican,U1103,abstemious,formal,independent,1989,professional
+132584,medium,Mexican,U1107,abstemious,no preference,independent,1989,?
+132584,medium,Mexican,U1123,abstemious,informal,independent,1987,student
+132584,medium,Mexican,U1063,casual drinker,formal,independent,1988,student
+132584,medium,Mexican,U1050,social drinker,no preference,independent,1989,student
+135032,medium,Cafeteria,U1108,abstemious,informal,independent,1983,student
+135032,medium,Cafeteria,U1053,casual drinker,informal,independent,1990,student
+135032,medium,Cafeteria,U1081,casual drinker,informal,independent,1991,student
+135032,medium,Cafeteria,U1088,social drinker,informal,independent,1991,student
+135032,medium,Cafeteria,U1106,casual drinker,informal,independent,1930,professional
+135032,medium,Cafeteria,U1124,casual drinker,informal,independent,1991,student
+135032,medium,Cafeteria,U1125,casual drinker,formal,independent,1990,student
+135032,medium,Cafeteria,U1018,casual drinker,formal,independent,1989,student
+135032,medium,Cafeteria,U1022,casual drinker,formal,independent,1990,student
+135032,medium,Cafeteria,U1075,casual drinker,informal,independent,1991,student
+135032,medium,Cafeteria,U1024,abstemious,?,?,1930,?
+135032,medium,Cafeteria,U1132,casual drinker,informal,?,1991,student
+135032,medium,Cafeteria,U1005,abstemious,no preference,independent,1992,student
+135032,medium,Cafeteria,U1120,abstemious,informal,independent,1930,student
+135032,medium,Cafeteria,U1004,abstemious,informal,independent,1940,professional
+135032,medium,Cafeteria,U1071,abstemious,formal,independent,1930,student
+135032,medium,Cafeteria,U1113,casual drinker,formal,independent,1990,student
+135032,medium,Cafeteria,U1104,social drinker,no preference,independent,1991,student
+135032,medium,Cafeteria,U1045,casual drinker,elegant,independent,1991,student
+135032,medium,Cafeteria,U1016,casual drinker,informal,independent,1991,student
+135032,medium,Cafeteria,U1007,casual drinker,informal,independent,1989,student
+135032,medium,Cafeteria,U1054,social drinker,formal,independent,1992,student
+135032,medium,Cafeteria,U1101,casual drinker,no preference,independent,1988,student
+135032,medium,Cafeteria,U1032,abstemious,formal,independent,1989,student
+135032,medium,Cafeteria,U1135,casual drinker,informal,kids,1988,student
+135032,medium,Cafeteria,U1109,abstemious,formal,independent,1989,student
+135032,medium,Cafeteria,U1098,social drinker,formal,independent,1991,student
+135032,medium,Cafeteria,U1049,casual drinker,informal,?,1991,student
+135032,medium,Contemporary,U1108,abstemious,informal,independent,1983,student
+135032,medium,Contemporary,U1053,casual drinker,informal,independent,1990,student
+135032,medium,Contemporary,U1081,casual drinker,informal,independent,1991,student
+135032,medium,Contemporary,U1088,social drinker,informal,independent,1991,student
+135032,medium,Contemporary,U1106,casual drinker,informal,independent,1930,professional
+135032,medium,Contemporary,U1124,casual drinker,informal,independent,1991,student
+135032,medium,Contemporary,U1125,casual drinker,formal,independent,1990,student
+135032,medium,Contemporary,U1018,casual drinker,formal,independent,1989,student
+135032,medium,Contemporary,U1022,casual drinker,formal,independent,1990,student
+135032,medium,Contemporary,U1075,casual drinker,informal,independent,1991,student
+135032,medium,Contemporary,U1024,abstemious,?,?,1930,?
+135032,medium,Contemporary,U1132,casual drinker,informal,?,1991,student
+135032,medium,Contemporary,U1005,abstemious,no preference,independent,1992,student
+135032,medium,Contemporary,U1120,abstemious,informal,independent,1930,student
+135032,medium,Contemporary,U1004,abstemious,informal,independent,1940,professional
+135032,medium,Contemporary,U1071,abstemious,formal,independent,1930,student
+135032,medium,Contemporary,U1113,casual drinker,formal,independent,1990,student
+135032,medium,Contemporary,U1104,social drinker,no preference,independent,1991,student
+135032,medium,Contemporary,U1045,casual drinker,elegant,independent,1991,student
+135032,medium,Contemporary,U1016,casual drinker,informal,independent,1991,student
+135032,medium,Contemporary,U1007,casual drinker,informal,independent,1989,student
+135032,medium,Contemporary,U1054,social drinker,formal,independent,1992,student
+135032,medium,Contemporary,U1101,casual drinker,no preference,independent,1988,student
+135032,medium,Contemporary,U1032,abstemious,formal,independent,1989,student
+135032,medium,Contemporary,U1135,casual drinker,informal,kids,1988,student
+135032,medium,Contemporary,U1109,abstemious,formal,independent,1989,student
+135032,medium,Contemporary,U1098,social drinker,formal,independent,1991,student
+135032,medium,Contemporary,U1049,casual drinker,informal,?,1991,student
+135028,medium,Mexican,U1108,abstemious,informal,independent,1983,student
+135028,medium,Mexican,U1055,abstemious,no preference,dependent,1952,professional
+135028,medium,Mexican,U1081,casual drinker,informal,independent,1991,student
+135028,medium,Mexican,U1106,casual drinker,informal,independent,1930,professional
+135028,medium,Mexican,U1024,abstemious,?,?,1930,?
+135028,medium,Mexican,U1132,casual drinker,informal,?,1991,student
+135028,medium,Mexican,U1004,abstemious,informal,independent,1940,professional
+135028,medium,Mexican,U1071,abstemious,formal,independent,1930,student
+135028,medium,Mexican,U1135,casual drinker,informal,kids,1988,student
+135028,medium,Mexican,U1109,abstemious,formal,independent,1989,student
+135028,medium,Mexican,U1033,social drinker,no preference,?,1991,student
+135028,medium,Mexican,U1089,casual drinker,informal,independent,1990,student
+135028,medium,Mexican,U1059,abstemious,formal,independent,1987,student
+135028,medium,Mexican,U1025,social drinker,no preference,?,1990,student
+135028,medium,Mexican,U1136,social drinker,no preference,independent,1990,student
+135085,medium,Fast_Food,U1077,social drinker,elegant,kids,1987,student
+135085,medium,Fast_Food,U1108,abstemious,informal,independent,1983,student
+135085,medium,Fast_Food,U1081,casual drinker,informal,independent,1991,student
+135085,medium,Fast_Food,U1056,social drinker,informal,independent,1930,student
+135085,medium,Fast_Food,U1134,casual drinker,no preference,independent,1991,student
+135085,medium,Fast_Food,U1116,social drinker,formal,kids,1987,student
+135085,medium,Fast_Food,U1132,casual drinker,informal,?,1991,student
+135085,medium,Fast_Food,U1120,abstemious,informal,independent,1930,student
+135085,medium,Fast_Food,U1036,social drinker,informal,independent,1991,student
+135085,medium,Fast_Food,U1084,casual drinker,formal,independent,1991,student
+135085,medium,Fast_Food,U1113,casual drinker,formal,independent,1990,student
+135085,medium,Fast_Food,U1104,social drinker,no preference,independent,1991,student
+135085,medium,Fast_Food,U1106,casual drinker,informal,independent,1930,professional
+135085,medium,Fast_Food,U1045,casual drinker,elegant,independent,1991,student
+135085,medium,Fast_Food,U1016,casual drinker,informal,independent,1991,student
+135085,medium,Fast_Food,U1007,casual drinker,informal,independent,1989,student
+135085,medium,Fast_Food,U1013,abstemious,no preference,independent,1982,professional
+135085,medium,Fast_Food,U1001,abstemious,informal,independent,1989,student
+135085,medium,Fast_Food,U1135,casual drinker,informal,kids,1988,student
+135085,medium,Fast_Food,U1032,abstemious,formal,independent,1989,student
+135085,medium,Fast_Food,U1062,casual drinker,informal,independent,1985,student
+135085,medium,Fast_Food,U1092,abstemious,formal,dependent,1990,?
+135085,medium,Fast_Food,U1109,abstemious,formal,independent,1989,student
+135085,medium,Fast_Food,U1122,abstemious,?,?,1930,?
+135085,medium,Fast_Food,U1098,social drinker,formal,independent,1991,student
+135085,medium,Fast_Food,U1033,social drinker,no preference,?,1991,student
+135085,medium,Fast_Food,U1089,casual drinker,informal,independent,1990,student
+135085,medium,Fast_Food,U1027,social drinker,no preference,independent,1989,student
+135085,medium,Fast_Food,U1029,casual drinker,formal,independent,1990,student
+135085,medium,Fast_Food,U1086,social drinker,no preference,independent,1991,student
+135085,medium,Fast_Food,U1137,social drinker,formal,independent,1989,student
+135085,medium,Fast_Food,U1046,social drinker,no preference,independent,1990,student
+135085,medium,Fast_Food,U1090,social drinker,no preference,independent,1988,student
+135085,medium,Fast_Food,U1059,abstemious,formal,independent,1987,student
+135085,medium,Fast_Food,U1049,casual drinker,informal,?,1991,student
+135085,medium,Fast_Food,U1002,abstemious,informal,independent,1990,student
+132663,low,Mexican,U1068,casual drinker,informal,independent,1988,student
+132663,low,Mexican,U1103,abstemious,formal,independent,1989,professional
+132663,low,Mexican,U1031,abstemious,informal,kids,1992,unemployed
+132663,low,Mexican,U1082,abstemious,informal,?,1989,student
+132663,low,Mexican,U1028,abstemious,no preference,independent,1989,student
+132663,low,Mexican,U1087,abstemious,no preference,independent,1989,student
+132626,medium,Italian,U1026,abstemious,formal,independent,1989,student
+132626,medium,Italian,U1065,abstemious,formal,independent,1989,student
+132626,medium,Italian,U1039,social drinker,no preference,independent,1989,student
+132626,medium,Italian,U1130,abstemious,?,?,1989,?
+132583,low,American,U1044,social drinker,informal,kids,1969,professional
+132583,low,American,U1118,casual drinker,informal,independent,1987,student
+132583,low,American,U1035,casual drinker,no preference,independent,1985,student
+132583,low,American,U1119,abstemious,formal,independent,1992,student
+132866,medium,Bakery,U1052,social drinker,no preference,independent,1990,student
+132866,medium,Bakery,U1008,social drinker,formal,independent,1989,student
+132866,medium,Bakery,U1015,social drinker,informal,independent,1989,student
+132866,medium,Bakery,U1025,social drinker,no preference,?,1990,student
+132866,medium,Bakery,U1131,social drinker,no preference,kids,1990,student
+132866,medium,Cafeteria,U1052,social drinker,no preference,independent,1990,student
+132866,medium,Cafeteria,U1008,social drinker,formal,independent,1989,student
+132866,medium,Cafeteria,U1015,social drinker,informal,independent,1989,student
+132866,medium,Cafeteria,U1025,social drinker,no preference,?,1990,student
+132866,medium,Cafeteria,U1131,social drinker,no preference,kids,1990,student
+135072,medium,Japanese,U1083,abstemious,?,?,1981,?
+135072,medium,Japanese,U1084,casual drinker,formal,independent,1991,student
+135072,medium,Japanese,U1095,abstemious,formal,independent,1986,student
+135072,medium,Japanese,U1013,abstemious,no preference,independent,1982,professional
+135072,medium,Japanese,U1089,casual drinker,informal,independent,1990,student
+135072,medium,Japanese,U1114,abstemious,no preference,independent,1991,student
+135072,medium,Japanese,U1096,abstemious,formal,independent,1990,student
+135072,medium,Japanese,U1136,social drinker,no preference,independent,1990,student
+135109,medium,Italian,U1030,casual drinker,formal,independent,1991,student
+135109,medium,Italian,U1020,abstemious,no preference,independent,1982,professional
+135109,medium,Italian,U1051,casual drinker,no preference,independent,1979,professional
+135109,medium,Italian,U1041,abstemious,no preference,independent,1985,professional
+135019,low,Bar,U1093,casual drinker,no preference,independent,1990,student
+135019,low,Bar,U1030,casual drinker,formal,independent,1991,student
+135019,low,Bar,U1066,abstemious,informal,?,1986,student
+135019,low,Bar,U1133,abstemious,no preference,independent,1991,student
+135019,low,Bar,U1040,abstemious,no preference,independent,1994,student
+135019,low,Bar,U1121,social drinker,no preference,independent,1987,working-class

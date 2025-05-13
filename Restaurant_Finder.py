@@ -6,8 +6,9 @@ import datetime # For displaying closing time and remaining time of restaurants
 from streamlit_javascript import st_javascript
 from streamlit_geolocation import streamlit_geolocation
 from streamlit_option_menu import option_menu # For sidebar navigation
-import json
-import os 
+import json # For user visited restaurant save
+import os # For user visited restaurant save
+from collections import Counter
 
 # test
 # Set page configuration (must be first) 
@@ -43,6 +44,12 @@ def save_history(user, history):
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
 
+# ML Cuisine Recommender
+liked = [e["category"] for e in st.session_state.history if e["rating"] >= 4]
+if liked:
+    most_common = Counter(liked).most_common(1)[0][0]
+    st.subheader("🥢 Cuisine Recommendation")
+    st.info(f"Based on your preferences, you might enjoy more **{most_common}** cuisine!")
 
 # Sidebar Navigation code retrieved from Youtube video: https://www.youtube.com/watch?v=flFy5o-2MvIE
 with st.sidebar:
@@ -63,6 +70,10 @@ if username:
 if username and st.session_state.loaded_for != username:
     st.session_state.history = load_history(username)
     st.session_state.loaded_for = username
+
+if not username: # In case we don't have username, it allows to wipe everything when they delete their name
+    st.session_state.loaded_for = None
+    st.session_state.history = []
 
 # (Optional) Initialize history list if it wasn’t loaded
 if "history" not in st.session_state:
@@ -346,10 +357,11 @@ elif selected == "Visited Restaurants":
                 save_history(username, st.session_state.history)
 
     # Button to clear history
-    if username and st.button("Reset my history"):
-        st.session_state.history = []
-        save_history(username, [])
-        st.success("Your history has been cleared.")
+    if username and st.session_state.history: # Hide “Reset my history” when there’s nothing to reset
+        if st.button("Reset my history"): 
+            st.session_state.history = []
+            save_history(username, [])
+            st.success("Your history has been cleared.")
     
     # Display Visited Restaurants
     st.subheader("Your Visited Restaurants")

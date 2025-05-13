@@ -72,8 +72,8 @@ if "loaded_for" not in st.session_state:
 with st.sidebar:
     selected = option_menu(
         menu_title="Navigation",
-        options=["Restaurant Finder", "Visited Restaurants"],
-        icons=["geo-alt-fill", "star-fill"],
+        options=["Restaurant Finder", "Visited Restaurants", "Restaurant Recommender"],
+        icons=["geo-alt-fill", "star-fill", "robot"],
         menu_icon="👨‍🍳",
         default_index=0
     )
@@ -394,18 +394,14 @@ elif selected == "Visited Restaurants":
     else:
         st.info("No visits added yet.")
 
-# User input interface for ML prediction
-with st.sidebar:
-    selected = option_menu("Navigation", ["Restaurant Finder", "Visited Restaurants", "ML Recommender"], icons=["geo-alt-fill", "star-fill", "robot"], menu_icon="👨‍🍳")
-
-if selected == "ML Recommender":
-    st.title("🤖 Restaurant Preference Predictor")
+if selected == "Restaurant Recommender":
+    st.title("Restaurant Preference Predictor")
     st.write("Fill out the form below to get restaurant price and cuisine predictions based on your profile.")
 
     # Inputs
     drink_level = st.selectbox("Drink Level", ['abstemious', 'casual drinker', 'social drinker'])
     dress_preference = st.selectbox("Dress Preference", ['casual', 'elegant', 'no preference'])
-    hijos = st.selectbox("Children", ['indifferent', 'doesn t have', 'has'])
+    hijos = st.selectbox("Children", ['indifferent', 'does not have', 'has'])
     birth_year = st.number_input("Birth Year", min_value=1940, max_value=2025, value=1999)
     activity = st.selectbox("Activity Preference", ['active', 'no preference', 'lazy'])
 

@@ -9,6 +9,7 @@ from streamlit_geolocation import streamlit_geolocation
 from streamlit_option_menu import option_menu # For sidebar navigation
 import json # For user visited restaurant save
 import os # For user visited restaurant save
+import pandas as pd # For data manipulation and display bar chart of visited restaurants
 from collections import Counter
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier

@@ -397,6 +397,11 @@ elif selected == "Visited Restaurants":
     if st.session_state.history:
         for entry in st.session_state.history:
             st.write(f"**{entry['name']}** ({entry['category']}) — {entry['rating']}⭐")
+            # Turn the history into a DataFrame, count by cuisine, and plot
+            df = pd.DataFrame(st.session_state.history)
+            counts = df["category"].value_counts()
+            st.subheader("🍽️ Your Visits by Cuisine")
+            st.bar_chart(counts)
     else:
         st.info("No visits added yet.")
 

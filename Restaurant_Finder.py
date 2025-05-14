@@ -191,26 +191,25 @@ if selected == "Restaurant Finder":
 
     # Geolocation
     st.subheader("Your Location")
-    location = streamlit_geolocation()
-    latitude = longitude = None
+    location = streamlit_geolocation() # Streamlit function to get the user's geolocation (coordinates)
     city = None
-    if location:
-        latitude = location.get("latitude")
+    if location: 
+        latitude = location.get("latitude") 
         longitude = location.get("longitude")
-        if latitude and longitude and OPENCAGE_API_KEY:
-            geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
-            r = requests.get(geocode_url)
-            if r.status_code == 200 and r.json().get("results"):
+        if latitude and longitude and OPENCAGE_API_KEY: # Use OpenCage to get the city name with received coordinates
+            geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}" # OpenCage API
+            r = requests.get(geocode_url) # API call to OpenCage
+            if r.status_code == 200 and r.json().get("results"): # Check if the API call was successful
                 comp = r.json()["results"][0]["components"]
                 city = comp.get("city") or comp.get("town") or comp.get("village")
-                st.write(f"**You are in {city}** — {latitude}, {longitude}")
-            else:
+                st.write(f"**You are in {city}** — {latitude}, {longitude}") # Display the city name and coordinates
+            else: # If the API call failed or no results were found
                 st.write("Unable to fetch city name.")
-        elif latitude and longitude:
+        elif latitude and longitude: # If we have coordinates but no API key
             st.write(f"Coordinates: {latitude}, {longitude}")
-        else:
+        else: # If we don't have coordinates
             st.write("Invalid coordinates received.")
-    else:
+    else: # If the user has not allowed geolocation
         st.write("Enable location services to fetch your coordinates.")
 
     # Find Restaurants
@@ -231,7 +230,7 @@ if selected == "Restaurant Finder":
         elif not price_range:
             st.error("Please select at least one price range.")
         else:
-            # Price flags: map $ to minprice/maxprice (0–4)
+            # Price flags: map $ to minprice/maxprice (0–4) of Google Places API
             price_map = {"$": 0, "$$": 1, "$$$": 2, "$$$$": 3}
             min_price = min(price_map[pr] for pr in price_range)
             max_price = max(price_map[pr] for pr in price_range)

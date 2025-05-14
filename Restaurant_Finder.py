@@ -96,8 +96,9 @@ cuisine_map = {
     "Japanese": ["Japanese restaurant", "sushi", "ramen", "izakaya", "udon", "tempura", "Japanisch", "Sushi"],
     "Korean":  ["Korean", "kimchi", "bulgogi", "bibimbap", "Koreanisch", "Korean BBQ"],
     "Vietnamese": ["Vietnamese", "pho", "banh mi", "spring rolls", "Vietnamese restaurant", "Vietnamesisch"],
-    "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger"],
-    "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"]
+    "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger", "Steak", "Fast_Food"],
+    "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"],
+    "Bar": ["Bar", "pub", "tavern", "biergarten", "Biergarten", "Cocktails", "Wine Bar"],
 }
 
 # Haversine formula to calculate great-circle distance between two lat/lon points
@@ -186,7 +187,7 @@ if selected == "Restaurant Finder":
     # Cuisine Selection
     food_type = st.selectbox(
         "Select cuisine type:",
-        ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese"]
+        ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese", "Bar"]
     )
 
     # Geolocation

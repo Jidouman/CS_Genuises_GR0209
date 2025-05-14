@@ -191,25 +191,26 @@ if selected == "Restaurant Finder":
 
     # Geolocation
     st.subheader("Your Location")
-    location = streamlit_geolocation() # Streamlit function to get the user's geolocation (coordinates)
+    location = streamlit_geolocation()
+    latitude = longitude = None
     city = None
-    if location: 
-        latitude = location.get("latitude") 
+    if location:
+        latitude = location.get("latitude")
         longitude = location.get("longitude")
-        if latitude and longitude and OPENCAGE_API_KEY: # Use OpenCage to get the city name with received coordinates
-            geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}" # OpenCage API
-            r = requests.get(geocode_url) # API call to OpenCage
-            if r.status_code == 200 and r.json().get("results"): # Check if the API call was successful
+        if latitude and longitude and OPENCAGE_API_KEY:
+            geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
+            r = requests.get(geocode_url)
+            if r.status_code == 200 and r.json().get("results"):
                 comp = r.json()["results"][0]["components"]
                 city = comp.get("city") or comp.get("town") or comp.get("village")
-                st.write(f"**You are in {city}** — {latitude}, {longitude}") # Display the city name and coordinates
-            else: # If the API call failed or no results were found
+                st.write(f"**You are in {city}** — {latitude}, {longitude}")
+            else:
                 st.write("Unable to fetch city name.")
-        elif latitude and longitude: # If we have coordinates but no API key
+        elif latitude and longitude:
             st.write(f"Coordinates: {latitude}, {longitude}")
-        else: # If we don't have coordinates
+        else:
             st.write("Invalid coordinates received.")
-    else: # If the user has not allowed geolocation
+    else:
         st.write("Enable location services to fetch your coordinates.")
 
     # Find Restaurants
@@ -230,7 +231,7 @@ if selected == "Restaurant Finder":
         elif not price_range:
             st.error("Please select at least one price range.")
         else:
-            # Price flags: map $ to minprice/maxprice (0–4) of Google Places API
+            # Price flags: map $ to minprice/maxprice (0–4)
             price_map = {"$": 0, "$$": 1, "$$$": 2, "$$$$": 3}
             min_price = min(price_map[pr] for pr in price_range)
             max_price = max(price_map[pr] for pr in price_range)
@@ -404,24 +405,92 @@ if selected == "Restaurant Recommender":
     # Inputs
     drink_level = st.selectbox("Drink Level", ['abstemious', 'casual drinker', 'social drinker'])
     dress_preference = st.selectbox("Dress Preference", ['casual', 'elegant', 'no preference'])
-    hijos = st.selectbox("Children", ['indifferent', 'does not have', 'has'])
+    hijos = st.selectbox("Children", ['indifferent', '''doesn't have''', 'has'])
     birth_year = st.number_input("Birth Year", min_value=1940, max_value=2025, value=1999)
     activity = st.selectbox("Activity Preference", ['active', 'no preference', 'lazy'])
+    
+    # Set values for each colummn of trained dataset
+    #for the drink level
+    if drink_level == 'abstemious':
+        drink_level_abstemious = True
+        drink_level_casual_drinker = False
+        drink_level_social_drinker = False
+    elif drink_level == 'casual drinker':
+        drink_level_abstemious = False
+        drink_level_casual_drinker = True
+        drink_level_social_drinker = False
+    else:
+        drink_level_abstemious = False
+        drink_level_casual_drinker = False
+        drink_level_social_drinker = True
 
-    # Predict
+    #for the dress preference
+    if dress_preference == 'casual':
+        dress_preference_q =False
+        dress_preference_elegant = False
+        dress_preference_formal = False
+        dress_preference_informal = True
+        dress_preference_nopreference = True
+    elif dress_preference == 'elegant':
+        dress_preference_q =False
+        dress_preference_elegant = True
+        dress_preference_formal = True
+        dress_preference_informal = False
+        dress_preference_nopreference = False
+    else:
+        dress_preference_q =True
+        dress_preference_elegant = False
+        dress_preference_formal = False
+        dress_preference_informal = False
+        dress_preference_nopreference = True
+
+    #for the kids
+    if hijos == 'indifferent':
+        hijos_indifferent = True
+        hijos_dependent = False
+        hijos_independent = True #independent and adult children are not relevant
+        hijos_yes = False
+    elif hijos == '''doesn't have''':
+        hijos_indifferent = False
+        hijos_dependent = False
+        hijos_independent = True #independent and adult children are not relevant
+        hijos_yes = False
+    else: 
+        hijos_indifferent = False
+        hijos_dependent = True
+        hijos_independent = False
+        hijos_yes = True
+
+    #for the activity
+    if activity == 'active':
+        activity_q = False
+        activity_professional = True
+        activity_student = True
+        activity_unemployed = False
+        activity_working_class = True
+    elif activity == 'no preference':
+        activity_q = True
+        activity_professional = False
+        activity_student = False
+        activity_unemployed = False
+        activity_working_class = False
+    else:
+        activity_q = False
+        activity_professional = False
+        activity_student = True
+        activity_unemployed = True
+        activity_working_class = False
+
+    # Predict & create dataframe with inputs
     if st.button("Predict Preferences"):
         df = load_ml_data()
         model_price, model_cuisine, model_columns = train_models(df)
-        input_df = pd.DataFrame([[drink_level, dress_preference, hijos, birth_year, activity]], columns=['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'])
-        input_encoded = pd.get_dummies(input_df)
-        input_encoded = input_encoded.reindex(columns=model_columns, fill_value=0)
-
-        predicted_price = model_price.predict(input_df)[0]
-        predicted_cuisine = model_cuisine.predict(input_df)[0]
+        input_final = pd.DataFrame([{'birth_year': birth_year,'drink_level_abstemious': drink_level_abstemious,'drink_level_casual drinker': drink_level_casual_drinker,'drink_level_social drinker': drink_level_social_drinker,'dress_preference_?': dress_preference_q,'dress_preference_elegant': dress_preference_elegant,'dress_preference_formal': dress_preference_formal,'dress_preference_informal': dress_preference_informal,'dress_preference_no preference': dress_preference_nopreference,'hijos_?': hijos_indifferent,'hijos_dependent': hijos_dependent,'hijos_independent': hijos_independent,'hijos_kids': hijos_yes,'activity_?': activity_q,'activity_professional': activity_professional,'activity_student': activity_student,'activity_unemployed': activity_unemployed,'activity_working-class': activity_working_class,}])
+        predicted_price = model_price.predict(input_final)[0]
+        predicted_cuisine = model_cuisine.predict(input_final)[0]
 
         st.success(f"Predicted Price Level: {predicted_price}")
         st.success(f"Suggested Cuisine: {predicted_cuisine}")
-
 
 # Footer
 st.write("---")

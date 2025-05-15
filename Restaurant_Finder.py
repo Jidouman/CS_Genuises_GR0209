@@ -98,8 +98,9 @@ with st.sidebar:
         default_index=0 # Start on "Restaurant Finder" page
     )
 
-# Cuisine map shared between both pages
-# Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
+# ── Cuisine Keywords Mapping ─────────────────────────────────────────────────
+# For each cuisine, list keywords to include in our Google query  
+# This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
 # That's why it is defined here — before the conditional blocks — to ensure
 # it is accessible no matter which page the user is on.
 cuisine_map = {

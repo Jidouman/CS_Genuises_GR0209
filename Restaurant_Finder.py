@@ -529,13 +529,14 @@ if selected == "Restaurant Recommender":
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]
 
+# Convert predicted price level to string representation to match tghe Restaurant Finder page
         if predicted_price == "low":
             predicted_price = "$"
         elif predicted_price == "medium":
             predicted_price = "$$"
         elif predicted_price == "high":
             predicted_price = "$$$"
-        
+ # Convert predicted cuisine categories of the dataset we used to matchg the cuisine categories of the Restaurant Finder page      
         if predicted_cuisine == "Italian" or predicted_cuisine == "Pizzeria":
             predicted_cuisine = "Italian"
         elif predicted_cuisine == "Bar" or predicted_cuisine == "Bar_Pub_Brewery":

@@ -556,7 +556,7 @@ if selected == "Restaurant Recommender":
         st.success(f"Suggested Cuisine: {predicted_cuisine}")
 
         # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
-        st.subheader("Your Location")
+        
         location = streamlit_geolocation() # Get the user's location using the browser geolocation API
         latitude = longitude = None # Initialize latitude and longitude
         city = None # Initialize city name
@@ -579,27 +579,31 @@ if selected == "Restaurant Recommender":
         else:
             st.write("Enable location services to fetch your coordinates.")
 
-
+        # Moved this block outside the else: it should always run after geolocation is retrieved
+        if city and latitude and longitude:
             # Build text search query by city
             query = f"restaurants in {city}"
             if predicted_cuisine:
                 query += f" {predicted_cuisine}"
 
+            price_map = {"$": 0, "$$": 1, "$$$": 2}
+            price_value = price_map.get(predicted_price, 1)
+
             params = {
                 "key": GOOGLE_API_KEY,
                 "query": query,
                 "type": "restaurant",
-                "minprice":predicted_price,
-                "maxprice":predicted_price,
+                "minprice": price_value,
+                "maxprice": price_value,
                 "opennow": True,
                 "language": "en"
-                }
+            }
 
-                # API call to Text Search endpoint
+            # API call to Text Search endpoint
             resp = requests.get(
                 "https://maps.googleapis.com/maps/api/place/textsearch/json",
                 params=params
-                )
+            )
 
             if resp.status_code != 200:
                 st.error(f"HTTP Error: {resp.status_code}")
@@ -609,26 +613,21 @@ if selected == "Restaurant Recommender":
                     st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
                 else:
                     places = data.get("results", [])
-                    
-                    places = data.get("results", [])
-                    # Compute distance for each place so we can sort by it
-                for p in places:
-                    loc = p.get("geometry", {}).get("location", {})
-                    lat2 = loc.get("lat")
-                    lon2 = loc.get("lng")
-                    if latitude is not None and longitude is not None and lat2 is not None and lon2 is not None:
-                        p["distance_km"] = calculate_distance_km(latitude, longitude, lat2, lon2)
-                    else:
-                        # if we don’t have coords, push it to the bottom when sorting
-                        p["distance_km"] = float("inf")
-                    # Let the user choose how to sort the visible results (after loading)
+                    for p in places:
+                        loc = p.get("geometry", {}).get("location", {})
+                        lat2 = loc.get("lat")
+                        lon2 = loc.get("lng")
+                        if latitude is not None and longitude is not None and lat2 is not None and lon2 is not None:
+                            p["distance_km"] = calculate_distance_km(latitude, longitude, lat2, lon2)
+                        else:
+                            p["distance_km"] = float("inf")
+
                     sort_by = st.selectbox("Sort restaurants by:", ["Rating", "Distance"])
                     if sort_by == "Distance":
                         places_sorted = sorted(places, key=lambda x: x["distance_km"])[:5]
                     else:
                         places_sorted = sorted(places, key=lambda x: x.get("rating", 0), reverse=True)[:5]
 
-                    # Display with ranking, details on left and photo on right
                     for idx, p in enumerate(places_sorted, start=1):
                         name = p.get('name', 'N/A')
                         rating = p.get('rating', 'N/A')
@@ -643,7 +642,6 @@ if selected == "Restaurant Recommender":
                         else:
                             distance_km = "N/A"
 
-                        # Create two columns: text and image
                         col1, col2 = st.columns([2, 1])
                         with col1:
                             st.markdown(f"""
@@ -653,8 +651,6 @@ if selected == "Restaurant Recommender":
         Distance from you: {distance_km} km  
         Closing info: {closing_info}
         """)
-                            # Google Maps link button
-                            maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
                             st.markdown(
                                 f'<a href="{maps_url}" target="_blank"><button style="padding:6px 12px; border-radius:4px;">Open in Google Maps</button></a>',
                                 unsafe_allow_html=True

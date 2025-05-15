@@ -18,14 +18,14 @@ import datetime # Zur Anzeige der Schließzeiten und der verbleibenden Öffnungs
 from streamlit_javascript import st_javascript # Alternative JS-Ausführung in Streamlit (Fallback zur Geolokalisierung)
 from streamlit_geolocation import streamlit_geolocation # Einfache Breiten-/Längenauswahl über die Geolokalisierungs-API des Browsers
 from streamlit_option_menu import option_menu # Für die Seitenleistennavigation
-import json # For user visited restaurant save
-import os # For user visited restaurant save (check/write history files)
-import pandas as pd # For data manipulation and display bar chart of visited restaurants
-from collections import Counter # For counting cuisine types in visited restaurants
-from sklearn.model_selection import train_test_split # Split ML data into train/test sets
-from sklearn.ensemble import RandomForestClassifier # Random Forest classifier for ML price/cuisine predictions
-from sklearn.metrics import classification_report # For evaluating ML model performance (precision/recall/etc.)
-from imblearn.over_sampling import RandomOverSampler # For handling imbalanced classes in ML data
+import json # Zum Speichern besuchter Restaurants
+import os # Zum Speichern besuchter Restaurants (Verlaufsdateien prüfen/schreiben)
+import pandas as pd # Zur Datenmanipulation und Anzeige von Balkendiagrammen besuchter Restaurants
+from collections import Counter # Zum Zählen der Küchenarten in besuchten Restaurants
+from sklearn.model_selection import train_test_split # ML-Daten in Trainings-/Testdatensätze aufteilen
+from sklearn.ensemble import RandomForestClassifier # Random-Forest-Klassifikator für ML-Preis-/Küchenvorhersagen
+from sklearn.metrics import classification_report # Zur Bewertung von ML Modellleistung (Präzision/Küchen-Prognosen/usw.)
+from imblearn.over_sampling import RandomOverSampler # Für den Umgang mit unausgewogenen Klassen in ML-Daten
 
 # Page Configuration
 # Set page configuration (must be first) 

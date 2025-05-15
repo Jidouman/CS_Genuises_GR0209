@@ -555,6 +555,121 @@ if selected == "Restaurant Recommender":
         st.success(f"Predicted Price Level: {predicted_price}")
         st.success(f"Suggested Cuisine: {predicted_cuisine}")
 
+    # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
+    st.subheader("Your Location")
+    location = streamlit_geolocation() # Get the user's location using the browser geolocation API
+    latitude = longitude = None # Initialize latitude and longitude
+    city = None # Initialize city name
+    if location:
+        latitude = location.get("latitude")
+        longitude = location.get("longitude")
+        if latitude and longitude and OPENCAGE_API_KEY:
+            geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
+            r = requests.get(geocode_url) # Call OpenCage API to get the city name
+            if r.status_code == 200 and r.json().get("results"):
+                comp = r.json()["results"][0]["components"]
+                city = comp.get("city") or comp.get("town") or comp.get("village")
+                st.write(f"**You are in {city}** — {latitude}, {longitude}")
+            else:
+                st.write("Unable to fetch city name.")
+        elif latitude and longitude:
+            st.write(f"Coordinates: {latitude}, {longitude}")
+        else:
+            st.write("Invalid coordinates received.")
+    else:
+        st.write("Enable location services to fetch your coordinates.")
+
+
+        # Build text search query by city
+        query = f"restaurants in {city}"
+        if predicted_cuisine:
+            query += f" {predicted_cuisine}"
+
+        params = {
+            "key": GOOGLE_API_KEY,
+            "query": query,
+            "type": "restaurant",
+            "minprice":predicted_price,
+            "maxprice":predicted_price,
+            "opennow": True,
+            "language": "en"
+            }
+
+            # API call to Text Search endpoint
+        resp = requests.get(
+            "https://maps.googleapis.com/maps/api/place/textsearch/json",
+            params=params
+            )
+
+        if resp.status_code != 200:
+            st.error(f"HTTP Error: {resp.status_code}")
+        else:
+            data = resp.json()
+            if data.get("status") != "OK":
+                st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
+            else:
+                places = data.get("results", [])
+                
+                places = data.get("results", [])
+                # Compute distance for each place so we can sort by it
+            for p in places:
+                loc = p.get("geometry", {}).get("location", {})
+                lat2 = loc.get("lat")
+                lon2 = loc.get("lng")
+                if latitude is not None and longitude is not None and lat2 is not None and lon2 is not None:
+                    p["distance_km"] = calculate_distance_km(latitude, longitude, lat2, lon2)
+                else:
+                    # if we don’t have coords, push it to the bottom when sorting
+                    p["distance_km"] = float("inf")
+                # Let the user choose how to sort the visible results (after loading)
+                sort_by = st.selectbox("Sort restaurants by:", ["Rating", "Distance"])
+                if sort_by == "Distance":
+                    places_sorted = sorted(places, key=lambda x: x["distance_km"])[:5]
+                else:
+                    places_sorted = sorted(places, key=lambda x: x.get("rating", 0), reverse=True)[:5]
+
+                   # Display with ranking, details on left and photo on right
+                for idx, p in enumerate(places_sorted, start=1):
+                    name = p.get('name', 'N/A')
+                    rating = p.get('rating', 'N/A')
+                    address = p.get('formatted_address', '')
+                    closing_info = get_closing_time(p.get("place_id"), GOOGLE_API_KEY) if p.get("place_id") else "N/A"
+                    maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
+                    p_loc = p.get("geometry", {}).get("location", {})
+                    rest_lat = p_loc.get("lat")
+                    rest_lng = p_loc.get("lng")
+                    if latitude is not None and longitude is not None and rest_lat is not None and rest_lng is not None:
+                        distance_km = calculate_distance_km(latitude, longitude, rest_lat, rest_lng)
+                    else:
+                        distance_km = "N/A"
+
+                    # Create two columns: text and image
+                    col1, col2 = st.columns([2, 1])
+                    with col1:
+                        st.markdown(f"""
+    **{idx}. {name}**  
+    Rating: {rating}  
+    {address}  
+    Distance from you: {distance_km} km  
+    Closing info: {closing_info}
+    """)
+                        # Google Maps link button
+                        maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
+                        st.markdown(
+                            f'<a href="{maps_url}" target="_blank"><button style="padding:6px 12px; border-radius:4px;">Open in Google Maps</button></a>',
+                            unsafe_allow_html=True
+                         )
+                    with col2:
+                        photos = p.get('photos')
+                        if photos:
+                            photo_ref = photos[0].get('photo_reference')
+                            photo_url = (
+                                f"https://maps.googleapis.com/maps/api/place/photo"
+                                f"?maxwidth=200&photoreference={photo_ref}&key={GOOGLE_API_KEY}"
+                            )
+                            st.image(photo_url, width=200)
+                    st.write("---")
+
 # Footer
 st.write("---")
 st.write("Restaurant Finder • by CS Geniuses 🍴 • Powered by Google Maps and OpenCage")

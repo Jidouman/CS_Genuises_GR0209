@@ -468,9 +468,9 @@ if selected == "Restaurant Recommender":
     #for the kids
     if hijos == '''doesn't matter''':
         hijos_indifferent = True
-        hijos_dependent = False
+        hijos_dependent = True
         hijos_independent = True #independent and adult children are not relevant
-        hijos_yes = False
+        hijos_yes = True
     elif hijos == '''doesn't have''':
         hijos_indifferent = False
         hijos_dependent = False

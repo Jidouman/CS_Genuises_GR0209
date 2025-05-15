@@ -416,7 +416,7 @@ def train_models(df):
     # Küchenmodell
     # Die Küche ist kategorisch, daher müssen wir sie ebenfalls kodieren.
     # Wir verwenden dieselben Merkmale wie zuvor, wollen nun aber den Küchentyp vorhersagen.
-    y_cuisine = df['Rcuisine'] # target variable for cuisine type
+    y_cuisine = df['Rcuisine'] # Zielvariable für den Küchentyp
     ros = RandomOverSampler(random_state=42) # Apply RandomOverSampler (to handle imbalanced classes)
     X_resampled, y_resampled = ros.fit_resample(df_encoded, y_cuisine)
     
@@ -427,15 +427,15 @@ def train_models(df):
 
     return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
 
-# Restaurant Recommender Page 
-# This page allows users to predict restaurant price and cuisine based on their profile.
+# Restaurant-Empfehlungsseite
+# Auf dieser Seite können Nutzer Restaurantpreise und Gerichte basierend auf ihrem Profil vorhersagen.
 if selected == "Restaurant Recommender":
     st.title("Restaurant Preference Predictor")
     st.write("Fill out the form below to get restaurant price and cuisine predictions based on your profile.")
 
-    # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
+    # Geolokalisierung mithilfe der OpenCage-API -> Quelle: https://opencagedata.com/api
     st.subheader("Your Location")
-    location = streamlit_geolocation()  # Get the user's location using the browser geolocation API
+    location = streamlit_geolocation()  # Ermitteln Sie den Standort des Benutzers mithilfe der Geolocation-API des Browsers
     latitude = longitude = None
     city = None
     if location:
@@ -474,8 +474,8 @@ if selected == "Restaurant Recommender":
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]
 
-         # Set values for each colummn of trained dataset. Because of the get_dummies function, we need to set the values for each column of the trained dataset. 
-    #for the drink level
+         # Werte für jede Spalte des trainierten Datensatzes festlegen. Aufgrund der Funktion get_dummies müssen wir die Werte für jede Spalte des trainierten Datensatzes festlegen.
+        #für den Getränkestand
     if drink_level == 'abstinent':
         drink_level_abstemious = True
         drink_level_casual_drinker = False
@@ -489,7 +489,7 @@ if selected == "Restaurant Recommender":
         drink_level_casual_drinker = False
         drink_level_social_drinker = True
 
-    #for the dress preference
+    #für die Kleidervorlieben
     if dress_preference == 'casual':
         dress_preference_q =False
         dress_preference_elegant = False
@@ -509,16 +509,16 @@ if selected == "Restaurant Recommender":
         dress_preference_informal = True
         dress_preference_nopreference = True
 
-    #for the kids
+    #für die Kinder
     if hijos == '''doesn't matter''':
         hijos_indifferent = True
         hijos_dependent = True
-        hijos_independent = True #independent and adult children are not relevant
+        hijos_independent = True #unabhängige und erwachsene Kinder sind nicht relevant
         hijos_yes = True
     elif hijos == '''doesn't have''':
         hijos_indifferent = False
         hijos_dependent = False
-        hijos_independent = True #independent and adult children are not relevant
+        hijos_independent = True #unabhängige und erwachsene Kinder sind nicht relevant
         hijos_yes = False
     else: 
         hijos_indifferent = False
@@ -526,13 +526,13 @@ if selected == "Restaurant Recommender":
         hijos_independent = False
         hijos_yes = True
 
-    #for the activity
+    #für die Aktivität
     if activity == 'active':
         activity_q = False
         activity_professional = True
         activity_student = False
         activity_unemployed = False
-        activity_working_class = True #working class and professional are both active 
+        activity_working_class = True # Arbeiterklasse und Berufstätige sind beide aktiv
     elif activity == 'no preference':
         activity_q = True
         activity_professional = True
@@ -552,7 +552,7 @@ if selected == "Restaurant Recommender":
         activity_unemployed = True
         activity_working_class = False
 
-    # Predict & create dataframe with inputs
+    # Datenrahmen mit Eingaben vorhersagen und erstellen
     if st.button("Predict Preferences", key="predict_preferences_button"):
         df = load_ml_data()
         model_price, model_cuisine, model_columns = train_models(df)
@@ -561,14 +561,14 @@ if selected == "Restaurant Recommender":
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]
 
-# Convert predicted price level to string representation to match tghe Restaurant Finder page
+# Konvertieren Sie das vorhergesagte Preisniveau in eine Zeichenfolgendarstellung, um es an die Restaurant Finder-Seite anzupassen
         if predicted_price == "low":
             predicted_price = "$"
         elif predicted_price == "medium":
             predicted_price = "$$"
         elif predicted_price == "high":
             predicted_price = "$$$"
- # Convert predicted cuisine categories of the dataset we used to matchg the cuisine categories of the Restaurant Finder page      
+ # Konvertieren Sie die vorhergesagten Küchenkategorien des von uns verwendeten Datensatzes, um sie mit den Küchenkategorien der Restaurant Finder-Seite abzugleichen    
         if predicted_cuisine == "Italian" or predicted_cuisine == "Pizzeria":
             predicted_cuisine = "Italian"
         elif predicted_cuisine == "Bar" or predicted_cuisine == "Bar_Pub_Brewery":
@@ -587,7 +587,7 @@ if selected == "Restaurant Recommender":
         st.success(f"Predicted Price Level: {predicted_price}")
         st.success(f"Suggested Cuisine: {predicted_cuisine}")
 
-        # Continue to fetch restaurants based on predicted parameters and already fetched location...
+        # Rufen Sie weiterhin Restaurants basierend auf vorhergesagten Parametern und bereits abgerufenen Standorten ab …
         if city and latitude and longitude:
             query = f"restaurants in {city}"
             if predicted_cuisine:

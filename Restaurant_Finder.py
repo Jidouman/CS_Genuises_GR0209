@@ -94,11 +94,11 @@ cuisine_map = {
     "Chef's Cuisine": ["Chef's Cuisine", "Gourmet", "Fine Dining", "Contemporary", "Game", "International", "Modern Cuisine", "Modern-Fusion Cuisine"],
 }
 
-# Haversine formula to calculate great-circle distance between two lat/lon points
-# Source: https://en.wikipedia.org/wiki/Haversine_formula
-# This will allow us to show how far each restaurant is from the user's location
+# Haversine-Formel zur Berechnung der Großkreisdistanz zwischen zwei Breiten- und Längenpunkten
+# Quelle: https://en.wikipedia.org/wiki/Haversine_formula
+# Dadurch können wir die Entfernung jedes Restaurants vom Standort des Nutzers anzeigen.
 def calculate_distance_km(lat1, lon1, lat2, lon2):
-    R = 6371  # Radius of Earth in km
+    R = 6371  # Radius der Erde in km
     phi1 = math.radians(lat1)
     phi2 = math.radians(lat2)
     delta_phi = math.radians(lat2 - lat1)
@@ -107,11 +107,11 @@ def calculate_distance_km(lat1, lon1, lat2, lon2):
     a = math.sin(delta_phi / 2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2)**2
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
-    return round(R * c, 1)  # return result rounded to 1 decimal place
+    return round(R * c, 1)  # Ergebnis auf 1 Dezimalstelle gerundet zurückgeben
 
-# Function to get today's closing time for a place using Google Places Details API
-# Source: https://developers.google.com/maps/documentation/places/web-service/details
-# Adapted logic from: https://stackoverflow.com/questions/40745384/how-to-get-open-and-close-time-in-google-places-api
+# Funktion zum Abrufen der heutigen Schließzeit eines Ortes mithilfe der Google Places Details API
+# Quelle: https://developers.google.com/maps/documentation/places/web-service/details
+# Angepasste Logik von: https://stackoverflow.com/questions/40745384/how-to-get-open-and-close-time-in-google-places-api
 def get_closing_time(place_id, api_key):
     url = "https://maps.googleapis.com/maps/api/place/details/json"
     params = {
@@ -128,12 +128,12 @@ def get_closing_time(place_id, api_key):
         return None
 
     periods = data["result"]["opening_hours"].get("periods", [])
-    # Map Python weekday (0=Mon…6=Sun) to Google Places weekday (0=Sun…6=Sat) (as by default Python starts with Monday and Google with Sunday)
+    # Ordnen Sie den Python-Wochentag (0=Mo…6=So) dem Google Places-Wochentag (0=So…6=Sa) zu (da Python standardmäßig mit Montag und Google mit Sonntag beginnt)
     py_wd = datetime.datetime.today().weekday()
     google_wd = (py_wd + 1) % 7
     now = datetime.datetime.now()
 
-    # Grab the period that *starts* today
+    # Schnapp dir den Zeitraum, der heute *beginnt*
     today_period = next(
         (p for p in periods if p.get("open", {}).get("day") == google_wd),
         None

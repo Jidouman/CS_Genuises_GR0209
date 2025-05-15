@@ -150,7 +150,7 @@ def get_closing_time(place_id, api_key):
         return None
 
     periods = data["result"]["opening_hours"].get("periods", [])
-    # Map Python weekday (0=Mon…6=Sun) to Google Places weekday (0=Sun…6=Sat)
+    # Map Python weekday (0=Mon…6=Sun) to Google Places weekday (0=Sun…6=Sat) (as by default Python starts with Monday and Google with Sunday)
     py_wd = datetime.datetime.today().weekday()
     google_wd = (py_wd + 1) % 7
     now = datetime.datetime.now()

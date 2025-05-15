@@ -435,6 +435,30 @@ if selected == "Restaurant Recommender":
     st.title("Restaurant Preference Predictor")
     st.write("Fill out the form below to get restaurant price and cuisine predictions based on your profile.")
 
+    # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
+    st.subheader("Your Location")
+    location = streamlit_geolocation()  # Get the user's location using the browser geolocation API
+    latitude = longitude = None
+    city = None
+    if location:
+        latitude = location.get("latitude")
+        longitude = location.get("longitude")
+        if latitude and longitude and OPENCAGE_API_KEY:
+            geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
+            r = requests.get(geocode_url)
+            if r.status_code == 200 and r.json().get("results"):
+                comp = r.json()["results"][0]["components"]
+                city = comp.get("city") or comp.get("town") or comp.get("village")
+                st.write(f"**You are in {city}** — {latitude}, {longitude}")
+            else:
+                st.write("Unable to fetch city name.")
+        elif latitude and longitude:
+            st.write(f"Coordinates: {latitude}, {longitude}")
+        else:
+            st.write("Invalid coordinates received.")
+    else:
+        st.write("Enable location services to fetch your coordinates.")
+
     # Inputs
     drink_level = st.selectbox("Drink Level", ['abstinent', 'casual drinker', 'social drinker'])
     dress_preference = st.selectbox("Dress Preference", ['casual', 'elegant', 'no preference'])
@@ -442,7 +466,17 @@ if selected == "Restaurant Recommender":
     birth_year = st.number_input("Birth Year", min_value=1940, max_value=2025, value=1999)
     activity = st.selectbox("Professional Activity", ['active', 'no preference', 'student', 'unemployed'])
 
-    # Set values for each colummn of trained dataset. Because of the get_dummies function, we need to set the values for each column of the trained dataset. 
+   
+
+    if st.button("Predict Preferences"):
+        df = load_ml_data()
+        model_price, model_cuisine, model_columns = train_models(df)
+        input_df = pd.DataFrame([...])
+        input_final = input_df.reindex(columns=model_columns, fill_value=0)
+        predicted_price = model_price.predict(input_final)[0]
+        predicted_cuisine = model_cuisine.predict(input_final)[0]
+
+         # Set values for each colummn of trained dataset. Because of the get_dummies function, we need to set the values for each column of the trained dataset. 
     #for the drink level
     if drink_level == 'abstinent':
         drink_level_abstemious = True
@@ -551,37 +585,12 @@ if selected == "Restaurant Recommender":
             predicted_cuisine = "Chef's Cuisine"
         elif predicted_cuisine == "Regional":
             predicted_cuisine = "Swiss"
-        
+
         st.success(f"Predicted Price Level: {predicted_price}")
         st.success(f"Suggested Cuisine: {predicted_cuisine}")
 
-        # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
-        
-        location = streamlit_geolocation() # Get the user's location using the browser geolocation API
-        latitude = longitude = None # Initialize latitude and longitude
-        city = None # Initialize city name
-        if location:
-            latitude = location.get("latitude")
-            longitude = location.get("longitude")
-            if latitude and longitude and OPENCAGE_API_KEY:
-                geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
-                r = requests.get(geocode_url) # Call OpenCage API to get the city name
-                if r.status_code == 200 and r.json().get("results"):
-                    comp = r.json()["results"][0]["components"]
-                    city = comp.get("city") or comp.get("town") or comp.get("village")
-                    st.write(f"**You are in {city}** — {latitude}, {longitude}")
-                else:
-                    st.write("Unable to fetch city name.")
-            elif latitude and longitude:
-                st.write(f"Coordinates: {latitude}, {longitude}")
-            else:
-                st.write("Invalid coordinates received.")
-        else:
-            st.write("Enable location services to fetch your coordinates.")
-
-        # Moved this block outside the else: it should always run after geolocation is retrieved
+        # Continue to fetch restaurants based on predicted parameters and already fetched location...
         if city and latitude and longitude:
-            # Build text search query by city
             query = f"restaurants in {city}"
             if predicted_cuisine:
                 query += f" {predicted_cuisine}"
@@ -599,7 +608,6 @@ if selected == "Restaurant Recommender":
                 "language": "en"
             }
 
-            # API call to Text Search endpoint
             resp = requests.get(
                 "https://maps.googleapis.com/maps/api/place/textsearch/json",
                 params=params
@@ -665,6 +673,7 @@ if selected == "Restaurant Recommender":
                                 )
                                 st.image(photo_url, width=200)
                         st.write("---")
+
 
 # Footer
 st.write("---")

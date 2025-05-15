@@ -182,7 +182,7 @@ def get_closing_time(place_id, api_key):
     mins = rem // 60
     return f"{ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)"
 
-# Main Page
+# ── Main Page  ────────────────────────────────────────────────
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
     st.write("""      

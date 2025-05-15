@@ -24,6 +24,7 @@ from collections import Counter # For counting cuisine types in visited restaura
 from sklearn.model_selection import train_test_split # Split ML data into train/test sets
 from sklearn.ensemble import RandomForestClassifier # Random Forest classifier for ML price/cuisine predictions
 from sklearn.metrics import classification_report # For evaluating ML model performance (precision/recall/etc.)
+from imblearn.over_sampling import RandomOverSampler # For handling imbalanced classes in ML data
 
 # ── Page Configuration ───────────────────────────────────────────────────────
 # Set page configuration (must be first) 
@@ -409,16 +410,24 @@ def train_models(df):
     # Price levels are already numeric (0–4, in our app we use the "$" symbol to represent them), so we can use them directly
     y_price = df['price'] # target variable for price
     X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42) 
-    model_price = RandomForestClassifier().fit(X_train_p, y_train_p)
+    model_price = RandomForestClassifier(class_weight='balanced')
+    model_price.fit(X_train_p, y_train_p) # Handle imbalanced classes using RandomOverSampler
 
     # ── Cuisine model ──────────────────────────────────────────────────────────
     # Cuisine is categorical, so we need to encode it as well
     # We use the same features as before, but now we want to predict the cuisine type
     y_cuisine = df['Rcuisine'] # target variable for cuisine type
-    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(df_encoded, y_cuisine, test_size=0.2, random_state=42)
-    model_cuisine = RandomForestClassifier().fit(X_train_c, y_train_c)
+    ros = RandomOverSampler(random_state=42) # Apply RandomOverSampler (to handle imbalanced classes)
+    X_resampled, y_resampled = ros.fit_resample(df_encoded, y_cuisine)
+    
+    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
+    
+    model_cuisine = RandomForestClassifier(class_weight='balanced')
+    model_cuisine.fit(X_train_c, y_train_c)
 
     return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
+# ── Restaurant Recommender Page ───────────────────────────────────────────────
+# This page allows users to predict restaurant price and cuisine based on their profile.
 if selected == "Restaurant Recommender":
     st.title("Restaurant Preference Predictor")
     st.write("Fill out the form below to get restaurant price and cuisine predictions based on your profile.")

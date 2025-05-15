@@ -1,71 +1,89 @@
-import streamlit as st
-import pandas as pd
+# ── General Notes ──────────────────────────────────────────────────────────────
+# 1. Google Maps Platform (legacy Places API) gives you 25 000 free Text Search
+#    requests every 24 hours; after that, regular per-request fees kick in. Plus,
+#    new Cloud projects get a $300 free trial and a $200/month Maps credit.
+# 2. We used ChatGPT to help us debug and refine this code, especilly for the implementation of Google Maps API.
+#    Since fixes happened across many sections, we didn’t cite every single change inline.
+# 3. User “visited” data is saved to JSON files named visited_<username>.json
+#    right next to the script—so no external database is needed for thi project.
+#    We believe this is a good compromise between simplicity and functionality.
+# ───────────────────────────────────────────────────────────────────────────────
+
+import streamlit as st # Core Streamlit library for building the UI
+import pandas as pd # Data manipulation & DataFrame support for charts & tables
 from streamlit_js_eval import streamlit_js_eval  # For geolocation
-import requests
-import math # For distance calculation
+import requests # For API calls to Google Maps and OpenCage
+import math # For distance calculation (using haversine formula)
 import datetime # For displaying closing time and remaining time of restaurants 
-from streamlit_javascript import st_javascript
-from streamlit_geolocation import streamlit_geolocation
+from streamlit_javascript import st_javascript # Alternative JS execution in Streamlit (geolocation fallback
+from streamlit_geolocation import streamlit_geolocation # Simple lat/lon picker via browser geolocation API
 from streamlit_option_menu import option_menu # For sidebar navigation
 import json # For user visited restaurant save
-import os # For user visited restaurant save
-from collections import Counter
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
+import os # For user visited restaurant save (check/write history files)
+import pandas as pd # For data manipulation and display bar chart of visited restaurants
+from collections import Counter # For counting cuisine types in visited restaurants
+from sklearn.model_selection import train_test_split # Split ML data into train/test sets
+from sklearn.ensemble import RandomForestClassifier # Random Forest classifier for ML price/cuisine predictions
+from sklearn.metrics import classification_report # For evaluating ML model performance (precision/recall/etc.)
 
+# ── Page Configuration ───────────────────────────────────────────────────────
 # Set page configuration (must be first) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
 
-# Load API keys from Streamlit secrets management
+# ── Load API Keys ────────────────────────────────────────────────────────────
+# Load API keys from Streamlit secrets management (to avoid leaking our API keys since our GitHub repo is public)
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
 
-# Load and save visited restaurants using JSON files per user (saving the visited restaurants in a JSON file thanks to the user name)
-# Source for this logic:
-# - https://discuss.streamlit.io/t/saving-user-data-to-file/12840/2
-# - https://realpython.com/python-json/
-# - https://github.com/streamlit/streamlit/issues/4716
+# ── Persisted History Helpers ────────────────────────────────────────────────
+# We save each user’s “visited” list to visited_<username>.json beside this script -> Retrieved and adpted from: https://stackoverflow.com/questions/67761908/save-login-details-to-json-using-python
 # We inspired ourself from when2meet.com, where you just have a link and enter your name to then load up and modify for example your availabilities (no account or sign-up needed)
+# This allows to load and save visited restaurants using JSON files per user
+# Additional sources used to understand the logic: https://realpython.com/python-json/
 def load_history(user):
     """Load visited_<user>.json or return [] if missing."""
-    filename = f"visited_{user.lower().replace(' ', '_')}.json"
+    filename = f"visited_{user.lower().replace(' ', '_')}.json" # Build filename by lowercasing and replacing spaces with underscores
     if os.path.exists(filename):
         with open(filename, "r") as f:
-            return json.load(f)
-    return []
+            return json.load(f) # Analyse and return the saved history corresponding to the user
+    return [] # No file yet → start with empty history
 
 def save_history(user, history):
     """Write out visited_<user>.json."""
-    filename = f"visited_{user.lower().replace(' ', '_')}.json"
-    with open(filename, "w") as f:
-        json.dump(history, f, indent=2)
+    filename = f"visited_{user.lower().replace(' ', '_')}.json" # Build filename by lowercasing and replacing spaces with underscores (as before for loading)
+    with open(filename, "w") as f: # Open the file in write mode
+        json.dump(history, f, indent=2) # Pretty-print JSON usinf 2-space indentation for readability
 
 # Load data
-@st.cache_data
+@st.cache_data # Cache the data to avoid reloading it every time (otherewise whenever the user change the navigation page, it will reload the data)
 def load_ml_data():
-    return pd.read_csv("merged_output_ML.csv")
+    return pd.read_csv("merged_output_ML.csv") # Load the data from the CSV file (merged_output_ML.csv) to train the ML models
 
+# ── Train Machine-Learning Models ─────────────────────────────────────────────
 # Train models
 @st.cache_resource
 def train_models(df):
-    features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity']
+    features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'] # define which features to use for the model
     
-    # Encode categorical variables
-    df_encoded = pd.get_dummies(df[features])
+    # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 (dummy/indicator variables) columns so the model can process them
+    df_encoded = pd.get_dummies(df[features]) # Source: pandas.get_dummies documentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html 
 
-    # Price model
-    y_price = df['price']
-    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42)
+    # ── Price model ────────────────────────────────────────────────────────────
+    # Price levels are already numeric (0–4, in our app we use the "$" symbol to represent them), so we can use them directly
+    y_price = df['price'] # target variable for price
+    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42) 
     model_price = RandomForestClassifier().fit(X_train_p, y_train_p)
 
-    # Cuisine model
-    y_cuisine = df['Rcuisine']
+    # ── Cuisine model ──────────────────────────────────────────────────────────
+    # Cuisine is categorical, so we need to encode it as well
+    # We use the same features as before, but now we want to predict the cuisine type
+    y_cuisine = df['Rcuisine'] # target variable for cuisine type
     X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(df_encoded, y_cuisine, test_size=0.2, random_state=42)
     model_cuisine = RandomForestClassifier().fit(X_train_c, y_train_c)
 
-    return model_price, model_cuisine, df_encoded.columns
+    return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
 
+# ── Streamlit App ────────────────────────────────────────────────────────────
 # Make sure we always have a slot for “who’s loaded”
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
@@ -96,10 +114,7 @@ cuisine_map = {
     "Vietnamese": ["Vietnamese", "pho", "banh mi", "spring rolls", "Vietnamese restaurant", "Vietnamesisch"],
     "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger", "Steak", "Fast_Food"],
     "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"],
-    "Bar": ["bar", "pub", "tavern", "biergarten", "Biergarten", "cocktail bar", "wine bar", "whiskey bar", "sports bar", 
-    "lounge", "speakeasy", "taproom", "brewpub", "beer hall", "cider bar", "shisha bar", "karaoke bar", 
-    "rooftop bar", "champagne bar", "gin bar", "rum bar", "aperitivo", "happy hour", "drinks", 
-    "afterwork", "craft beer", "microbrewery", "bar à vin", "bar à cocktails", "Weinbar", "Cocktailbar" ],
+    "Bar": ["Bar", "pub", "tavern", "biergarten", "Biergarten", "Cocktails", "Wine Bar"],
 }
 
 # Haversine formula to calculate great-circle distance between two lat/lon points
@@ -138,8 +153,8 @@ def get_closing_time(place_id, api_key):
     periods = data["result"]["opening_hours"].get("periods", [])
     # Map Python weekday (0=Mon…6=Sun) to Google Places weekday (0=Sun…6=Sat)
     py_wd = datetime.datetime.today().weekday()
-    google_wd = (py_wd + 1) % 7 # Google Places API uses Sunday as the first day of the week
-    now = datetime.datetime.now() # Get user current date and time
+    google_wd = (py_wd + 1) % 7
+    now = datetime.datetime.now()
 
     # 1) grab the period that *starts* today
     today_period = next(
@@ -166,9 +181,8 @@ def get_closing_time(place_id, api_key):
     remaining = close_dt - now
     hrs, rem = divmod(int(remaining.total_seconds()), 3600)
     mins = rem // 60
-    return f"{ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)" # closing time and remaining time
+    return f"{ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)"
 
-# ── Main App Logic ───────────────────────────────────────────────────────────
 # Main Page
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
@@ -396,8 +410,15 @@ elif selected == "Visited Restaurants":
     # Display Visited Restaurants
     st.subheader("Your Visited Restaurants")
     if st.session_state.history:
+        # 1) display each visit
         for entry in st.session_state.history:
             st.write(f"**{entry['name']}** ({entry['category']}) — {entry['rating']}⭐")
+        # 2) then build & show the bar chart just once
+        df = pd.DataFrame(st.session_state.history)
+        counts = df["category"].value_counts()
+        st.subheader("🍽️ Your Visits by Cuisine")
+        st.bar_chart(counts)
+        
     else:
         st.info("No visits added yet.")
 
@@ -406,7 +427,7 @@ if selected == "Restaurant Recommender":
     st.write("Fill out the form below to get restaurant price and cuisine predictions based on your profile.")
 
     # Inputs
-    drink_level = st.selectbox("Drink Level", ['abstinent', 'casual drinker', 'social drinker'])
+    drink_level = st.selectbox("Drink Level", ['abstemious', 'casual drinker', 'social drinker'])
     dress_preference = st.selectbox("Dress Preference", ['casual', 'elegant', 'no preference'])
     hijos = st.selectbox("Children", ['indifferent', '''doesn't have''', 'has'])
     birth_year = st.number_input("Birth Year", min_value=1940, max_value=2025, value=1999)
@@ -414,16 +435,16 @@ if selected == "Restaurant Recommender":
     
     # Set values for each colummn of trained dataset
     #for the drink level
-    if drink_level == 'abstinent':
-        drink_level_abstinent = True
+    if drink_level == 'abstemious':
+        drink_level_abstemious = True
         drink_level_casual_drinker = False
         drink_level_social_drinker = False
     elif drink_level == 'casual drinker':
-        drink_level_abstinent = False
+        drink_level_abstemious = False
         drink_level_casual_drinker = True
         drink_level_social_drinker = False
     else:
-        drink_level_abstinent = False
+        drink_level_abstemious = False
         drink_level_casual_drinker = False
         drink_level_social_drinker = True
 
@@ -488,7 +509,7 @@ if selected == "Restaurant Recommender":
     if st.button("Predict Preferences"):
         df = load_ml_data()
         model_price, model_cuisine, model_columns = train_models(df)
-        input_df = pd.DataFrame([{'birth_year': birth_year,'drink_level_abstinent': drink_level_abstinent,'drink_level_casual drinker': drink_level_casual_drinker,'drink_level_social drinker': drink_level_social_drinker,'dress_preference_?': dress_preference_q,'dress_preference_elegant': dress_preference_elegant,'dress_preference_formal': dress_preference_formal,'dress_preference_informal': dress_preference_informal,'dress_preference_no preference': dress_preference_nopreference,'hijos_?': hijos_indifferent,'hijos_dependent': hijos_dependent,'hijos_independent': hijos_independent,'hijos_kids': hijos_yes,'activity_?': activity_q,'activity_professional': activity_professional,'activity_student': activity_student,'activity_unemployed': activity_unemployed,'activity_working-class': activity_working_class,}])
+        input_df = pd.DataFrame([{'birth_year': birth_year,'drink_level_abstemious': drink_level_abstemious,'drink_level_casual drinker': drink_level_casual_drinker,'drink_level_social drinker': drink_level_social_drinker,'dress_preference_?': dress_preference_q,'dress_preference_elegant': dress_preference_elegant,'dress_preference_formal': dress_preference_formal,'dress_preference_informal': dress_preference_informal,'dress_preference_no preference': dress_preference_nopreference,'hijos_?': hijos_indifferent,'hijos_dependent': hijos_dependent,'hijos_independent': hijos_independent,'hijos_kids': hijos_yes,'activity_?': activity_q,'activity_professional': activity_professional,'activity_student': activity_student,'activity_unemployed': activity_unemployed,'activity_working-class': activity_working_class,}])
         input_final = input_df.reindex(columns = model_columns, fill_value=0)
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]

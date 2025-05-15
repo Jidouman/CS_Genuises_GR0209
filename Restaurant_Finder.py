@@ -215,7 +215,7 @@ if selected == "Restaurant Finder":
         longitude = location.get("longitude")
         if latitude and longitude and OPENCAGE_API_KEY:
             geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
-            r = requests.get(geocode_url)
+            r = requests.get(geocode_url) # Call OpenCage API to get the city name
             if r.status_code == 200 and r.json().get("results"):
                 comp = r.json()["results"][0]["components"]
                 city = comp.get("city") or comp.get("town") or comp.get("village")

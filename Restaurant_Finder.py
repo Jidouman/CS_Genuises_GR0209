@@ -65,7 +65,7 @@ def load_ml_data():
 def train_models(df):
     features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'] # define which features to use for the model
     
-    # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 columns so the model can process them
+    # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 (dummy/indicator variables) columns so the model can process them
     df_encoded = pd.get_dummies(df[features]) # Source: pandas.get_dummies documentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html 
 
     # Price model

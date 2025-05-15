@@ -27,9 +27,9 @@ from sklearn.ensemble import RandomForestClassifier # Random-Forest-Klassifikato
 from sklearn.metrics import classification_report # Zur Bewertung von ML Modellleistung (Präzision/Küchen-Prognosen/usw.)
 from imblearn.over_sampling import RandomOverSampler # Für den Umgang mit unausgewogenen Klassen in ML-Daten
 
-# Page Configuration
-# Set page configuration (must be first) 
-st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
+# ── Seitenkonfiguration ────────────────────────────────────────────────────────
+# Seitenkonfiguration festlegen (muss zuerst erfolgen) 
+st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon abgerufen von https://www.webfx.com/tools/emoji-cheat-sheet/
 
 # Load API Keys
 # Load API keys from Streamlit secrets management (to avoid leaking our API keys since our GitHub repo is public)

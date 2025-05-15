@@ -137,7 +137,7 @@ def calculate_distance_km(lat1, lon1, lat2, lon2):
 # This function uses the Google Places Details API to get the closing time for a place, it parse opening_hours.periods, and compute today’s closing datetime (even if it rolls past midnight)
 # Source: https://developers.google.com/maps/documentation/places/web-service/details
 # Adapted logic from: https://stackoverflow.com/questions/40745384/how-to-get-open-and-close-time-in-google-places-api
-# We had to debug with ChatGPT to handle the closing time correctly
+# We had to debug this section multiple times to handle the closing time correctly
 def get_closing_time(place_id, api_key):
     url = "https://maps.googleapis.com/maps/api/place/details/json"
     params = {

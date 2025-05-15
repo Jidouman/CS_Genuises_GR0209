@@ -430,7 +430,7 @@ if selected == "Restaurant Recommender":
     dress_preference = st.selectbox("Dress Preference", ['casual', 'elegant', 'no preference'])
     hijos = st.selectbox("Children", ['indifferent', '''doesn't have''', 'has'])
     birth_year = st.number_input("Birth Year", min_value=1940, max_value=2025, value=1999)
-    activity = st.selectbox("Activity Preference", ['active', 'no preference', 'lazy'])
+    activity = st.selectbox("Professional Activity", ['active', 'no preference', 'student', 'unemployed'])
     
     # Set values for each colummn of trained dataset
     #for the drink level
@@ -488,7 +488,7 @@ if selected == "Restaurant Recommender":
     if activity == 'active':
         activity_q = False
         activity_professional = True
-        activity_student = True
+        activity_student = False
         activity_unemployed = False
         activity_working_class = True
     elif activity == 'no preference':
@@ -497,10 +497,16 @@ if selected == "Restaurant Recommender":
         activity_student = False
         activity_unemployed = False
         activity_working_class = False
-    else:
+    elif activity == 'student':
         activity_q = False
         activity_professional = False
         activity_student = True
+        activity_unemployed = False
+        activity_working_class = False
+    else:
+        activity_q = False
+        activity_professional = False
+        activity_student = False
         activity_unemployed = True
         activity_working_class = False
 

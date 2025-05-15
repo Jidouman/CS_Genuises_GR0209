@@ -342,24 +342,24 @@ elif selected == "Visited Restaurants":
         st.session_state.history = load_history(username)
         st.session_state.loaded_for = username
 
-    if not username: # In case we don't have username, it allows to wipe everything when they delete their name
+    if not username: # Falls wir keinen Benutzernamen haben, können wir alles löschen, wenn wir unseren Namen löschen.
         st.session_state.loaded_for = None
         st.session_state.history = []
 
-    # (Optional) Initialize history list if it wasn’t loaded
+    # (Optional) Verlaufsliste initialisieren, falls sie nicht geladen wurde
     if "history" not in st.session_state:
         st.session_state.history = []
-    if not username: # To ensure we can keep track of the visited reataurants ID, we invite the user to enter their name or username!
+    if not username: # Damit wir den Überblick über die besuchten Restaurants behalten können, bitten wir den Benutzer, seinen Namen oder Benutzernamen einzugeben!
         st.warning("Enter your name to save/load history. Otherwise, history won't persist.")
 
-    # ML Cuisine Recommender
+    # ML Cuisine-Empfehlung
     liked = [e["category"] for e in st.session_state.history if e["rating"] >= 4]
     if liked:
         most_common = Counter(liked).most_common(1)[0][0]
         st.subheader("🥢 Cuisine Recommendation")
         st.info(f"Based on your preferences, you might enjoy more **{most_common}** cuisine!")
     
-    # Ensure there's at least a list to append to
+    # Stellen Sie sicher, dass mindestens eine Liste vorhanden ist, an die Sie anhängen können
     if "history" not in st.session_state:
         st.session_state.history = []
 
@@ -373,24 +373,24 @@ elif selected == "Visited Restaurants":
             st.session_state.history.append(new_entry)
             st.success(f"Added {name} ({category}) with {rating}⭐")
 
-            # Save to JSON file if username is provided
+            # In JSON-Datei speichern, wenn Benutzername angegeben ist
             if username:
                 save_history(username, st.session_state.history)
 
-    # Button to clear history
-    if username and st.session_state.history: # Hide “Reset my history” when there’s nothing to reset
+    # Schaltfläche zum Löschen des Verlaufs
+    if username and st.session_state.history: # „Verlauf zurücksetzen“ ausblenden, wenn nichts zurückzusetzen ist
         if st.button("Reset my history"): 
             st.session_state.history = []
             save_history(username, [])
             st.success("Your history has been cleared.")
     
-    # Display Visited Restaurants
+    # Besuchte Restaurants anzeigen
     st.subheader("Your Visited Restaurants")
     if st.session_state.history:
-        # 1) display each visit
+        # 1) jeden Besuch anzeigen
         for entry in st.session_state.history:
             st.write(f"**{entry['name']}** ({entry['category']}) — {entry['rating']}⭐")
-        # 2) then build & show the bar chart just once
+        # 2) dann erstellen und zeigen Sie das Balkendiagramm nur einmal
         df = pd.DataFrame(st.session_state.history)
         counts = df["category"].value_counts()
         st.subheader("🍽️ Your Visits by Cuisine")
@@ -399,16 +399,15 @@ elif selected == "Visited Restaurants":
     else:
         st.info("No visits added yet.")
 
-# Train Machine-Learning Models 
+# Trainieren von Machine-Learning-Modellen
 @st.cache_resource
 def train_models(df):
     features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'] # define which features to use for the model
     
-    # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 (dummy/indicator variables) columns so the model can process them
-    df_encoded = pd.get_dummies(df[features]) # Source: pandas.get_dummies documentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html 
-
-    # Price model
-    # Price levels are already numeric (0–4, in our app we use the "$" symbol to represent them), so we can use them directly
+    # Jede Textkategorie (z. B. „Italienisch“, „Chinesisch“) wird in separate 0/1-Spalten (Dummy-/Indikatorvariablen) umgewandelt, damit das Modell sie verarbeiten kann.
+    df_encoded = pd.get_dummies(df[features]) # Quelle: pandas.get_dummies-Dokumentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html
+    # Preismodell
+    # Preisstufen sind bereits numerisch (0–4, in unserer App verwenden wir das „$“-Symbol zur Darstellung), sodass wir sie direkt verwenden können
     y_price = df['price'] # target variable for price
     X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42) 
     model_price = RandomForestClassifier(class_weight='balanced')

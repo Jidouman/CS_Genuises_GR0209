@@ -1,5 +1,5 @@
-import streamlit as st
-import pandas as pd
+import streamlit as st # Core Streamlit library for building the UI
+import pandas as pd # Data manipulation via DataFrames
 from streamlit_js_eval import streamlit_js_eval  # For geolocation
 import requests
 import math # For distance calculation

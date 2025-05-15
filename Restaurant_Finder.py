@@ -55,7 +55,7 @@ def save_history(user, history):
         json.dump(history, f, indent=2) # Pretty-print JSON usinf 2-space indentation for readability
 
 # Load data
-@st.cache_data # Cache the data to avoid reloading it every time
+@st.cache_data # Cache the data to avoid reloading it every time (otherewise whenever the user change the navigation page, it will reload the data)
 def load_ml_data():
     return pd.read_csv("merged_output_ML.csv") # Load the data from the CSV file (merged_output_ML.csv) to train the ML models
 

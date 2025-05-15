@@ -348,10 +348,9 @@ if selected == "Restaurant Finder":
 
 # Visited Restaurants Page
 # This page allows users to keep track of restaurants they have visited and rate them.
-# 📝 This approach is inspired by the Streamlit community and official docs on using `st.session_state`to accumulate user input over time during an interactive session:
+# This approach is inspired by the Streamlit community and official docs on using `st.session_state`to accumulate user input over time during an interactive session:
 # - https://docs.streamlit.io/library/api-reference/session-state
 # - https://discuss.streamlit.io/t/accumulating-user-inputs-in-a-list/21171/2
-# - https://www.kanaries.net/blog/building-a-chat-app-with-streamlit#handling-user-messages-and-state
 elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
     # User enter the name he wants to keep track of the visited restaurants (acts as a login account)

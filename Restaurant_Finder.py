@@ -7,6 +7,7 @@
 # 3. Nutzer-„Visited“-Daten werden in JSON-Dateien namens visited_<username>.json
 #    direkt neben dem Skript gespeichert – daher ist keine externe Datenbank nötig.
 #    Wir halten das für einen guten Kompromiss aus Einfachheit und Funktionsumfang.
+# 4. Wir haben Google Übersetzer zur Übersetzung der Dokumentation von Englisch auf Deutsch verwendet.
 # ───────────────────────────────────────────────────────────────────────────────
 
 import streamlit as st # Core-Bibliothek von Streamlit für die UI-Erstellung

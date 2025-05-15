@@ -205,17 +205,17 @@ if selected == "Restaurant Finder":
         ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese", "Bar"]
     )
 
-    # Geolocation
+    # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
     st.subheader("Your Location")
-    location = streamlit_geolocation()
-    latitude = longitude = None
-    city = None
+    location = streamlit_geolocation() # Get the user's location using the browser geolocation API
+    latitude = longitude = None # Initialize latitude and longitude
+    city = None # Initialize city name
     if location:
         latitude = location.get("latitude")
         longitude = location.get("longitude")
         if latitude and longitude and OPENCAGE_API_KEY:
             geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
-            r = requests.get(geocode_url)
+            r = requests.get(geocode_url) # Call OpenCage API to get the city name
             if r.status_code == 200 and r.json().get("results"):
                 comp = r.json()["results"][0]["components"]
                 city = comp.get("city") or comp.get("town") or comp.get("village")

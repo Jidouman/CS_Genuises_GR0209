@@ -208,8 +208,8 @@ if selected == "Restaurant Finder":
     # Geolocation
     st.subheader("Your Location")
     location = streamlit_geolocation() # Get the user's location using the browser geolocation API
-    latitude = longitude = None # Initialize latitude and longitude to None
-    city = None # Initialize city name to None
+    latitude = longitude = None # Initialize latitude and longitude
+    city = None # Initialize city name
     if location:
         latitude = location.get("latitude")
         longitude = location.get("longitude")

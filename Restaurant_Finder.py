@@ -10,21 +10,21 @@
 # ───────────────────────────────────────────────────────────────────────────────
 
 import streamlit as st # Core Streamlit library for building the UI
-import pandas as pd # Data manipulation via DataFrames
+import pandas as pd # Data manipulation & DataFrame support for charts & tables
 from streamlit_js_eval import streamlit_js_eval  # For geolocation
-import requests
-import math # For distance calculation
+import requests # For API calls to Google Maps and OpenCage
+import math # For distance calculation (using haversine formula)
 import datetime # For displaying closing time and remaining time of restaurants 
-from streamlit_javascript import st_javascript
-from streamlit_geolocation import streamlit_geolocation
+from streamlit_javascript import st_javascript # Alternative JS execution in Streamlit (geolocation fallback
+from streamlit_geolocation import streamlit_geolocation # Simple lat/lon picker via browser geolocation API
 from streamlit_option_menu import option_menu # For sidebar navigation
 import json # For user visited restaurant save
-import os # For user visited restaurant save
+import os # For user visited restaurant save (check/write history files)
 import pandas as pd # For data manipulation and display bar chart of visited restaurants
-from collections import Counter
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
+from collections import Counter # For counting cuisine types in visited restaurants
+from sklearn.model_selection import train_test_split # Split ML data into train/test sets
+from sklearn.ensemble import RandomForestClassifier # Random Forest classifier for ML price/cuisine predictions
+from sklearn.metrics import classification_report # For evaluating ML model performance (precision/recall/etc.)
 
 # Set page configuration (must be first) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/

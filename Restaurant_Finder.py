@@ -83,7 +83,7 @@ def train_models(df):
     return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
 
 # ── Streamlit App ────────────────────────────────────────────────────────────
-# Make sure we always have a slot for the logged user’s visited history
+# Make sure we always have a slot for the "logged" user’s visited history
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
 
@@ -207,9 +207,9 @@ if selected == "Restaurant Finder":
 
     # Geolocation
     st.subheader("Your Location")
-    location = streamlit_geolocation()
-    latitude = longitude = None
-    city = None
+    location = streamlit_geolocation() # Get the user's location using the browser geolocation API
+    latitude = longitude = None # Initialize latitude and longitude to None
+    city = None # Initialize city name to None
     if location:
         latitude = location.get("latitude")
         longitude = location.get("longitude")

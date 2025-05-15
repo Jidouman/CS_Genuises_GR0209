@@ -181,9 +181,9 @@ if selected == "Restaurant Finder":
 
     # Cuisine Selection
     food_type = st.selectbox(
-        "Select cuisine type:",
-        ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Korean", "Vietnamese", "Bar", "Café", "Eastern Mediterranean", "Seafood", "Chef's Cuisine"]
-    )
+    "Select cuisine type:",
+    list(cuisine_map.keys())
+)
 
     # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
     st.subheader("Your Location")

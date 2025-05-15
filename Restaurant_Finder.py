@@ -35,14 +35,11 @@ st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retr
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
 
-# Load and save visited restaurants using JSON files per user
-# Source for this logic:
-# - https://discuss.streamlit.io/t/saving-user-data-to-file/12840/2
-# - https://realpython.com/python-json/
-# - https://github.com/streamlit/streamlit/issues/4716
+# ── Persisted History Helpers ────────────────────────────────────────────────
+# We save each user’s “visited” list to visited_<username>.json beside this script -> Retrieved and adpted from: https://stackoverflow.com/questions/67761908/save-login-details-to-json-using-python
 # We inspired ourself from when2meet.com, where you just have a link and enter your name to then load up and modify for example your availabilities (no account or sign-up needed)
-# User ID (for persistence)
-# Persisted History Helpers
+# This allows to load and save visited restaurants using JSON files per user
+# Additional sources used to understand the logic: https://realpython.com/python-json/
 def load_history(user):
     """Load visited_<user>.json or return [] if missing."""
     filename = f"visited_{user.lower().replace(' ', '_')}.json"

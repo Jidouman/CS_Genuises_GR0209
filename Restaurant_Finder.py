@@ -438,7 +438,7 @@ if selected == "Restaurant Recommender":
     hijos = st.selectbox("Children", ['''doesn't matter''', '''doesn't have''', 'has'])
     birth_year = st.number_input("Birth Year", min_value=1940, max_value=2025, value=1999)
     activity = st.selectbox("Professional Activity", ['active', 'no preference', 'student', 'unemployed'])
-    
+
     # Set values for each colummn of trained dataset. Because of the get_dummies function, we need to set the values for each column of the trained dataset. 
     #for the drink level
     if drink_level == 'abstinent':

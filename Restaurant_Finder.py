@@ -31,7 +31,7 @@ from sklearn.metrics import classification_report # For evaluating ML model perf
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
 
 # ── Load API Keys ────────────────────────────────────────────────────────────
-# Load API keys from Streamlit secrets management (to avoid leaking our API keys in our public GitHub repo)
+# Load API keys from Streamlit secrets management (to avoid leaking our API keys since our GitHub repo is public)
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
 

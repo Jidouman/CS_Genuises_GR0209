@@ -231,11 +231,11 @@ if selected == "Restaurant Finder":
             min_price = min(price_map[pr] for pr in price_range)
             max_price = max(price_map[pr] for pr in price_range)
 
-            # Build keyword list
+            # Keyword-Liste erstellen
             selected_cuisines = cuisine_map.get(food_type, [])
             cuisine_keyword = " ".join(selected_cuisines)
 
-            # Build text search query by city
+            # Erstellen Sie eine Textsuchabfrage nach Stadt
             query = f"restaurants in {city}"
             if cuisine_keyword:
                 query += f" {cuisine_keyword}"
@@ -250,7 +250,7 @@ if selected == "Restaurant Finder":
                 "language": "en"
             }
 
-            # API call to Text Search endpoint
+            # API-Aufruf zum Textsuchendpunkt
             resp = requests.get(
                 "https://maps.googleapis.com/maps/api/place/textsearch/json",
                 params=params
@@ -266,7 +266,7 @@ if selected == "Restaurant Finder":
                     places = data.get("results", [])
                 
                     places = data.get("results", [])
-                    # Compute distance for each place so we can sort by it
+                    # Berechnen Sie die Entfernung für jeden Ort, damit wir danach sortieren können
                     for p in places:
                         loc = p.get("geometry", {}).get("location", {})
                         lat2 = loc.get("lat")
@@ -274,16 +274,16 @@ if selected == "Restaurant Finder":
                         if latitude is not None and longitude is not None and lat2 is not None and lon2 is not None:
                             p["distance_km"] = calculate_distance_km(latitude, longitude, lat2, lon2)
                         else:
-                            # if we don’t have coords, push it to the bottom when sorting
+                            # Wenn wir keine Koordinaten haben, verschieben wir sie beim Sortieren nach unten
                             p["distance_km"] = float("inf")
-                    # Let the user choose how to sort the visible results (after loading)
+                    # Lassen Sie den Benutzer entscheiden, wie die sichtbaren Ergebnisse sortiert werden sollen (nach dem Laden).
                     sort_by = st.selectbox("Sort restaurants by:", ["Rating", "Distance"])
                     if sort_by == "Distance":
                         places_sorted = sorted(places, key=lambda x: x["distance_km"])[:5]
                     else:
                         places_sorted = sorted(places, key=lambda x: x.get("rating", 0), reverse=True)[:5]
 
-                    # Display with ranking, details on left and photo on right
+                    # Anzeige mit Rangliste, Details links und Foto rechts
                     for idx, p in enumerate(places_sorted, start=1):
                         name = p.get('name', 'N/A')
                         rating = p.get('rating', 'N/A')
@@ -298,7 +298,7 @@ if selected == "Restaurant Finder":
                         else:
                             distance_km = "N/A"
 
-                        # Create two columns: text and image
+                        # Erstellen Sie zwei Spalten: Text und Bild
                         col1, col2 = st.columns([2, 1])
                         with col1:
                             st.markdown(f"""
@@ -308,7 +308,7 @@ if selected == "Restaurant Finder":
     Distance from you: {distance_km} km  
     Closing info: {closing_info}
     """)
-                            # Google Maps link button
+                            # Google Maps-Link-Schaltfläche
                             maps_url = f"https://www.google.com/maps/search/?api=1&query={requests.utils.quote(name + ' ' + city)}"
                             st.markdown(
                                 f'<a href="{maps_url}" target="_blank"><button style="padding:6px 12px; border-radius:4px;">Open in Google Maps</button></a>',
@@ -325,19 +325,19 @@ if selected == "Restaurant Finder":
                                 st.image(photo_url, width=200)
                         st.write("---")
 
-# Visited Restaurants Page
-# This page allows users to keep track of restaurants they have visited and rate them.
-# This approach is inspired by the Streamlit community and official docs on using `st.session_state`to accumulate user input over time during an interactive session:
+# Seite „Besuchte Restaurants“
+# Auf dieser Seite können Nutzer ihre besuchten Restaurants verfolgen und bewerten.
+# Dieser Ansatz ist inspiriert von der Streamlit-Community und den offiziellen Dokumenten zur Verwendung von „st.session_state“, um Nutzereingaben während einer interaktiven Sitzung im Laufe der Zeit zu sammeln:
 # - https://docs.streamlit.io/library/api-reference/session-state
 # - https://discuss.streamlit.io/t/accumulating-user-inputs-in-a-list/21171/2
 elif selected == "Visited Restaurants":
     st.title("Visited Restaurants ⭐")
-    # User enter the name he wants to keep track of the visited restaurants (acts as a login account)
+    # Der Benutzer gibt den Namen ein, unter dem er die besuchten Restaurants verfolgen möchte (fungiert als Login-Konto)
     username = st.text_input("Enter your name or alias to load/save your visited history:")
     if username:
         st.success(f"👋 Happy to see you (back), {username}!")
 
-    # Whenever the input username changes, pull in their saved JSON (or empty list)
+    # Immer wenn sich der eingegebene Benutzername ändert, wird das gespeicherte JSON (oder die leere Liste) eingebunden.
     if username and st.session_state.loaded_for != username:
         st.session_state.history = load_history(username)
         st.session_state.loaded_for = username

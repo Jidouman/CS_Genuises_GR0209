@@ -613,7 +613,7 @@ if selected == "Restaurant Recommender":
                 params=params
             )
 
-            if resp.status_code != 200:
+             if resp.status_code != 200:
                 st.error(f"HTTP Error: {resp.status_code}")
             else:
                 data = resp.json()
@@ -621,6 +621,8 @@ if selected == "Restaurant Recommender":
                     st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
                 else:
                     places = data.get("results", [])
+                    if not places:
+                        st.warning("😕 No restaurant like that exists near you. Try changing the cuisine or price level.")
                     for p in places:
                         loc = p.get("geometry", {}).get("location", {})
                         lat2 = loc.get("lat")
@@ -673,7 +675,6 @@ if selected == "Restaurant Recommender":
                                 )
                                 st.image(photo_url, width=200)
                         st.write("---")
-
 
 # Footer
 st.write("---")

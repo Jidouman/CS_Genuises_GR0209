@@ -34,18 +34,18 @@ st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon abge
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # Wir verwenden die Google Maps Places API (alt), um Informationen zu Restaurants und Orten abzurufen
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # Wir verwenden OpenCage, um den aktuellen Standort des Nutzers (Geolokalisierung) ohne manuelle Eingabe abzurufen
 
-# Persisted History Helpers
-# We save each user’s “visited” list to visited_<username>.json beside this script -> Retrieved and adpted from: https://stackoverflow.com/questions/67761908/save-login-details-to-json-using-python
-# We inspired ourself from when2meet.com, where you just have a link and enter your name to then load up and modify for example your availabilities (no account or sign-up needed)
-# This allows to load and save visited restaurants using JSON files per user
-# Additional sources used to understand the logic: https://realpython.com/python-json/
+# Helfer für persistenten Verlauf
+# Wir speichern die Besuchsliste jedes Benutzers in visited_<username>.json neben diesem Skript -> Abgerufen und angepasst von: https://stackoverflow.com/questions/67761908/save-login-details-to-json-using-python
+# Wir haben uns von when2meet.com inspirieren lassen. Dort muss man nur einen Link eingeben und seinen Namen eingeben, um beispielsweise seine Verfügbarkeiten zu laden und zu ändern (kein Konto oder Anmeldung erforderlich).
+# Dies ermöglicht das Laden und Speichern besuchter Restaurants mithilfe von JSON-Dateien pro Benutzer.
+# Weitere Quellen zum Verständnis der Logik: https://realpython.com/python-json/
 def load_history(user):
     """Load visited_<user>.json or return [] if missing."""
-    filename = f"visited_{user.lower().replace(' ', '_')}.json" # Build filename by lowercasing and replacing spaces with underscores
+    filename = f"visited_{user.lower().replace(' ', '_')}.json" # Dateinamen durch Kleinbuchstaben und Ersetzen von Leerzeichen durch Unterstriche erstellen
     if os.path.exists(filename):
         with open(filename, "r") as f:
-            return json.load(f) # Analyse and return the saved history corresponding to the user
-    return [] # No file yet → start with empty history
+            return json.load(f) # Gespeicherten Verlauf entsprechend dem Benutzer analysieren und zurückgeben
+    return [] # Noch keine Datei → mit leerem Verlauf beginnen
 
 def save_history(user, history):
     """Write out visited_<user>.json."""

@@ -1,7 +1,6 @@
 # ── General Notes ──────────────────────────────────────────────────────────────
 # 1. Google Maps Platform (legacy Places API) gives you 25 000 free Text Search
-#    requests every 24 hours; after that, regular per-request fees kick in. Plus,
-#    new Cloud projects get a $300 free trial and a $200/month Maps credit.
+#    requests every 24 hours; after that, regular per-request fees kick in.
 # 2. We used ChatGPT to help us debug and refine this code, especilly for the implementation of Google Maps API.
 #    Since fixes happened across many sections, we didn’t cite every single change inline.
 # 3. User “visited” data is saved to JSON files named visited_<username>.json

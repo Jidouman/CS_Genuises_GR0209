@@ -58,30 +58,6 @@ def save_history(user, history):
 def load_ml_data():
     return pd.read_csv("merged_output_ML.csv") # Load the data from the CSV file (merged_output_ML.csv) to train the ML models
 
-# ── Train Machine-Learning Models ─────────────────────────────────────────────
-# Train models
-@st.cache_resource
-def train_models(df):
-    features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'] # define which features to use for the model
-    
-    # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 (dummy/indicator variables) columns so the model can process them
-    df_encoded = pd.get_dummies(df[features]) # Source: pandas.get_dummies documentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html 
-
-    # ── Price model ────────────────────────────────────────────────────────────
-    # Price levels are already numeric (0–4, in our app we use the "$" symbol to represent them), so we can use them directly
-    y_price = df['price'] # target variable for price
-    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42) 
-    model_price = RandomForestClassifier().fit(X_train_p, y_train_p)
-
-    # ── Cuisine model ──────────────────────────────────────────────────────────
-    # Cuisine is categorical, so we need to encode it as well
-    # We use the same features as before, but now we want to predict the cuisine type
-    y_cuisine = df['Rcuisine'] # target variable for cuisine type
-    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(df_encoded, y_cuisine, test_size=0.2, random_state=42)
-    model_cuisine = RandomForestClassifier().fit(X_train_c, y_train_c)
-
-    return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
-
 # ── Streamlit App ────────────────────────────────────────────────────────────
 # Make sure we always have a slot for “who’s loaded”
 if "loaded_for" not in st.session_state:
@@ -420,6 +396,29 @@ elif selected == "Visited Restaurants":
     else:
         st.info("No visits added yet.")
 
+# ── Train Machine-Learning Models ─────────────────────────────────────────────
+# Train models
+@st.cache_resource
+def train_models(df):
+    features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'] # define which features to use for the model
+    
+    # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 (dummy/indicator variables) columns so the model can process them
+    df_encoded = pd.get_dummies(df[features]) # Source: pandas.get_dummies documentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html 
+
+    # ── Price model ────────────────────────────────────────────────────────────
+    # Price levels are already numeric (0–4, in our app we use the "$" symbol to represent them), so we can use them directly
+    y_price = df['price'] # target variable for price
+    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42) 
+    model_price = RandomForestClassifier().fit(X_train_p, y_train_p)
+
+    # ── Cuisine model ──────────────────────────────────────────────────────────
+    # Cuisine is categorical, so we need to encode it as well
+    # We use the same features as before, but now we want to predict the cuisine type
+    y_cuisine = df['Rcuisine'] # target variable for cuisine type
+    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(df_encoded, y_cuisine, test_size=0.2, random_state=42)
+    model_cuisine = RandomForestClassifier().fit(X_train_c, y_train_c)
+
+    return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
 if selected == "Restaurant Recommender":
     st.title("Restaurant Preference Predictor")
     st.write("Fill out the form below to get restaurant price and cuisine predictions based on your profile.")
@@ -513,7 +512,7 @@ if selected == "Restaurant Recommender":
     if st.button("Predict Preferences"):
         df = load_ml_data()
         model_price, model_cuisine, model_columns = train_models(df)
-        input_df = pd.DataFrame([{'birth_year': birth_year,'drink_level_abstinent': drink_level_abstemious,'drink_level_casual drinker': drink_level_casual_drinker,'drink_level_social drinker': drink_level_social_drinker,'dress_preference_?': dress_preference_q,'dress_preference_elegant': dress_preference_elegant,'dress_preference_formal': dress_preference_formal,'dress_preference_informal': dress_preference_informal,'dress_preference_no preference': dress_preference_nopreference,'hijos_?': hijos_indifferent,'hijos_dependent': hijos_dependent,'hijos_independent': hijos_independent,'hijos_kids': hijos_yes,'activity_?': activity_q,'activity_professional': activity_professional,'activity_student': activity_student,'activity_unemployed': activity_unemployed,'activity_working-class': activity_working_class,}])
+        input_df = pd.DataFrame([{'birth_year': birth_year,'drink_level_abstemious': drink_level_abstemious,'drink_level_casual drinker': drink_level_casual_drinker,'drink_level_social drinker': drink_level_social_drinker,'dress_preference_?': dress_preference_q,'dress_preference_elegant': dress_preference_elegant,'dress_preference_formal': dress_preference_formal,'dress_preference_informal': dress_preference_informal,'dress_preference_no preference': dress_preference_nopreference,'hijos_?': hijos_indifferent,'hijos_dependent': hijos_dependent,'hijos_independent': hijos_independent,'hijos_kids': hijos_yes,'activity_?': activity_q,'activity_professional': activity_professional,'activity_student': activity_student,'activity_unemployed': activity_unemployed,'activity_working-class': activity_working_class,}])
         input_final = input_df.reindex(columns = model_columns, fill_value=0)
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]

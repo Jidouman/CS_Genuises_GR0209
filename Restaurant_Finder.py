@@ -620,7 +620,7 @@ if selected == "Restaurant Recommender":
                 if data.get("status") == "ZERO_RESULTS":
                     st.warning("😕 No restaurant like that exists near you. Try changing the cuisine or price level.")
                 elif data.get("status") != "OK":
-                    st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")} - {data.get('error_message','')}")
+                    st.error(f"Error: {data.get('status')} - {data.get('error_message','')}")
                 else:
                     places = data.get("results", [])
                     if not places:

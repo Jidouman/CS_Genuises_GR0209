@@ -526,16 +526,16 @@ if selected == "Restaurant Recommender":
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]
 
-        if predicted_price == low
+        if predicted_price == "low":
             predicted_price = "$"
-        elif predicted_price == medium:
+        elif predicted_price == "medium":
             predicted_price = "$$"
-        elif predicted_price == high:
+        elif predicted_price == "high":
             predicted_price = "$$$"
         
         if predicted_cuisine == "ccc" or predicted_cuisine == "ccc":
             predicted_cuisine = "Chinese"
-            
+
         st.success(f"Predicted Price Level: {predicted_price}")
         st.success(f"Suggested Cuisine: {predicted_cuisine}")
 

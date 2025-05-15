@@ -117,8 +117,8 @@ cuisine_map = {
     "Bar": ["Bar", "pub", "tavern", "biergarten", "Biergarten", "Cocktails", "Wine Bar"],
 }
 
-# Haversine formula to calculate great-circle distance between two lat/lon points
-# Source: https://en.wikipedia.org/wiki/Haversine_formula
+# ── Distance Calculation (Haversine) ────────────────────────────────────────
+# Compute the great-circle distance between two (lat, lon) points in km -> Source: https://en.wikipedia.org/wiki/Haversine_formula
 # This will allow us to show how far each restaurant is from the user's location
 def calculate_distance_km(lat1, lon1, lat2, lon2):
     R = 6371  # Radius of Earth in km

@@ -83,7 +83,7 @@ def train_models(df):
     return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
 
 # ── Streamlit App ────────────────────────────────────────────────────────────
-# Make sure we always have a slot for “who’s loaded”
+# Make sure we always have a slot for the logged user’s visited history
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
 

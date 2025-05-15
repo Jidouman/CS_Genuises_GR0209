@@ -142,26 +142,26 @@ def get_closing_time(place_id, api_key):
     if not today_period or "close" not in today_period or not today_period["close"].get("time"):
         return "Closing info not available"
 
-    # Pull out the close-day and time
+    # Ziehen Sie den Schließtag und die Uhrzeit heraus
     d_close = today_period["close"]["day"]
     t_close = today_period["close"]["time"]      # e.g. "2200"
     ch, cm = int(t_close[:2]), int(t_close[2:])
 
-    # Build a full datetime for that closing (roll into next day if needed)
+    # Erstellen Sie eine vollständige Datums- und Uhrzeitangabe für diesen Abschluss (ggf. auf den nächsten Tag verschieben)
     days_ahead = (d_close - google_wd) % 7
     close_date = now.date() + datetime.timedelta(days=days_ahead)
     close_dt = datetime.datetime.combine(close_date, datetime.time(ch, cm))
 
-    # Compare
+    # Vergleichen
     if now > close_dt:
         return """press on "Open in Google Maps" for more details"""
-    # Return the closing time and remaining time
+    # Rückgabe der Schließzeit und der Restzeit
     remaining = close_dt - now
     hrs, rem = divmod(int(remaining.total_seconds()), 3600)
     mins = rem // 60
     return f"{ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)"
 
-# Main Page
+# Hauptseite
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
     st.write("""      
@@ -169,32 +169,32 @@ if selected == "Restaurant Finder":
     Simply select your criteria below, and we'll help you find the perfect spot.
     You can also keep track of the restaurants you've visited and rate them. Enjoy your meal!""")
 
-    # User Inputs
+    # Benutzereingaben
     st.subheader("Search Criteria")
 
-    # Price Range
+    # Preisklasse
     price_range = st.multiselect(
         "Select your price range:",
         ["$", "$$", "$$$"]
     )
 
-    # Cuisine Selection
+    # Küchenauswahl
     food_type = st.selectbox(
     "Select cuisine type:",
     list(cuisine_map.keys())
 )
 
-    # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
+    # Geolokalisierung über die OpenCage-API -> Quelle: https://opencagedata.com/api
     st.subheader("Your Location")
-    location = streamlit_geolocation() # Get the user's location using the browser geolocation API
-    latitude = longitude = None # Initialize latitude and longitude
-    city = None # Initialize city name
+    location = streamlit_geolocation() # Standort des Nutzers über die Browser-Geolokalisierungs-API ermitteln
+    latitude = longitude = None # Breiten- und Längengrad initialisieren
+    city = None # Städtenamen initialisieren
     if location:
         latitude = location.get("latitude")
         longitude = location.get("longitude")
         if latitude and longitude and OPENCAGE_API_KEY:
             geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
-            r = requests.get(geocode_url) # Call OpenCage API to get the city name
+            r = requests.get(geocode_url) # Rufen Sie die OpenCage-API auf, um den Städtenamen abzurufen
             if r.status_code == 200 and r.json().get("results"):
                 comp = r.json()["results"][0]["components"]
                 city = comp.get("city") or comp.get("town") or comp.get("village")
@@ -208,16 +208,16 @@ if selected == "Restaurant Finder":
     else:
         st.write("Enable location services to fetch your coordinates.")
 
-    # Find Restaurants
+    # Restaurants finden
     st.subheader("Find Restaurants")
-    # keep the search button “on” even after reruns, so sorting doesn’t clear results (before that it was resetting the result display)
+    # Lassen Sie die Suchschaltfläche auch nach Wiederholungen eingeschaltet, damit die Ergebnisse beim Sortieren nicht gelöscht werden (vorher wurde die Ergebnisanzeige zurückgesetzt).
     if "search_clicked" not in st.session_state:
         st.session_state.search_clicked = False
     search_pressed = st.button("Search Restaurants")
     if search_pressed:
         st.session_state.search_clicked = True
 
-    # only run the API call & display if the user has clicked “Search” (even on reruns)
+    # Führen Sie den API-Aufruf und die Anzeige nur aus, wenn der Benutzer auf „Suchen“ geklickt hat (auch bei Wiederholungen).
     if st.session_state.search_clicked:
         if not GOOGLE_API_KEY:
             st.error("Missing API key. Cannot search.")
@@ -226,7 +226,7 @@ if selected == "Restaurant Finder":
         elif not price_range:
             st.error("Please select at least one price range.")
         else:
-            # Price flags: map $ to minprice/maxprice (0–4)
+            # Preisflaggen: Ordnen Sie $ dem Mindestpreis/Höchstpreis zu (0–3)
             price_map = {"$": 0, "$$": 1, "$$$": 2, "$$$": 3}
             min_price = min(price_map[pr] for pr in price_range)
             max_price = max(price_map[pr] for pr in price_range)

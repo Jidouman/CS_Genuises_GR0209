@@ -100,7 +100,7 @@ with st.sidebar:
 
 # ── Cuisine Keywords Mapping ─────────────────────────────────────────────────
 # For each cuisine, list keywords to include in our Google query  
-# This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
+# This dictionary is used in ALL THREE pages (Restaurant Finder, Visited Restaurants & Restaurant Recommander).
 # That's why it is defined here — before the conditional blocks — to ensure
 # it is accessible no matter which page the user is on.
 cuisine_map = {

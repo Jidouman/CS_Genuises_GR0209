@@ -68,18 +68,22 @@ def train_models(df):
     # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 (dummy/indicator variables) columns so the model can process them
     df_encoded = pd.get_dummies(df[features]) # Source: pandas.get_dummies documentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html 
 
-    # Price model
-    y_price = df['price']
-    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42)
+    # ── Price model ────────────────────────────────────────────────────────────
+    # Price levels are already numeric (0–4, in our app we use the "$" symbol to represent them), so we can use them directly
+    y_price = df['price'] # target variable for price
+    X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42) 
     model_price = RandomForestClassifier().fit(X_train_p, y_train_p)
 
-    # Cuisine model
-    y_cuisine = df['Rcuisine']
+    # ── Cuisine model ──────────────────────────────────────────────────────────
+    # Cuisine is categorical, so we need to encode it as well
+    # We use the same features as before, but now we want to predict the cuisine type
+    y_cuisine = df['Rcuisine'] # target variable for cuisine type
     X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(df_encoded, y_cuisine, test_size=0.2, random_state=42)
     model_cuisine = RandomForestClassifier().fit(X_train_c, y_train_c)
 
-    return model_price, model_cuisine, df_encoded.columns
+    return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
 
+# ── Streamlit App ────────────────────────────────────────────────────────────
 # Make sure we always have a slot for “who’s loaded”
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None

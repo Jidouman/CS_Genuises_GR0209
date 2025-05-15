@@ -26,16 +26,16 @@ from sklearn.ensemble import RandomForestClassifier # Random Forest classifier f
 from sklearn.metrics import classification_report # For evaluating ML model performance (precision/recall/etc.)
 from imblearn.over_sampling import RandomOverSampler # For handling imbalanced classes in ML data
 
-# ── Page Configuration ───────────────────────────────────────────────────────
+# Page Configuration
 # Set page configuration (must be first) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
 
-# ── Load API Keys ────────────────────────────────────────────────────────────
+# Load API Keys
 # Load API keys from Streamlit secrets management (to avoid leaking our API keys since our GitHub repo is public)
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
 
-# ── Persisted History Helpers ────────────────────────────────────────────────
+# Persisted History Helpers
 # We save each user’s “visited” list to visited_<username>.json beside this script -> Retrieved and adpted from: https://stackoverflow.com/questions/67761908/save-login-details-to-json-using-python
 # We inspired ourself from when2meet.com, where you just have a link and enter your name to then load up and modify for example your availabilities (no account or sign-up needed)
 # This allows to load and save visited restaurants using JSON files per user
@@ -59,7 +59,7 @@ def save_history(user, history):
 def load_ml_data():
     return pd.read_csv("merged_output_ML.csv") # Load the data from the CSV file (merged_output_ML.csv) to train the ML models
 
-# ── Streamlit App ────────────────────────────────────────────────────────────
+# Streamlit App 
 # Make sure we always have a slot for “who’s loaded”
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
@@ -135,7 +135,7 @@ def get_closing_time(place_id, api_key):
     google_wd = (py_wd + 1) % 7
     now = datetime.datetime.now()
 
-    # 1) grab the period that *starts* today
+    # Grab the period that *starts* today
     today_period = next(
         (p for p in periods if p.get("open", {}).get("day") == google_wd),
         None
@@ -143,26 +143,26 @@ def get_closing_time(place_id, api_key):
     if not today_period or "close" not in today_period or not today_period["close"].get("time"):
         return "Closing info not available"
 
-    # 2) pull out the close-day and time
+    # Pull out the close-day and time
     d_close = today_period["close"]["day"]
     t_close = today_period["close"]["time"]      # e.g. "2200"
     ch, cm = int(t_close[:2]), int(t_close[2:])
 
-    # 3) build a full datetime for that closing (roll into next day if needed)
+    # Build a full datetime for that closing (roll into next day if needed)
     days_ahead = (d_close - google_wd) % 7
     close_date = now.date() + datetime.timedelta(days=days_ahead)
     close_dt = datetime.datetime.combine(close_date, datetime.time(ch, cm))
 
-    # 4) compare
+    # Compare
     if now > close_dt:
         return """press on "Open in Google Maps" for more details"""
-    # 5) return the closing time and remaining time
+    # Return the closing time and remaining time
     remaining = close_dt - now
     hrs, rem = divmod(int(remaining.total_seconds()), 3600)
     mins = rem // 60
     return f"{ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)"
 
-# ── Main Page  ────────────────────────────────────────────────
+# Main Page
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")
     st.write("""      
@@ -400,8 +400,7 @@ elif selected == "Visited Restaurants":
     else:
         st.info("No visits added yet.")
 
-# ── Train Machine-Learning Models ─────────────────────────────────────────────
-# Train models
+# Train Machine-Learning Models 
 @st.cache_resource
 def train_models(df):
     features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'] # define which features to use for the model
@@ -409,14 +408,14 @@ def train_models(df):
     # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 (dummy/indicator variables) columns so the model can process them
     df_encoded = pd.get_dummies(df[features]) # Source: pandas.get_dummies documentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html 
 
-    # ── Price model ────────────────────────────────────────────────────────────
+    # Price model
     # Price levels are already numeric (0–4, in our app we use the "$" symbol to represent them), so we can use them directly
     y_price = df['price'] # target variable for price
     X_train_p, X_test_p, y_train_p, y_test_p = train_test_split(df_encoded, y_price, test_size=0.2, random_state=42) 
     model_price = RandomForestClassifier(class_weight='balanced')
     model_price.fit(X_train_p, y_train_p) # Handle imbalanced classes using RandomOverSampler
 
-    # ── Cuisine model ──────────────────────────────────────────────────────────
+    # Cuisine model
     # Cuisine is categorical, so we need to encode it as well
     # We use the same features as before, but now we want to predict the cuisine type
     y_cuisine = df['Rcuisine'] # target variable for cuisine type
@@ -541,7 +540,7 @@ if selected == "Restaurant Recommender":
             predicted_cuisine = "Italian"
         elif predicted_cuisine == "Bar" or predicted_cuisine == "Bar_Pub_Brewery":
             predicted_cuisine = "Bar"
-        elif predicted_cuisine == "American" or predicted_cuisine == "Fast_Food" or predicted_cuisine == "Burgers":
+        elif predicted_cuisine == "American" or predicted_cuisine == "Fast_Food" or predicted_cuisine == "Burgers"or predicted_cuisine == "Family":
             predicted_cuisine = "American"
         elif predicted_cuisine == "Cafeteria" or predicted_cuisine == "Cafe-Coffee_Shop" or predicted_cuisine == "Breakfast-Brunch" or predicted_cuisine == "Bakery":
             predicted_cuisine = "Café"

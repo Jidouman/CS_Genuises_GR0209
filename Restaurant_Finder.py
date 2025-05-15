@@ -205,7 +205,7 @@ if selected == "Restaurant Finder":
         ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese", "Bar"]
     )
 
-    # Geolocation
+    # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
     st.subheader("Your Location")
     location = streamlit_geolocation() # Get the user's location using the browser geolocation API
     latitude = longitude = None # Initialize latitude and longitude

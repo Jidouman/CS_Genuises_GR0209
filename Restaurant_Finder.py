@@ -468,92 +468,8 @@ if selected == "Restaurant Recommender":
 
    
 
-    if st.button("Predict Preferences"):
-        df = load_ml_data()
-        model_price, model_cuisine, model_columns = train_models(df)
-        input_df = pd.DataFrame([...])
-        input_final = input_df.reindex(columns=model_columns, fill_value=0)
-        predicted_price = model_price.predict(input_final)[0]
-        predicted_cuisine = model_cuisine.predict(input_final)[0]
-
-         # Set values for each colummn of trained dataset. Because of the get_dummies function, we need to set the values for each column of the trained dataset. 
-    #for the drink level
-    if drink_level == 'abstinent':
-        drink_level_abstemious = True
-        drink_level_casual_drinker = False
-        drink_level_social_drinker = False
-    elif drink_level == 'casual drinker':
-        drink_level_abstemious = False
-        drink_level_casual_drinker = True
-        drink_level_social_drinker = False
-    else:
-        drink_level_abstemious = False
-        drink_level_casual_drinker = False
-        drink_level_social_drinker = True
-
-    #for the dress preference
-    if dress_preference == 'casual':
-        dress_preference_q =False
-        dress_preference_elegant = False
-        dress_preference_formal = False
-        dress_preference_informal = True
-        dress_preference_nopreference = False
-    elif dress_preference == 'elegant':
-        dress_preference_q =False
-        dress_preference_elegant = True
-        dress_preference_formal = True
-        dress_preference_informal = False
-        dress_preference_nopreference = False
-    else:
-        dress_preference_q =True
-        dress_preference_elegant = True
-        dress_preference_formal = True
-        dress_preference_informal = True
-        dress_preference_nopreference = True
-
-    #for the kids
-    if hijos == '''doesn't matter''':
-        hijos_indifferent = True
-        hijos_dependent = True
-        hijos_independent = True #independent and adult children are not relevant
-        hijos_yes = True
-    elif hijos == '''doesn't have''':
-        hijos_indifferent = False
-        hijos_dependent = False
-        hijos_independent = True #independent and adult children are not relevant
-        hijos_yes = False
-    else: 
-        hijos_indifferent = False
-        hijos_dependent = True
-        hijos_independent = False
-        hijos_yes = True
-
-    #for the activity
-    if activity == 'active':
-        activity_q = False
-        activity_professional = True
-        activity_student = False
-        activity_unemployed = False
-        activity_working_class = True #working class and professional are both active 
-    elif activity == 'no preference':
-        activity_q = True
-        activity_professional = True
-        activity_student = True
-        activity_unemployed = True
-        activity_working_class = True
-    elif activity == 'student':
-        activity_q = False
-        activity_professional = False
-        activity_student = True
-        activity_unemployed = False
-        activity_working_class = False
-    else:
-        activity_q = False
-        activity_professional = False
-        activity_student = False
-        activity_unemployed = True
-        activity_working_class = False
-
+   
+    
     # Predict & create dataframe with inputs
     if st.button("Predict Preferences", key="predict_preferences_button"):
         df = load_ml_data()
@@ -562,6 +478,84 @@ if selected == "Restaurant Recommender":
         input_final = input_df.reindex(columns = model_columns, fill_value=0)
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]
+
+    # Set values for each colummn of trained dataset. Because of the get_dummies function, we need to set the values for each column of the trained dataset. 
+        #for the drink level
+        if drink_level == 'abstinent':
+            drink_level_abstemious = True
+            drink_level_casual_drinker = False
+            drink_level_social_drinker = False
+        elif drink_level == 'casual drinker':
+            drink_level_abstemious = False
+            drink_level_casual_drinker = True
+            drink_level_social_drinker = False
+        else:
+            drink_level_abstemious = False
+            drink_level_casual_drinker = False
+            drink_level_social_drinker = True
+
+        #for the dress preference
+        if dress_preference == 'casual':
+            dress_preference_q =False
+            dress_preference_elegant = False
+            dress_preference_formal = False
+            dress_preference_informal = True
+            dress_preference_nopreference = False
+        elif dress_preference == 'elegant':
+            dress_preference_q =False
+            dress_preference_elegant = True
+            dress_preference_formal = True
+            dress_preference_informal = False
+            dress_preference_nopreference = False
+        else:
+            dress_preference_q =True
+            dress_preference_elegant = True
+            dress_preference_formal = True
+            dress_preference_informal = True
+            dress_preference_nopreference = True
+
+        #for the kids
+        if hijos == '''doesn't matter''':
+            hijos_indifferent = True
+            hijos_dependent = True
+            hijos_independent = True #independent and adult children are not relevant
+            hijos_yes = True
+        elif hijos == '''doesn't have''':
+            hijos_indifferent = False
+            hijos_dependent = False
+            hijos_independent = True #independent and adult children are not relevant
+            hijos_yes = False
+        else: 
+            hijos_indifferent = False
+            hijos_dependent = True
+            hijos_independent = False
+            hijos_yes = True
+
+        #for the activity
+        if activity == 'active':
+            activity_q = False
+            activity_professional = True
+            activity_student = False
+            activity_unemployed = False
+            activity_working_class = True #working class and professional are both active 
+        elif activity == 'no preference':
+            activity_q = True
+            activity_professional = True
+            activity_student = True
+            activity_unemployed = True
+            activity_working_class = True
+        elif activity == 'student':
+            activity_q = False
+            activity_professional = False
+            activity_student = True
+            activity_unemployed = False
+            activity_working_class = False
+        else:
+            activity_q = False
+            activity_professional = False
+            activity_student = False
+            activity_unemployed = True
+            activity_working_class = False
 
 # Convert predicted price level to string representation to match tghe Restaurant Finder page
         if predicted_price == "low":

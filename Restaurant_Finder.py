@@ -127,12 +127,14 @@ def calculate_distance_km(lat1, lon1, lat2, lon2):
     delta_phi = math.radians(lat2 - lat1)
     delta_lambda = math.radians(lon2 - lon1)
 
+    # Haversine formula
     a = math.sin(delta_phi / 2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2)**2
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
     return round(R * c, 1)  # return result rounded to 1 decimal place
 
-# Function to get today's closing time for a place using Google Places Details API
+# ── Fetch Today’s Closing Time ───────────────────────────────────────────────
+# This function uses the Google Places Details API to get the closing time for a place, it parse opening_hours.periods, and compute today’s closing datetime (even if it rolls past midnight)
 # Source: https://developers.google.com/maps/documentation/places/web-service/details
 # Adapted logic from: https://stackoverflow.com/questions/40745384/how-to-get-open-and-close-time-in-google-places-api
 def get_closing_time(place_id, api_key):

@@ -49,21 +49,21 @@ def load_history(user):
 
 def save_history(user, history):
     """Write out visited_<user>.json."""
-    filename = f"visited_{user.lower().replace(' ', '_')}.json" # Build filename by lowercasing and replacing spaces with underscores (as before for loading)
-    with open(filename, "w") as f: # Open the file in write mode
-        json.dump(history, f, indent=2) # Pretty-print JSON usinf 2-space indentation for readability
+    filename = f"visited_{user.lower().replace(' ', '_')}.json" # Dateinamen durch Kleinbuchstaben und Ersetzen von Leerzeichen durch Unterstriche erstellen (wie zuvor beim Laden)
+    with open(filename, "w") as f: # Datei im Schreibmodus öffnen
+        json.dump(history, f, indent=2) # JSON-Formatierung mit zwei Leerzeichen Einrückung für bessere Lesbarkeit
 
-# Load data
-@st.cache_data # Cache the data to avoid reloading it every time (otherewise whenever the user change the navigation page, it will reload the data)
+# Daten laden
+@st.cache_data # Daten zwischenspeichern, um ein erneutes Laden zu vermeiden (sonst werden die Daten beim Wechseln der Navigationsseite neu geladen)
 def load_ml_data():
-    return pd.read_csv("merged_output_ML.csv") # Load the data from the CSV file (merged_output_ML.csv) to train the ML models
+    return pd.read_csv("merged_output_ML.csv") # Daten aus der CSV-Datei (merged_output_ML.csv) laden, um die ML-Modelle zu trainieren
 
 # Streamlit App 
-# Make sure we always have a slot for “who’s loaded”
+# Sicherstellen, dass immer ein Slot für „Wer ist geladen?“ vorhanden ist.
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
 
-# Sidebar Navigation code retrieved from Youtube video: https://www.youtube.com/watch?v=flFy5o-2MvIE
+# Seitenleisten-Navigationscode aus YouTube-Video: https://www.youtube.com/watch?v=flFy5o-2MvIE
 with st.sidebar:
     selected = option_menu(
         menu_title="Navigation",
@@ -73,10 +73,9 @@ with st.sidebar:
         default_index=0
     )
 
-# Cuisine map shared between both pages
-# Note: This dictionary is used in BOTH pages (Restaurant Finder & Visited Restaurants).
-# That's why it is defined here — before the conditional blocks — to ensure
-# it is accessible no matter which page the user is on.
+# Küchenkarte wird von beiden Seiten genutzt
+# Hinweis: Dieses Wörterbuch wird auf BEIDEN Seiten (Restaurantsuche & Besuchte Restaurants) verwendet.
+# Deshalb wird es hier – vor den Bedingungsblöcken – definiert, um sicherzustellen, dass es unabhängig von der Seite, auf der sich der Nutzer befindet, zugänglich ist.
 cuisine_map = {
     "Italian": ["Italian", "pizzeria", "pizza", "ristorante", "Italienisch", "Pasta", "Spaghetti"],
     "Swiss":   ["Swiss", "Schweizer", "restaurant", "fondue", "raclette", "Alpenküche"],

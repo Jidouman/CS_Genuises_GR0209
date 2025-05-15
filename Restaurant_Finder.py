@@ -173,7 +173,7 @@ if selected == "Restaurant Finder":
     # Price Range
     price_range = st.multiselect(
         "Select your price range:",
-        ["$", "$$", "$$$", "$$$$"]
+        ["$", "$$", "$$$"]
     )
 
     # Cuisine Selection
@@ -225,7 +225,7 @@ if selected == "Restaurant Finder":
             st.error("Please select at least one price range.")
         else:
             # Price flags: map $ to minprice/maxprice (0–4)
-            price_map = {"$": 0, "$$": 1, "$$$": 2, "$$$$": 3}
+            price_map = {"$": 0, "$$": 1, "$$$": 2, "$$$": 3}
             min_price = min(price_map[pr] for pr in price_range)
             max_price = max(price_map[pr] for pr in price_range)
 
@@ -526,6 +526,16 @@ if selected == "Restaurant Recommender":
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]
 
+        if predicted_price == low
+            predicted_price = "$"
+        elif predicted_price == medium:
+            predicted_price = "$$"
+        elif predicted_price == high:
+            predicted_price = "$$$"
+        
+        if predicted_cuisine == "ccc" or predicted_cuisine == "ccc":
+            predicted_cuisine = "Chinese"
+            
         st.success(f"Predicted Price Level: {predicted_price}")
         st.success(f"Suggested Cuisine: {predicted_cuisine}")
 

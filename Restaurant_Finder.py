@@ -89,8 +89,11 @@ cuisine_map = {
     "Korean":  ["Korean", "kimchi", "bulgogi", "bibimbap", "Koreanisch", "Korean BBQ"],
     "Vietnamese": ["Vietnamese", "pho", "banh mi", "spring rolls", "Vietnamese restaurant", "Vietnamesisch"],
     "American": ["American", "burger", "steakhouse", "grill", "fast food", "Amerikanisch", "Burger", "Steak", "Fast_Food"],
-    "Turkish": ["Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"],
     "Bar": ["Bar", "pub", "tavern", "biergarten", "Biergarten", "Cocktails", "Wine Bar"],
+    "Café": ["Café", "Coffe", "Cafeteria", "Bakery", "Breakfast", "Brunch", "Café-Coffee_Shop", "Breakfast-Brunch", "dessert"],
+    "Eastern Mediterranean": ["Eastern Mediterranean", "Armenian", "Mediterranean", "Lebanese", "Middle Eastern", "Armenisch", "Mediterranean", "Libanesisch", "Turkish", "kebab", "döner", "lahmacun", "Döner", "Türkisch"],
+    "Seafood": ["Seafood", "Fish", "Sushi", "Crab", "Shrimp", "Tuna", "Salmon", "Scallops", "Oysters", "Shellfish", "Seafood restaurant", "Meeresfrüchte", "Fisch", "Mussels","Muscheln"],
+    "Chef's Cuisine": ["Chef's Cuisine", "Gourmet", "Fine Dining", "Contemporary", "Game", "International", "Modern Cuisine", "Modern-Fusion Cuisine"],
 }
 
 # Haversine formula to calculate great-circle distance between two lat/lon points
@@ -179,7 +182,7 @@ if selected == "Restaurant Finder":
     # Cuisine Selection
     food_type = st.selectbox(
         "Select cuisine type:",
-        ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese", "Bar"]
+        ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Korean", "Vietnamese", "Bar", "Café", "Eastern Mediterranean", "Seafood", "Chef's Cuisine"]
     )
 
     # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
@@ -426,7 +429,8 @@ def train_models(df):
     model_cuisine.fit(X_train_c, y_train_c)
 
     return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
-# ── Restaurant Recommender Page ───────────────────────────────────────────────
+
+# Restaurant Recommender Page 
 # This page allows users to predict restaurant price and cuisine based on their profile.
 if selected == "Restaurant Recommender":
     st.title("Restaurant Preference Predictor")
@@ -533,9 +537,21 @@ if selected == "Restaurant Recommender":
         elif predicted_price == "high":
             predicted_price = "$$$"
         
-        if predicted_cuisine == "ccc" or predicted_cuisine == "ccc":
-            predicted_cuisine = "Chinese"
-
+        if predicted_cuisine == "Italian" or predicted_cuisine == "Pizzeria":
+            predicted_cuisine = "Italian"
+        elif predicted_cuisine == "Bar" or predicted_cuisine == "Bar_Pub_Brewery":
+            predicted_cuisine = "Bar"
+        elif predicted_cuisine == "American" or predicted_cuisine == "Fast_Food" or predicted_cuisine == "Burgers":
+            predicted_cuisine = "American"
+        elif predicted_cuisine == "Cafeteria" or predicted_cuisine == "Cafe-Coffee_Shop" or predicted_cuisine == "Breakfast-Brunch" or predicted_cuisine == "Bakery":
+            predicted_cuisine = "Café"
+        elif predicted_cuisine == "Armenian" or predicted_cuisine == "Mediterranean":
+            predicted_cuisine = "Eastern Mediterranean"
+        elif predicted_cuisine == "International"or predicted_cuisine == "Contemporary" or predicted_cuisine == "Game":
+            predicted_cuisine = "Chef's Cuisine"
+        elif predicted_cuisine == "Regional":
+            predicted_cuisine = "Swiss"
+        
         st.success(f"Predicted Price Level: {predicted_price}")
         st.success(f"Suggested Cuisine: {predicted_cuisine}")
 

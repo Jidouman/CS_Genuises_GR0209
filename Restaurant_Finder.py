@@ -184,8 +184,9 @@ def get_closing_time(place_id, api_key):
     remaining = close_dt - now
     hrs, rem = divmod(int(remaining.total_seconds()), 3600)
     mins = rem // 60
-    return f"{ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)"
+    return f"{ch:02d}:{cm:02d} ({hrs:02d}h{mins:02d} remaining)" # closing time and remaining time
 
+# ── Main App Logic ───────────────────────────────────────────────────────────
 # Main Page
 if selected == "Restaurant Finder":
     st.title("Restaurant Finder 🍴")

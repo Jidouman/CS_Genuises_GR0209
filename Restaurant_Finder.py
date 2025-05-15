@@ -84,7 +84,7 @@ def train_models(df):
     return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
 
 # ── Streamlit App ────────────────────────────────────────────────────────────
-# Make sure we always have a slot for “who’s loaded”
+# Ensure we have a place to remember which username’s history we’ve loaded
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
 
@@ -95,7 +95,7 @@ with st.sidebar:
         options=["Restaurant Finder", "Visited Restaurants", "Restaurant Recommender"],
         icons=["geo-alt-fill", "star-fill", "robot"],
         menu_icon="👨‍🍳",
-        default_index=0
+        default_index=0 # Start on "Restaurant Finder" page
     )
 
 # Cuisine map shared between both pages

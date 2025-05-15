@@ -413,9 +413,9 @@ def train_models(df):
     model_price = RandomForestClassifier(class_weight='balanced')
     model_price.fit(X_train_p, y_train_p) # Handle imbalanced classes using RandomOverSampler
 
-    # Cuisine model
-    # Cuisine is categorical, so we need to encode it as well
-    # We use the same features as before, but now we want to predict the cuisine type
+    # Küchenmodell
+    # Die Küche ist kategorisch, daher müssen wir sie ebenfalls kodieren.
+    # Wir verwenden dieselben Merkmale wie zuvor, wollen nun aber den Küchentyp vorhersagen.
     y_cuisine = df['Rcuisine'] # target variable for cuisine type
     ros = RandomOverSampler(random_state=42) # Apply RandomOverSampler (to handle imbalanced classes)
     X_resampled, y_resampled = ros.fit_resample(df_encoded, y_cuisine)

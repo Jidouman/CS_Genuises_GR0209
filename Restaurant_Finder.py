@@ -59,13 +59,14 @@ def save_history(user, history):
 def load_ml_data():
     return pd.read_csv("merged_output_ML.csv") # Load the data from the CSV file (merged_output_ML.csv) to train the ML models
 
+# ── Train Machine-Learning Models ─────────────────────────────────────────────
 # Train models
 @st.cache_resource
 def train_models(df):
-    features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity']
+    features = ['drink_level', 'dress_preference', 'hijos', 'birth_year', 'activity'] # define which features to use for the model
     
-    # Encode categorical variables
-    df_encoded = pd.get_dummies(df[features])
+    # Turn each text category (e.g. “Italian”, “Chinese”) into separate 0/1 columns so the model can process them
+    df_encoded = pd.get_dummies(df[features]) # Source: pandas.get_dummies documentation → https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html 
 
     # Price model
     y_price = df['price']

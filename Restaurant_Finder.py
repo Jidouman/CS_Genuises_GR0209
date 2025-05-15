@@ -42,22 +42,22 @@ OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to 
 # Additional sources used to understand the logic: https://realpython.com/python-json/
 def load_history(user):
     """Load visited_<user>.json or return [] if missing."""
-    filename = f"visited_{user.lower().replace(' ', '_')}.json"
+    filename = f"visited_{user.lower().replace(' ', '_')}.json" # Build filename by lowercasing and replacing spaces with underscores
     if os.path.exists(filename):
         with open(filename, "r") as f:
-            return json.load(f)
-    return []
+            return json.load(f) # Analyse and return the saved history corresponding to the user
+    return [] # No file yet → start with empty history
 
 def save_history(user, history):
     """Write out visited_<user>.json."""
-    filename = f"visited_{user.lower().replace(' ', '_')}.json"
-    with open(filename, "w") as f:
-        json.dump(history, f, indent=2)
+    filename = f"visited_{user.lower().replace(' ', '_')}.json" # Build filename by lowercasing and replacing spaces with underscores (as before for loading)
+    with open(filename, "w") as f: # Open the file in write mode
+        json.dump(history, f, indent=2) # Pretty-print JSON usinf 2-space indentation for readability
 
 # Load data
-@st.cache_data
+@st.cache_data # Cache the data to avoid reloading it every time
 def load_ml_data():
-    return pd.read_csv("merged_output_ML.csv")
+    return pd.read_csv("merged_output_ML.csv") # Load the data from the CSV file (merged_output_ML.csv) to train the ML models
 
 # Train models
 @st.cache_resource

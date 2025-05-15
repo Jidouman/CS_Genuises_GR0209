@@ -31,10 +31,10 @@ from imblearn.over_sampling import RandomOverSampler # Für den Umgang mit unaus
 # Seitenkonfiguration festlegen (muss zuerst erfolgen) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon abgerufen von https://www.webfx.com/tools/emoji-cheat-sheet/
 
-# Load API Keys
-# Load API keys from Streamlit secrets management (to avoid leaking our API keys since our GitHub repo is public)
-GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
-OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
+# ── API-Schlüssel laden ───────────────────────────────────────────────────────
+# API-Schlüssel aus der Streamlit-Geheimnisverwaltung laden (um die Weitergabe unserer API-Schlüssel zu verhindern, da unser GitHub-Repository öffentlich ist)
+GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # Wir verwenden die Google Maps Places API (alt), um Informationen zu Restaurants und Orten abzurufen
+OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # Wir verwenden OpenCage, um den aktuellen Standort des Nutzers (Geolokalisierung) ohne manuelle Eingabe abzurufen
 
 # Persisted History Helpers
 # We save each user’s “visited” list to visited_<username>.json beside this script -> Retrieved and adpted from: https://stackoverflow.com/questions/67761908/save-login-details-to-json-using-python

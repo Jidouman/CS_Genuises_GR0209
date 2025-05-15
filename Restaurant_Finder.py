@@ -1,10 +1,12 @@
-# ── General Notes ──────────────────────────────────────────────────────────────
-# 1. Google Maps Platform (legacy Places API) gives you 25 000 free Text Search
-#    requests every 24 hours; after that, regular per-request fees kick in. Therefore, we're not using any spare API key for this project.
-# 2. We used ChatGPT to help us debug and refine this code, especilly for the implementation of Google Maps API.
-# 3. User “visited” data is saved to JSON files named visited_<username>.json
-#    right next to the script—so no external database is needed for thi project.
-#    We believe this is a good compromise between simplicity and functionality.
+# ── Allgemeine Hinweise ─────────────────────────────────────────────────────────
+# 1. Die Google Maps Plattform (Legacy Places API) erlaubt bis zu 25 000 freie Text-Suchanfragen
+#    innerhalb von 24 Stunden; danach fallen die üblichen Gebühren pro Anfrage an.
+#    Daher verwenden wir in diesem Projekt keinen Ersatz-API-Schlüssel.
+# 2. Für Debugging und Feinschliff haben wir ChatGPT eingesetzt, insbesondere
+#    bei der Einbindung der Google Maps API.
+# 3. Nutzer-„Visited“-Daten werden in JSON-Dateien namens visited_<username>.json
+#    direkt neben dem Skript gespeichert – daher ist keine externe Datenbank nötig.
+#    Wir halten das für einen guten Kompromiss aus Einfachheit und Funktionsumfang.
 # ───────────────────────────────────────────────────────────────────────────────
 
 import streamlit as st # Core Streamlit library for building the UI

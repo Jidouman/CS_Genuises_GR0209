@@ -27,11 +27,9 @@ from sklearn.ensemble import RandomForestClassifier # Random-Forest-Klassifikato
 from sklearn.metrics import classification_report # Zur Bewertung von ML Modellleistung (Präzision/Küchen-Prognosen/usw.)
 from imblearn.over_sampling import RandomOverSampler # Für den Umgang mit unausgewogenen Klassen in ML-Daten
 
-# ── Seitenkonfiguration ────────────────────────────────────────────────────────
 # Seitenkonfiguration festlegen (muss zuerst erfolgen) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon abgerufen von https://www.webfx.com/tools/emoji-cheat-sheet/
 
-# ── API-Schlüssel laden ───────────────────────────────────────────────────────
 # API-Schlüssel aus der Streamlit-Geheimnisverwaltung laden (um die Weitergabe unserer API-Schlüssel zu verhindern, da unser GitHub-Repository öffentlich ist)
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # Wir verwenden die Google Maps Places API (alt), um Informationen zu Restaurants und Orten abzurufen
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # Wir verwenden OpenCage, um den aktuellen Standort des Nutzers (Geolokalisierung) ohne manuelle Eingabe abzurufen

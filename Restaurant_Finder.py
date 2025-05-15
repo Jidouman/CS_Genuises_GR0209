@@ -26,10 +26,12 @@ from sklearn.model_selection import train_test_split # Split ML data into train/
 from sklearn.ensemble import RandomForestClassifier # Random Forest classifier for ML price/cuisine predictions
 from sklearn.metrics import classification_report # For evaluating ML model performance (precision/recall/etc.)
 
+# ── Page Configuration ───────────────────────────────────────────────────────
 # Set page configuration (must be first) 
 st.set_page_config(page_title="Restaurant Finder", page_icon="🍴") # Icon retrieved from https://www.webfx.com/tools/emoji-cheat-sheet/
 
-# Load API keys from Streamlit secrets management
+# ── Load API Keys ────────────────────────────────────────────────────────────
+# Load API keys from Streamlit secrets management (to avoid leaking our API keys in our public GitHub repo)
 GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY") # We're using the Google Maps Places API (old) to retrieve the informations about the restaurant and places
 OPENCAGE_API_KEY = st.secrets.get("OPENCAGE_API_KEY") # We're using OpenCage to retrieve the user's current location (geolocation) without manual input or typing
 

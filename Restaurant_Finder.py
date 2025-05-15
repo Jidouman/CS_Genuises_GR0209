@@ -83,7 +83,7 @@ def train_models(df):
     return model_price, model_cuisine, df_encoded.columns # return both models plus the ordered list of feature columns used for training
 
 # ── Streamlit App ────────────────────────────────────────────────────────────
-# Make sure we always have a slot for the "logged" user’s visited history
+# Make sure we always have a slot for “who’s loaded”
 if "loaded_for" not in st.session_state:
     st.session_state.loaded_for = None
 
@@ -205,17 +205,17 @@ if selected == "Restaurant Finder":
         ["Italian", "Swiss", "Chinese", "Mexican", "Indian", "Japanese", "Thai", "American", "Turkish", "Korean", "Vietnamese", "Bar"]
     )
 
-    # Geolocation using OpenCage API -> Source: https://opencagedata.com/api
+    # Geolocation
     st.subheader("Your Location")
-    location = streamlit_geolocation() # Get the user's location using the browser geolocation API
-    latitude = longitude = None # Initialize latitude and longitude
-    city = None # Initialize city name
+    location = streamlit_geolocation()
+    latitude = longitude = None
+    city = None
     if location:
         latitude = location.get("latitude")
         longitude = location.get("longitude")
         if latitude and longitude and OPENCAGE_API_KEY:
             geocode_url = f"https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={OPENCAGE_API_KEY}"
-            r = requests.get(geocode_url) # Call OpenCage API to get the city name
+            r = requests.get(geocode_url)
             if r.status_code == 200 and r.json().get("results"):
                 comp = r.json()["results"][0]["components"]
                 city = comp.get("city") or comp.get("town") or comp.get("village")
@@ -425,15 +425,15 @@ if selected == "Restaurant Recommender":
     st.write("Fill out the form below to get restaurant price and cuisine predictions based on your profile.")
 
     # Inputs
-    drink_level = st.selectbox("Drink Level", ['abstemious', 'casual drinker', 'social drinker'])
+    drink_level = st.selectbox("Drink Level", ['abstinent', 'casual drinker', 'social drinker'])
     dress_preference = st.selectbox("Dress Preference", ['casual', 'elegant', 'no preference'])
-    hijos = st.selectbox("Children", ['indifferent', '''doesn't have''', 'has'])
+    hijos = st.selectbox("Children", ['''doesn't matter''', '''doesn't have''', 'has'])
     birth_year = st.number_input("Birth Year", min_value=1940, max_value=2025, value=1999)
     activity = st.selectbox("Professional Activity", ['active', 'no preference', 'student', 'unemployed'])
     
-    # Set values for each colummn of trained dataset
+    # Set values for each colummn of trained dataset. Because of the get_dummies function, we need to set the values for each column of the trained dataset. 
     #for the drink level
-    if drink_level == 'abstemious':
+    if drink_level == 'abstinent':
         drink_level_abstemious = True
         drink_level_casual_drinker = False
         drink_level_social_drinker = False
@@ -452,7 +452,7 @@ if selected == "Restaurant Recommender":
         dress_preference_elegant = False
         dress_preference_formal = False
         dress_preference_informal = True
-        dress_preference_nopreference = True
+        dress_preference_nopreference = False
     elif dress_preference == 'elegant':
         dress_preference_q =False
         dress_preference_elegant = True
@@ -461,13 +461,13 @@ if selected == "Restaurant Recommender":
         dress_preference_nopreference = False
     else:
         dress_preference_q =True
-        dress_preference_elegant = False
-        dress_preference_formal = False
-        dress_preference_informal = False
+        dress_preference_elegant = True
+        dress_preference_formal = True
+        dress_preference_informal = True
         dress_preference_nopreference = True
 
     #for the kids
-    if hijos == 'indifferent':
+    if hijos == '''doesn't matter''':
         hijos_indifferent = True
         hijos_dependent = False
         hijos_independent = True #independent and adult children are not relevant
@@ -489,13 +489,13 @@ if selected == "Restaurant Recommender":
         activity_professional = True
         activity_student = False
         activity_unemployed = False
-        activity_working_class = True
+        activity_working_class = True #working class and professional are both active 
     elif activity == 'no preference':
         activity_q = True
-        activity_professional = False
-        activity_student = False
-        activity_unemployed = False
-        activity_working_class = False
+        activity_professional = True
+        activity_student = True
+        activity_unemployed = True
+        activity_working_class = True
     elif activity == 'student':
         activity_q = False
         activity_professional = False
@@ -513,7 +513,7 @@ if selected == "Restaurant Recommender":
     if st.button("Predict Preferences"):
         df = load_ml_data()
         model_price, model_cuisine, model_columns = train_models(df)
-        input_df = pd.DataFrame([{'birth_year': birth_year,'drink_level_abstemious': drink_level_abstemious,'drink_level_casual drinker': drink_level_casual_drinker,'drink_level_social drinker': drink_level_social_drinker,'dress_preference_?': dress_preference_q,'dress_preference_elegant': dress_preference_elegant,'dress_preference_formal': dress_preference_formal,'dress_preference_informal': dress_preference_informal,'dress_preference_no preference': dress_preference_nopreference,'hijos_?': hijos_indifferent,'hijos_dependent': hijos_dependent,'hijos_independent': hijos_independent,'hijos_kids': hijos_yes,'activity_?': activity_q,'activity_professional': activity_professional,'activity_student': activity_student,'activity_unemployed': activity_unemployed,'activity_working-class': activity_working_class,}])
+        input_df = pd.DataFrame([{'birth_year': birth_year,'drink_level_abstinent': drink_level_abstemious,'drink_level_casual drinker': drink_level_casual_drinker,'drink_level_social drinker': drink_level_social_drinker,'dress_preference_?': dress_preference_q,'dress_preference_elegant': dress_preference_elegant,'dress_preference_formal': dress_preference_formal,'dress_preference_informal': dress_preference_informal,'dress_preference_no preference': dress_preference_nopreference,'hijos_?': hijos_indifferent,'hijos_dependent': hijos_dependent,'hijos_independent': hijos_independent,'hijos_kids': hijos_yes,'activity_?': activity_q,'activity_professional': activity_professional,'activity_student': activity_student,'activity_unemployed': activity_unemployed,'activity_working-class': activity_working_class,}])
         input_final = input_df.reindex(columns = model_columns, fill_value=0)
         predicted_price = model_price.predict(input_final)[0]
         predicted_cuisine = model_cuisine.predict(input_final)[0]

@@ -9,15 +9,15 @@
 #    Wir halten das für einen guten Kompromiss aus Einfachheit und Funktionsumfang.
 # ───────────────────────────────────────────────────────────────────────────────
 
-import streamlit as st # Core Streamlit library for building the UI
-import pandas as pd # Data manipulation & DataFrame support for charts & tables
-from streamlit_js_eval import streamlit_js_eval  # For geolocation
-import requests # For API calls to Google Maps and OpenCage
-import math # For distance calculation (using haversine formula)
-import datetime # For displaying closing time and remaining time of restaurants 
-from streamlit_javascript import st_javascript # Alternative JS execution in Streamlit (geolocation fallback
-from streamlit_geolocation import streamlit_geolocation # Simple lat/lon picker via browser geolocation API
-from streamlit_option_menu import option_menu # For sidebar navigation
+import streamlit as st # Core-Bibliothek von Streamlit für die UI-Erstellung
+import pandas as pd # Datenaufbereitung & DataFrame-Support für Diagramme und Tabellen
+from streamlit_js_eval import streamlit_js_eval  # Für Geolocation im Browser via JS
+import requests # HTTP-Client für Aufrufe an Google Maps und OpenCage APIs
+import math # Zur Entfernungsberechnung (mit der Haversine-Formel)
+import datetime # Zur Anzeige der Schließzeiten und der verbleibenden Öffnungszeiten von Restaurants
+from streamlit_javascript import st_javascript # Alternative JS-Ausführung in Streamlit (Fallback zur Geolokalisierung)
+from streamlit_geolocation import streamlit_geolocation # Einfache Breiten-/Längenauswahl über die Geolokalisierungs-API des Browsers
+from streamlit_option_menu import option_menu # Für die Seitenleistennavigation
 import json # For user visited restaurant save
 import os # For user visited restaurant save (check/write history files)
 import pandas as pd # For data manipulation and display bar chart of visited restaurants
